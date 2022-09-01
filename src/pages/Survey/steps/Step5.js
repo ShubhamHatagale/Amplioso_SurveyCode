@@ -1,4 +1,4 @@
-import { Button, Checkbox,CircularProgress } from '@material-ui/core';
+import { Button, Checkbox, CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 const items = [
     "Collaboration",
@@ -12,28 +12,17 @@ const items = [
 export default function Step5(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
     const uid = JSON.parse(localStorage.getItem('survey_token'));
-
-    const [checkedMap, setCheckedMap] = useState(new Map());
-    const [isChecked, setIsChecked] = useState([]);
+    const [question, setquestion] = useState("")
+    const [questionId, setquestionId] = useState("")
+    const [first_name, setfirst_name] = useState("")
+    const [last_name, setlast_name] = useState("")
+    const [OptionDataCol1, setOptionDataCol1] = useState([])
+    const [OptionDataCol2, setOptionDataCol2] = useState([])
+    const [OptionDataCol3, setOptionDataCol3] = useState([])
     const [SurveyAnswers, setSurveyAnswers] = useState([])
     const [showError, setshowError] = useState(false)
     const [loading, setloading] = useState(0)
-
-    // const inputChange = (e, itemOption) => {
-    //     console.log(itemOption);
-    //     console.log(e.target.value);
-    //     // console.log(itemOption);
-
-    //     let iText = e.target.value;
-
-
-    // };
-
-
-    function validate() {
-        var ssr = true;
-        return ssr
-    }
+    const [OptionLenght, setOptionLenght] = useState()
 
     const nextFunction = () => {
         var questionIdwiseData = (SurveyAnswers.filter(({ question_id, answer, created_by }) => question_id === questionId && answer === "true" && created_by === uid.userId));
@@ -48,8 +37,13 @@ export default function Step5(props) {
 
 
     const inputChange = (e) => {
+        getSelectedOptions()
+
+        setloading(1)
+
         console.log(questionId)
         console.log(SurveyAnswers)
+
         // console.log(e.target.id)
         let answer = e.target.value;
         let optionID = parseInt(e.target.id);
@@ -63,7 +57,17 @@ export default function Step5(props) {
         console.log(alreadyVal)
         console.log(questionIdwiseData)
 
+        // if (OptionLenght===5) {
+        //     console.log("false fj")
+        //     console.log("morethan 5")
+        //     setshowError(true)
+        //     window.scrollTo(0, 0)
+        //     setloading(0)
+        //     return false
+        // }
+
         if (alreadyVal.length == 0 && questionIdwiseData.length < 5) {
+            getSelectedOptions()
             console.log("post")
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -76,7 +80,6 @@ export default function Step5(props) {
                 company_id: uid.companyId,
                 manager_id: uid.managerId,
                 question_id: questionId,
-
                 option_id: optionID,
                 answer: answer,
                 created_by: uid.userId,
@@ -94,6 +97,7 @@ export default function Step5(props) {
                     console.log(resData);
                     if (resData.status == 200) {
                         console.log("Values Submitted Succesfully");
+                        setloading(0)
                         GetAllRecords();
                         // props.next(values);
 
@@ -139,6 +143,7 @@ export default function Step5(props) {
                         console.log(resData);
                         if (resData.status == 200) {
                             console.log("Values Submitted Succesfully");
+                            setloading(0)
                             GetAllRecords();
                             // props.next(values);
 
@@ -149,51 +154,18 @@ export default function Step5(props) {
             } else {
                 setshowError(true)
                 window.scrollTo(0, 0)
+                setloading(0)
 
 
             }
-
         } else {
             console.log("morethan 5")
             setshowError(true)
             window.scrollTo(0, 0)
+            setloading(0)
+
 
         }
-        // for(var i=0; i<SurveyAnswers.length;i++){
-        //     console.log(SurveyAnswers[i].question_id==questionId && SurveyAnswers[i].option_id==optionID && SurveyAnswers[i].created_by==uid.userId && SurveyAnswers[i].answer=="true");
-        // }
-
-
-
-        // var myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/json");
-        // // inputList.map((item,key)=>{
-        // var raw = JSON.stringify({
-        //     survey_id: 0,
-        //     survey_user_mapping_id: 0,
-        //     surveyor_id: uid.userId,
-        //     question_id: questionId,
-        //     option_id: optionID,
-        //     answer: val1,
-        //     created_by: uid.userId,
-        //     updated_by: uid.userId,
-        // });
-        // var requestOptions = {
-        //     method: "POST",
-        //     headers: myHeaders,
-        //     body: raw,
-        //     redirect: "follow",
-        // };
-        // fetch(`http://208.109.14.182:9000/masters/survey_answers/`, requestOptions)
-        //     .then((response) => response.json())
-        //     .then((resData) => {
-        //         console.log(resData);
-        //         if (resData.status == 200) {
-        //             console.log("Values Submitted Succesfully");
-        //         }
-        //         GetAllRecords();
-        //     })
-        //     .catch((error) => console.log("error", error));
 
 
         // props.next(values);
@@ -202,17 +174,39 @@ export default function Step5(props) {
     }
 
 
-    const [question, setquestion] = useState("")
-    const [questionId, setquestionId] = useState("")
-    const [first_name, setfirst_name] = useState("")
-    const [last_name, setlast_name] = useState("")
-    const [OptionDataCol1, setOptionDataCol1] = useState([])
-    const [OptionDataCol2, setOptionDataCol2] = useState([])
-    const [OptionDataCol3, setOptionDataCol3] = useState([])
+
 
     // let uid.userId = 1;
 
 
+    const getSelectedOptions = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json")
+        var raw = JSON.stringify({
+            question_id: 27,
+            surveyor_id: uid.userId
+        })
+        var requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        }
+        const response = await fetch(`http://208.109.14.182:9000/masters/survey_answers/step5-7`, requestOptions)
+            .then(response => response.json())
+            .then(resData => {
+                console.log("0008", resData.data)
+                setOptionLenght(resData.data)
+                if (resData.data === 5) {
+                    // alert("false")
+                    console.log("morethan 5")
+                    setshowError(true)
+                    window.scrollTo(0, 0)
+                    setloading(0)
+                    return false
+                }
+            })
+    }
 
 
 
@@ -298,10 +292,12 @@ export default function Step5(props) {
 
 
     useEffect(() => {
-        setloading(1)
-        GetAllRecords().then(()=>{
-            setloading(0)
-        })
+        // setloading(0)
+        GetAllRecords()
+            .then(() => {
+                // setloading(0)
+                getSelectedOptions()
+            })
 
     }, []);
 
@@ -309,140 +305,140 @@ export default function Step5(props) {
         return <div className="loader"> <CircularProgress /></div>
     }
 
-    const SelectedOption = () => {
-        alert("ggg")
-    }
     return (
-        <fieldset>
-            <div className="row">
-                <div className="col-12">
-                    <h2 className="steps">50%</h2>
-                </div>
-            </div>
-            <div className="form-card">
+        <>
+            {loading === 1 ? (<div className="loader" style={{ position: "fixed", top: "0px" }}> <CircularProgress /></div>) : null}
+
+            <fieldset style={{ pointerEvents: loading === 1 ? "none" : "all" }}>
                 <div className="row">
-                    {/* <Checkbox onChange={inputChange}
-                    /> */}
-                    <p className='fs-title-m'>{question.replace("[FIRST NAME ] ", first_name + " ")}</p>
-                    <hr />
-                    <br />
-                    <br />
-                    <div className="text-center bold text-danger" >
-                        {showError == true ? (<span >Please select only 5 options</span>) : null}
+                    <div className="col-12">
+                        <h2 className="steps">50%</h2>
                     </div>
+                </div>
+                <div className="form-card">
+                    <div className="row">
+                        {/* <Checkbox onChange={inputChange}
+                    /> */}
+                        <p className='fs-title-m'>{question.replace("[FIRST NAME ] ", first_name + " ")}</p>
+                        <hr />
+                        <br />
+                        <br />
+                        <div className="text-center bold text-danger" >
+                            {showError == true ? (<span >Please select only 5 options</span>) : null}
+                        </div>
 
-                    <div className="col-12" >
+                        <div className="col-12" >
 
-                        <table width="100%" border={0} cellPadding={0} cellSpacing={0}>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <table border={0} cellPadding={0} cellSpacing={0} className="table row-select">
-                                            <tbody>
+                            <table width="100%" border={0} cellPadding={0} cellSpacing={0}>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <table border={0} cellPadding={0} cellSpacing={0} className="table row-select">
+                                                <tbody>
 
-                                                {OptionDataCol1.map((item, key) => {
-                                                    var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
-                                                    console.log(optionVal)
-                                                    return (
-                                                        <tr name={item.id} value="ee"  >
-                                                            <td>
-                                                                <div className="container" >
-                                                                    <div >
-                                                                        <label>
-                                                                            <input type="checkbox" onChange={inputChange} value={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer ? false : true}
-                                                                                id={item.id}
-                                                                                checked={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer == "true" ? optionVal[0].answer : false}
-                                                                            />
-                                                                            <span className="sub-q min-height"> {item.option}</span>
+                                                    {OptionDataCol1.map((item, key) => {
+                                                        var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
+                                                        console.log(optionVal)
+                                                        return (
+                                                            <tr name={item.id} value="ee"  >
+                                                                <td>
+                                                                    <div className="container" >
+                                                                        <div >
+                                                                            <label>
+                                                                                <input type="checkbox" onChange={inputChange} value={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer ? false : true}
+                                                                                    id={item.id}
+                                                                                    checked={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer == "true" ? optionVal[0].answer : false}
+                                                                                />
+                                                                                <span className="sub-q min-height"> {item.option}</span>
 
-                                                                        </label>
+                                                                            </label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
 
 
-                                                            </td>
-                                                            {/* value={optionVal.length > 0 ? optionVal[0].answer : true} */}
-                                                        </tr>
-                                                    )
-                                                })}
+                                                                </td>
+                                                                {/* value={optionVal.length > 0 ? optionVal[0].answer : true} */}
+                                                            </tr>
+                                                        )
+                                                    })}
 
-                                            </tbody>
-                                        </table>
-                                    </td>
+                                                </tbody>
+                                            </table>
+                                        </td>
 
-                                    <td>
-                                        <table border={0} cellPadding={0} cellSpacing={0} className="table row-select">
-                                            <tbody>
+                                        <td>
+                                            <table border={0} cellPadding={0} cellSpacing={0} className="table row-select">
+                                                <tbody>
 
-                                                {OptionDataCol2.map((item, key) => {
-                                                    var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
-                                                    console.log(optionVal)
-                                                    return (
-                                                        <tr name={item.id} value="ee"  >
-                                                            <td>
-                                                                <div className="container" >
-                                                                    <div >
-                                                                        <label>
-                                                                            <input type="checkbox" onChange={inputChange} value={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer ? false : true}
-                                                                                id={item.id}
-                                                                                checked={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer == "true" ? optionVal[0].answer : false}
-                                                                            />
-                                                                            <span className="sub-q min-height"> {item.option}</span>
+                                                    {OptionDataCol2.map((item, key) => {
+                                                        var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
+                                                        console.log(optionVal)
+                                                        return (
+                                                            <tr name={item.id} value="ee"  >
+                                                                <td>
+                                                                    <div className="container" >
+                                                                        <div >
+                                                                            <label>
+                                                                                <input type="checkbox" onChange={inputChange} value={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer ? false : true}
+                                                                                    id={item.id}
+                                                                                    checked={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer == "true" ? optionVal[0].answer : false}
+                                                                                />
+                                                                                <span className="sub-q min-height"> {item.option}</span>
 
-                                                                        </label>
+                                                                            </label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
 
 
-                                                            </td>
-                                                            {/* value={optionVal.length > 0 ? optionVal[0].answer : true} */}
-                                                        </tr>
-                                                    )
-                                                })}
+                                                                </td>
+                                                                {/* value={optionVal.length > 0 ? optionVal[0].answer : true} */}
+                                                            </tr>
+                                                        )
+                                                    })}
 
-                                            </tbody>
-                                        </table>
-                                    </td>
+                                                </tbody>
+                                            </table>
+                                        </td>
 
 
-                                    <td>
-                                        <table border={0} cellPadding={0} cellSpacing={0} className="table row-select">
-                                            <tbody>
+                                        <td>
+                                            <table border={0} cellPadding={0} cellSpacing={0} className="table row-select">
+                                                <tbody>
 
-                                                {OptionDataCol3.map((item, key) => {
-                                                    var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
-                                                    console.log(optionVal)
-                                                    return (
-                                                        <tr name={item.id} value="ee"  >
-                                                            <td>
-                                                                <div className="container" >
-                                                                    <div >
-                                                                        <label>
-                                                                            <input type="checkbox" onChange={inputChange} value={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer ? false : true}
-                                                                                id={item.id}
-                                                                                checked={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer == "true" ? optionVal[0].answer : false}
-                                                                            />
-                                                                            <span className="sub-q min-height"> {item.option}</span>
+                                                    {OptionDataCol3.map((item, key) => {
+                                                        var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
+                                                        console.log(optionVal)
+                                                        return (
+                                                            <tr name={item.id} value="ee"  >
+                                                                <td>
+                                                                    <div className="container" >
+                                                                        <div >
+                                                                            <label>
+                                                                                <input type="checkbox" onChange={inputChange} value={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer ? false : true}
+                                                                                    id={item.id}
+                                                                                    checked={optionVal.length > 0 && optionVal[0].question_id == questionId && optionVal[0].answer == "true" ? optionVal[0].answer : false}
+                                                                                />
+                                                                                <span className="sub-q min-height"> {item.option}</span>
 
-                                                                        </label>
+                                                                            </label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
 
 
-                                                            </td>
-                                                            {/* value={optionVal.length > 0 ? optionVal[0].answer : true} */}
-                                                        </tr>
-                                                    )
-                                                })}
+                                                                </td>
+                                                                {/* value={optionVal.length > 0 ? optionVal[0].answer : true} */}
+                                                            </tr>
+                                                        )
+                                                    })}
 
-                                            </tbody>
-                                        </table>
-                                    </td>
+                                                </tbody>
+                                            </table>
+                                        </td>
 
-                                </tr>
-                            </tbody></table>
+                                    </tr>
+                                </tbody></table>
 
-                        {/* {OptionDataCol1.map((item, key) => {
+                            {/* {OptionDataCol1.map((item, key) => {
                             return (
                                 <div class="col-sm-4 p-3" onSelect={SelectedOption}>
                                     {item.option}
@@ -451,8 +447,8 @@ export default function Step5(props) {
                             )
                         })} */}
 
-                    </div>
-                    {/* <div className="col-sm-4" >
+                        </div>
+                        {/* <div className="col-sm-4" >
 
                         {OptionDataCol2.map((item, key) => {
                             return (
@@ -476,20 +472,20 @@ export default function Step5(props) {
 
                     </div> */}
 
+                    </div>
+
                 </div>
 
-            </div>
 
 
-
-            <div className="col-lg-12">
-                <div className="button btn-align-step2">
-                    <input type="button" onClick={() => props.prev()} name="previous" className="previous-step-btn" defaultValue="Previous" />
-                    <input type="button" onClick={nextFunction} name="next" className="next-step-btn" defaultValue="Next" />
+                <div className="col-lg-12">
+                    <div className="button btn-align-step2">
+                        <input type="button" onClick={() => props.prev()} name="previous" className="previous-step-btn" defaultValue="Previous" />
+                        <input type="button" onClick={nextFunction} name="next" className="next-step-btn" defaultValue="Next" />
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-
+            </fieldset>
+        </>
     )
 }
 

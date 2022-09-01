@@ -38,17 +38,14 @@ export default function Step3(props) {
     }
 
     const nextFunction = () => {
-        console.log(validate())
-        var check = validate()
-        // console.log(check)
-        if (check) {
+        if (validate()) {
             props.next()
         }
-
     }
 
 
     const inputChange = (e) => {
+        setloading(1)
         let val1 = e.target.value;
         let optionId = e.target.id;
         console.log(val1)
@@ -90,7 +87,7 @@ export default function Step3(props) {
                         console.log("Values Submitted Succesfully");
                         GetAllRecords();
                         // props.next(values);
-
+                        setloading(0)
                     }
                     // GetAllRecords();
                 })
@@ -128,6 +125,8 @@ export default function Step3(props) {
                     console.log(resData);
                     if (resData.status == 200) {
                         console.log("Values Submitted Succesfully");
+                        setloading(0)
+
                     }
                     GetAllRecords();
                 })
@@ -214,58 +213,59 @@ export default function Step3(props) {
 
     }, []);
 
-    if (loading === 1) {
-        return <div className="loader"> <CircularProgress /></div>
-    }
-
     const getFilteredValue = (optionVal) => {
         return optionVal.length != 0 ? optionVal[0].answer : null
     }
 
     return (
-        <fieldset>
-            <div className="row">
-                <div className="col-12">
-                    <h2 className="steps">30%</h2>
-                    <h3 className="smtxt">1 = Completely Disagree &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Completely Agree &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
-                </div>
-            </div>
-            <div className="form-card">
+        <>
+            {loading === 1 ? (<div className="loader"> <CircularProgress /></div>) : null}
+
+            <fieldset style={{ pointerEvents: loading === 1 ? "none" : "all" }}>
                 <div className="row">
-                    {/* <p>Next, we’d like you to tell us how you’d rate [FIRST NAME] on a few competencies that help predict their
+                    <div className="col-12">
+                        <h2 className="steps">30%</h2>
+                        <h3 className="smtxt">1 = Completely Disagree &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Completely Agree &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
+                    </div>
+                </div>
+                <div className="form-card">
+                    <div className="row">
+                        {/* <p>Next, we’d like you to tell us how you’d rate [FIRST NAME] on a few competencies that help predict their
                         future potential. On a 10-point scale, give us your agreement rating on the following.</p> */}
 
-                    <p className='fs-title-m'>Next, {question.replace("[FIRST NAME]", first_name)}</p>
-                    <hr />
-                    <br />
-                    <br />
+                        <p className='fs-title-m'>Next, {question.replace("[FIRST NAME]", first_name)}</p>
+                        <hr />
+                        <br />
+                        <br />
 
 
 
-                    {OptionData.map((item, key) => {
-                        var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
+                        {OptionData.map((item, key) => {
+                            var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
 
-                        return (
-                            <div className="col-sm-12">
-                                <div className="card pad-card">
-                                    <div className="range-slider">
-                                        {/* <h3 className="sub-q">{item.option}</h3> */}
-                                        <div className="sub-q" data-tip={item.option}>{item.option}</div>
-                                        <ReactTooltip />
+                            return (
+                                <div className="col-sm-12">
+                                    <div className="card pad-card">
+                                        <div className="range-slider">
+                                            {/* <h3 className="sub-q">{item.option}</h3> */}
+                                            <div className="sub-q" data-tip={item.option}>{item.option}</div>
+                                            <ReactTooltip />
 
-                                        <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal)} onChange={inputChange} defaultValue={0} min={0} max={10} />
-                                        <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? getFilteredValue(optionVal) : "NA"}</span> </div>
+                                            <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal)} onChange={inputChange} defaultValue={0} min={0} max={10} />
+                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? getFilteredValue(optionVal) : "NA"}</span> </div>
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })}
-                </div>
+                            )
+                        })}
+                    </div>
 
-            </div>
-            <div className="button btn-align-step2">
-                <input type="button" onClick={() => props.prev()} name="previous" className="previous-step-btn" defaultValue="Previous" />
-                <input type="button" onClick={nextFunction} name="next" className="next-step-btn" defaultValue="Next" />
-            </div>        </fieldset>
+                </div>
+                <div className="button btn-align-step2">
+                    <input type="button" onClick={() => props.prev()} name="previous" className="previous-step-btn" defaultValue="Previous" />
+                    <input type="button" onClick={nextFunction} name="next" className="next-step-btn" defaultValue="Next" />
+                </div>
+            </fieldset>
+        </>
     )
 }
 

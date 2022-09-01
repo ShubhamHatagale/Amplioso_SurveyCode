@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Checkbox,CircularProgress } from '@material-ui/core';
+import { Checkbox, CircularProgress } from '@material-ui/core';
 import '../../../assets/css/Step7.css'
 
 export default function Step2(props) {
@@ -35,22 +35,35 @@ export default function Step2(props) {
 
 
     const inputChange = (e) => {
+        getSelectedOptions()
+
+        setloading(1)
         console.log(questionId)
         console.log(SurveyAnswers)
         // console.log(e.target.id)
         let answer = e.target.value;
-        let optionID = parseInt(e.target.id);
+        // let optionID = parseInt(e.target.id);
         console.log(answer)
-        console.log(optionID)
+        // console.log(optionID)
         // var checkAll = SurveyAnswers.filter(({ option_id, created_by }) => option_id === optionID && created_by === uid.userId)
         // console.log(SurveyAnswers.filter(({question_id, option_id,answer, created_by }) => question_id === questionId && option_id === optionID && answer==="true" && created_by === uid.userId));
         var questionIdwiseData = (SurveyAnswers.filter(({ question_id, answer, created_by }) => question_id === questionId && answer === "true" && created_by === uid.userId));
 
-        var alreadyVal = (SurveyAnswers.filter(({ question_id, option_id, created_by }) => question_id === questionId && option_id === optionID && created_by === uid.userId));
+        var alreadyVal = (SurveyAnswers.filter(({ question_id, option_id, created_by }) => question_id === questionId && option_id === parseInt(e.target.id) && created_by === uid.userId));
         console.log(alreadyVal)
         console.log(questionIdwiseData)
 
-        if (alreadyVal.length == 0 && questionIdwiseData.length < 5) {
+        if (alreadyVal.length === 5) {
+            getSelectedOptions()
+
+            console.log("morethan 5")
+            setshowError(true)
+            window.scrollTo(0, 0)
+            setloading(0)
+            return false
+        } else if (alreadyVal.length === 0 && questionIdwiseData.length < 5) {
+            getSelectedOptions()
+
             console.log("post")
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -64,7 +77,7 @@ export default function Step2(props) {
                 manager_id: uid.managerId,
                 question_id: questionId,
 
-                option_id: optionID,
+                option_id: parseInt(e.target.id),
                 answer: answer,
                 created_by: uid.userId,
                 updated_by: uid.userId,
@@ -81,6 +94,8 @@ export default function Step2(props) {
                     console.log(resData);
                     if (resData.status == 200) {
                         console.log("Values Submitted Succesfully");
+                        setloading(0)
+
                         GetAllRecords();
                         // props.next(values);
 
@@ -109,7 +124,7 @@ export default function Step2(props) {
                     survey_user_mapping_id: 0,
                     surveyor_id: uid.userId,
                     question_id: questionId,
-                    option_id: optionID,
+                    option_id: parseInt(e.target.id),
                     answer: alreadyVal[0].answer == "false" ? "true" : "false",
                     created_by: uid.userId,
                     updated_by: uid.userId,
@@ -126,6 +141,8 @@ export default function Step2(props) {
                         console.log(resData);
                         if (resData.status == 200) {
                             console.log("Values Submitted Succesfully");
+                            setloading(0)
+
                             GetAllRecords();
                             // props.next(values);
 
@@ -136,6 +153,7 @@ export default function Step2(props) {
             } else {
                 setshowError(true);
                 window.scrollTo(0, 0)
+                setloading(0)
 
 
             }
@@ -144,6 +162,7 @@ export default function Step2(props) {
             console.log("morethan 5")
             setshowError(true)
             window.scrollTo(0, 0)
+            setloading(0)
 
         }
 
@@ -199,6 +218,35 @@ export default function Step2(props) {
 
 
 
+    }
+
+    const getSelectedOptions = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json")
+        var raw = JSON.stringify({
+            question_id: 27,
+            surveyor_id: uid.userId
+        })
+        var requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        }
+        const response = await fetch(`http://208.109.14.182:9000/masters/survey_answers/step5-7`, requestOptions)
+            .then(response => response.json())
+            .then(resData => {
+                console.log("0008", resData.data)
+                // setOptionLenght(resData.data)
+                if (resData.data === 5) {
+                    // alert("false")
+                    console.log("morethan 5")
+                    setshowError(true)
+                    window.scrollTo(0, 0)
+                    setloading(0)
+                    return false
+                }
+            })
     }
 
     const getOptions = (resIdC) => {
@@ -257,12 +305,14 @@ export default function Step2(props) {
 
     useEffect(() => {
         setloading(1)
-        GetAllRecords().then(()=>{
+        GetAllRecords().then(() => {
+            getSelectedOptions()
             setloading(0)
         })
 
     }, []);
-    if (loading === 1) {
+
+    if (loading !== 0) {
         return <div className="loader"> <CircularProgress /></div>
     }
 

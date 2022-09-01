@@ -157,12 +157,14 @@ export default function Step2(props) {
 
     }, []);
 
-    if (loading === 1) {
-        return <div className="loader"> <CircularProgress /></div>
-    }
+    // if (loading === 1) {
+    //     return <div className="loader"> <CircularProgress /></div>
+    // }
 
 
     const inputChange = (e) => {
+        setloading(1)
+
         let val1 = e.target.value;
         let optionId = e.target.id;
         console.log(val1)
@@ -186,7 +188,6 @@ export default function Step2(props) {
                 company_id: uid.companyId,
                 manager_id: uid.managerId,
                 question_id: questionId,
-
                 option_id: optionId,
                 answer: val1,
                 created_by: uid.userId,
@@ -205,6 +206,7 @@ export default function Step2(props) {
                     if (resData.status == 200) {
                         console.log("Values Submitted Succesfully");
                         GetAllRecords();
+                        setloading(0)
                         // props.next(values);
 
                     }
@@ -242,6 +244,8 @@ export default function Step2(props) {
                     console.log(resData);
                     if (resData.status == 200) {
                         console.log("Values Submitted Succesfully");
+                        setloading(0)
+
                     }
                     GetAllRecords();
                 })
@@ -260,7 +264,10 @@ export default function Step2(props) {
     }
 
     return (
-        <fieldset>
+        <>
+                    {loading === 1 ? (<div className="loader"> <CircularProgress /></div>) : null}
+
+        <fieldset style={{pointerEvents:loading===1?"none":"all"}}>
             <div className="row">
                 <div className="col-12">
                     <h2 className="steps">40%</h2>
@@ -359,6 +366,7 @@ export default function Step2(props) {
                 </div>
             </div>
         </fieldset>
+        </>
     )
 }
 
