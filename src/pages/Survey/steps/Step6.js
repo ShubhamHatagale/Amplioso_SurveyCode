@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { CircularProgress } from '@material-ui/core';
+import CircularProgressWithLabel from "../../../components/CircularProgressWithLabel";
 
 export default function Step2(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
@@ -52,7 +53,7 @@ export default function Step2(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/${OptData}`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/${OptData}`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -93,7 +94,7 @@ export default function Step2(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -144,7 +145,7 @@ export default function Step2(props) {
             body: raw,
             redirect: "follow",
         };
-        fetch(`http://208.109.14.182:9000/masters/survey_answers/`, requestOptions)
+        fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
             .then((response) => response.json())
             .then((resData) => {
                 console.log(resData);
@@ -183,7 +184,7 @@ export default function Step2(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response = await fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        const response = await fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -194,7 +195,7 @@ export default function Step2(props) {
             })
             .catch(error => console.log('error', error));
 
-        const response2 = await fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
+        const response2 = await fetch(`http://localhost:9000/masters/question/q_type/3`, requestOptions)
             .then(response2 => response2.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -225,7 +226,7 @@ export default function Step2(props) {
             body: raw1,
             redirect: "follow",
         };
-        const response3 = fetch(`http://208.109.14.182:9000/masters/survey_answers_same`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/survey_answers_same`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 // setlistRecord(rwsOpt.data);
@@ -242,9 +243,9 @@ export default function Step2(props) {
             })
     }
     const handleSubmit = (values) => {
-        if (impVal == 0) {
-            return false
-        }
+        // if (impVal == 0) {
+        //     return false
+        // }
         console.log(OptData);
         if (OptData) {
             console.warn("update")
@@ -271,7 +272,7 @@ export default function Step2(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/${OptData}`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/${OptData}`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -312,7 +313,7 @@ export default function Step2(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -358,8 +359,11 @@ export default function Step2(props) {
                         <Form onSubmit={handleSubmit}>
                             <div className="row">
                                 <div className="col-12">
-                                    <h2 className="steps">10%</h2>
-                                    <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
+                                    {/* <h2 className="steps">10%</h2> */}
+                                    <div className="steps">
+                            <CircularProgressWithLabel size={70} value={5 * 10} />
+                        </div>                                                                           
+                                    {/* <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3> */}
                                 </div>
                             </div>
                             <div className="form-card">
@@ -368,8 +372,11 @@ export default function Step2(props) {
                                         {/* <p className="fs-title-m">First, we’d like you to give us an overall rating (all things considered) for the performance period.</p> */}
                                         {/* <h2 className="fs-title">[1-10 scale] Overall, how would you rate the (year/ quarter) [FIRST NAME] has had?</h2> */}
                                         <p className="fs-title-m">Now, {question.replace("[FIRST NAME]", first_name)}</p>
+                                        {/* <hr /> */}
                                         <br />
                                         <br />
+                                        <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
+
                                         <div className="card pad-card">
                                             <div className="range-slider">
                                                 <input className="range-slider__range" type="range" value={impVal} onChange={handleChange} name="inputVal" defaultValue={OptionVal} min={0} max={10} />

@@ -3,7 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Slider from '@material-ui/core/Slider';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+// import LinearProgress from '@material-ui/core/CircularProgress';
+import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel'
 export default function Step1(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
     const token = localStorage.getItem("jwt");
@@ -37,9 +38,9 @@ export default function Step1(props) {
 
     const handleSubmit = (values) => {
         console.log(impVal)
-        if (impVal == 0) {
-            return false
-        }
+        // if (impVal == 0) {
+        //     return false
+        // }
         console.log(questionId);
         if (OptData) {
             console.warn("update")
@@ -66,7 +67,7 @@ export default function Step1(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/${OptData}`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/${OptData}`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -107,7 +108,7 @@ export default function Step1(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -139,7 +140,7 @@ export default function Step1(props) {
         };
         console.log(uid.userId)
 
-        const response3 = fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -147,7 +148,7 @@ export default function Step1(props) {
                 setfirst_name(result.data[0].first_name)
                 setlast_name(result.data[0].last_name)
             }).then(() => {
-                fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
+                fetch(`http://localhost:9000/masters/question/q_type/3`, requestOptions)
                     .then(response => response.json())
                     .then(result => {
                         // setlistRecord(result.data);
@@ -183,7 +184,7 @@ export default function Step1(props) {
             redirect: "follow",
         };
 
-        const response3 = fetch(`http://208.109.14.182:9000/masters/survey_answers_same`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/survey_answers_same`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 // setlistRecord(rwsOpt.data);
@@ -233,9 +234,16 @@ export default function Step1(props) {
                     return (
                         <Form onSubmit={handleSubmit}>
                             <div className="row">
-                                <div className="col-12">
-                                    <h2 className="steps">10%</h2>
-                                    <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
+                                <div className="col-8"></div>
+
+                                <div className="col-4">
+                                    {/* <CircularProgressWithLabel value={50}  /> */}
+                                    <div className="steps"><CircularProgressWithLabel size={70} value={impVal * 10} />
+                                    </div>
+                                    {/* <LinearProgress value={10} /> */}
+                                    {/* <CircularProgress variant="determinate" value={50} /> */}
+
+                                    {/* <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3> */}
                                 </div>
                             </div>
                             <div className="form-card">
@@ -243,7 +251,11 @@ export default function Step1(props) {
                                     <div className="col-lg-12">
                                         <p className="fs-title-m">First, we’d like you to give us an overall rating (all things considered) for the performance period.</p>
                                         <h2 className="fs-title1">[1-10 scale] Overall, {question.replace("[FIRST NAME]", first_name)}</h2>
+                                        {/* <hr /> */}
+                                        <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
 
+                                        <br />
+                                        <br />
                                         <div className="card pad-card">
                                             <div className="range-slider">
                                                 <input className="range-slider__range" type="range" value={impVal} onChange={handleChange} name="inputVal" defaultValue={OptionVal} min={0} max={10} />

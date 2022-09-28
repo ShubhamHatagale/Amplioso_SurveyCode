@@ -2,6 +2,7 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import ReactTooltip from 'react-tooltip';
+import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel';
 
 export default function Step2(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
@@ -35,9 +36,11 @@ export default function Step2(props) {
     }
 
     const nextFunction = () => {
-        if (validate()) {
-            props.next()
-        }
+        // if (validate()) {
+        //     props.next()
+        // }
+        props.next()
+
     }
 
     const inputChange = (e) => {
@@ -72,7 +75,7 @@ export default function Step2(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/${alreadyVal[0].id}`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/${alreadyVal[0].id}`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -82,6 +85,8 @@ export default function Step2(props) {
                         setloading(0)
 
                     }
+                    setloading(0)
+
                 })
                 .catch((error) => console.log("error", error));
 
@@ -108,12 +113,14 @@ export default function Step2(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
                     if (resData.status == 200) {
                         console.log("Values Submitted Succesfully");
+                        setloading(0)
+
                     }
                     GetAllRecords();
                 })
@@ -129,7 +136,7 @@ export default function Step2(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response = await fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        const response = await fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -139,7 +146,7 @@ export default function Step2(props) {
             })
             .catch(error => console.log('error', error));
 
-        const response2 = await fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
+        const response2 = await fetch(`http://localhost:9000/masters/question/q_type/3`, requestOptions)
             .then(response2 => response2.json())
             .then(result => {
                 console.log(result)
@@ -152,7 +159,7 @@ export default function Step2(props) {
                 getOptions1(result.data[0].id);
             })
 
-        const responseSurveyAnswer = await fetch(`http://208.109.14.182:9000/masters/survey_answers`, requestOptions)
+        const responseSurveyAnswer = await fetch(`http://localhost:9000/masters/survey_answers`, requestOptions)
             .then(responseSurveyAnswer => responseSurveyAnswer.json())
             .then(surveyResult => {
                 console.log(surveyResult.data)
@@ -168,7 +175,7 @@ export default function Step2(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response3 = fetch(`http://208.109.14.182:9000/masters/option/opt/${resIdC}`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/option/opt/${resIdC}`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 setOptionData(rwsOpt.data);
@@ -188,7 +195,7 @@ export default function Step2(props) {
             body: raw1,
             redirect: "follow",
         };
-        const response3 = fetch(`http://208.109.14.182:9000/masters/survey_answers_same`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/survey_answers_same`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 if (rwsOpt.data) {
@@ -205,7 +212,7 @@ export default function Step2(props) {
         })
 
     }, []);
-  
+
 
     const getFilteredValue = (optionVal) => {
         return optionVal.length != 0 ? optionVal[0].answer : null
@@ -216,8 +223,9 @@ export default function Step2(props) {
             <fieldset style={{ pointerEvents: loading === 1 ? "none" : "all" }}>
                 <div className="row">
                     <div className="col-12">
-                        <h2 className="steps">20%</h2>
-                        <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
+                        <div className="steps">
+                            <CircularProgressWithLabel size={70} value={5 * 10} />
+                        </div>                        {/* <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3> */}
                     </div>
                 </div>
                 <div className="form-card">
@@ -225,13 +233,22 @@ export default function Step2(props) {
                     <hr />
                     <br />
                     <br />
+                    <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
                     <div className="row">
                         {OptionData.map((item, key) => {
                             // console.log(item.id)
+                            console.log(SurveyAnswers)
                             var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
+
                             if (optionVal.length > 0) {
                                 console.log(optionVal[0].answer)
                             }
+
+                            // console.log()
+
+                            // var total = nums.reduce(function(a,b) {
+                            //     return (+a)+(+b);
+                            // });
 
                             return (
                                 <div className="col-sm-6">
@@ -240,8 +257,10 @@ export default function Step2(props) {
                                             <div className="sub-q" data-tip={item.option}>{item.option}</div>
                                             <ReactTooltip />
                                             {/* style={{pointerEvents:loading==0}} */}
+                                            {/* <h1>{getFilteredValue(optionVal)}</h1> */}
+                                            {console.log(getFilteredValue(optionVal))}
                                             <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal)} defaultValue={0} min={0} max={10} onChange={inputChange} />
-                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? getFilteredValue(optionVal) : "NA"}</span>
+                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == null || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == "NA"||"" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? ( getFilteredValue(optionVal)==0? "NA" :getFilteredValue(optionVal) ) : "NA"}</span>
                                         </div>
                                     </div>
                                 </div>

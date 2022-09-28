@@ -1,5 +1,6 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
+import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel';
 export default function Step2(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
 
@@ -65,9 +66,10 @@ export default function Step2(props) {
         console.log(validate())
         var check = validate()
         console.log(check)
-        if (check) {
-            props.next()
-        }
+        // if (check) {
+        //     props.next()
+        // }
+        props.next()
 
     }
 
@@ -79,7 +81,7 @@ export default function Step2(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response = await fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        const response = await fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -90,7 +92,7 @@ export default function Step2(props) {
             })
             .catch(error => console.log('error', error));
 
-        const response2 = await fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
+        const response2 = await fetch(`http://localhost:9000/masters/question/q_type/3`, requestOptions)
             .then(response2 => response2.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -106,7 +108,7 @@ export default function Step2(props) {
 
             })
 
-        const responseSurveyAnswer = await fetch(`http://208.109.14.182:9000/masters/survey_answers`, requestOptions)
+        const responseSurveyAnswer = await fetch(`http://localhost:9000/masters/survey_answers`, requestOptions)
             .then(responseSurveyAnswer => responseSurveyAnswer.json())
             .then(surveyResult => {
                 console.log(surveyResult.data)
@@ -123,7 +125,7 @@ export default function Step2(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response3 = fetch(`http://208.109.14.182:9000/masters/option/opt/${resIdC}`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/option/opt/${resIdC}`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 // setlistRecord(rwsOpt.data);
@@ -199,7 +201,7 @@ export default function Step2(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/${alreadyVal[0].id}`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/${alreadyVal[0].id}`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -238,7 +240,7 @@ export default function Step2(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -265,107 +267,113 @@ export default function Step2(props) {
 
     return (
         <>
-                    {loading === 1 ? (<div className="loader"> <CircularProgress /></div>) : null}
+            {loading === 1 ? (<div className="loader"> <CircularProgress /></div>) : null}
 
-        <fieldset style={{pointerEvents:loading===1?"none":"all"}}>
-            <div className="row">
-                <div className="col-12">
-                    <h2 className="steps">40%</h2>
-                    <h3 className="smtxt">1 = Completely Disagree &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Completely Agree &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
-                </div>
-            </div>
-            <div className="form-card">
-                <p className='fs-title-m'>{question.replace("[FIRST NAME]", first_name).replace("[FIRST NAME]", first_name)}</p>
-                <hr />
-                <br />
-                <br />
+            <fieldset style={{ pointerEvents: loading === 1 ? "none" : "all" }}>
                 <div className="row">
-
-                    <div className="col-sm-4">
-
-                        <div className="card pad-card">
-                            <h2 className="fs-title">{first_name} THINKS</h2>
+                    <div className="col-12">
+                        <div className="steps">
+                            <CircularProgressWithLabel size={70} value={5 * 10} />
                         </div>
-
+                        {/* <h2 className="steps">40%</h2> */}
+                        {/* <h3 className="smtxt">1 = Completely Disagree &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Completely Agree &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3> */}
                     </div>
-                    <div className="col-sm-4">
-
-                        <div className="card pad-card">
-                            <h2 className="fs-title">{first_name} ACTS</h2>
-                        </div>
-
-                    </div>
-                    <div className="col-sm-4">
-
-                        <div className="card pad-card">
-                            <h2 className="fs-title">{first_name} Makes Me FEEL</h2>
-                        </div>
-
-                    </div>
-
-
-                    <div className="col-sm-4" >
-
-                        {OptionDataCol1.map((item, key) => {
-                            var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
-
-                            return (
-
-                                <div className="card pad-card" >
-                                    <div className="range-slider" >
-                                        <h3 className="sub-q min-height">{item.option}</h3>
-                                        <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal)} onChange={inputChange} defaultValue={0} min={0} max={10} />
-                                        <span className="range-slider__value " style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? getFilteredValue(optionVal) : "NA"}</span> </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-
-                    <div className="col-sm-4" >
-                        {OptionDataCol2.map((item, key) => {
-                            var optionVal1 = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
-
-                            return (
-
-                                <div className="card pad-card" >
-                                    <div className="range-slider" >
-                                        <h3 className="sub-q min-height">{item.option}</h3>
-                                        <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal1)} onChange={inputChange} defaultValue={0} min={0} max={10} />
-                                        <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal1) == 0 || getFilteredValue(optionVal1) == "" || getFilteredValue(optionVal1) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal1.length > 0 ? getFilteredValue(optionVal1) : "NA"}</span> </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-
-                    <div className="col-sm-4" >
-                        {OptionDataCol3.map((item, key) => {
-                            var optionVal2 = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
-
-                            return (
-
-                                <div className="card pad-card" >
-                                    <div className="range-slider" >
-                                        <h3 className="sub-q min-height">{item.option}</h3>
-                                        <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal2)} onChange={inputChange} defaultValue={0} min={0} max={10} />
-                                        <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal2) == 0 || getFilteredValue(optionVal2) == "" || getFilteredValue(optionVal2) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal2.length > 0 ? getFilteredValue(optionVal2) : "NA"}</span> </div>
-                                    {/* <span>{optionVal2.length > 0 ? optionVal2[0].answer : null}</span> */}
-
-                                </div>
-                            )
-                        })}
-
-
-                    </div>
-
                 </div>
-            </div>
-            <div className="col-lg-12">
-                <div className="button btn-align-step2">
-                    <input type="button" onClick={() => props.prev()} name="previous" className="previous-step-btn" defaultValue="Previous" />
-                    <input type="button" onClick={nextFunction} name="next" className="next-step-btn" defaultValue="Next" />
+                <div className="form-card">
+                    <p className='fs-title-m'>{question.replace("[FIRST NAME]", first_name).replace("[FIRST NAME]", first_name)}</p>
+                    <hr />
+                    <br />
+                    <br />
+                    {/* <br /> */}
+                    <h3 className="smtxt">1 = Completely Disagree &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Completely Agree &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
+
+                    <div className="row">
+
+                        <div className="col-sm-4">
+
+                            <div className="card pad-card">
+                                <h2 className="fs-title">{first_name} THINKS</h2>
+                            </div>
+
+                        </div>
+                        <div className="col-sm-4">
+
+                            <div className="card pad-card">
+                                <h2 className="fs-title">{first_name} ACTS</h2>
+                            </div>
+
+                        </div>
+                        <div className="col-sm-4">
+
+                            <div className="card pad-card">
+                                <h2 className="fs-title">{first_name} Makes Me FEEL</h2>
+                            </div>
+
+                        </div>
+
+
+                        <div className="col-sm-4" >
+
+                            {OptionDataCol1.map((item, key) => {
+                                var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
+
+                                return (
+
+                                    <div className="card pad-card" >
+                                        <div className="range-slider" >
+                                            <h3 className="sub-q min-height">{item.option}</h3>
+                                            <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal)} onChange={inputChange} defaultValue={0} min={0} max={10} />
+                                            <span className="range-slider__value " style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == null || getFilteredValue(optionVal) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? ( getFilteredValue(optionVal)==0? "NA" :getFilteredValue(optionVal) ) : "NA"}</span> </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+                        <div className="col-sm-4" >
+                            {OptionDataCol2.map((item, key) => {
+                                var optionVal1 = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
+
+                                return (
+
+                                    <div className="card pad-card" >
+                                        <div className="range-slider" >
+                                            <h3 className="sub-q min-height">{item.option}</h3>
+                                            <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal1)} onChange={inputChange} defaultValue={0} min={0} max={10} />
+                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal1) == 0 || getFilteredValue(optionVal1) == "" || getFilteredValue(optionVal1) == null || getFilteredValue(optionVal1) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal1.length > 0 ? ( getFilteredValue(optionVal1)==0? "NA" :getFilteredValue(optionVal1) ) : "NA"}</span> </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+                        <div className="col-sm-4" >
+                            {OptionDataCol3.map((item, key) => {
+                                var optionVal2 = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
+
+                                return (
+
+                                    <div className="card pad-card" >
+                                        <div className="range-slider" >
+                                            <h3 className="sub-q min-height">{item.option}</h3>
+                                            <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal2)} onChange={inputChange} defaultValue={0} min={0} max={10} />
+                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal2) == 0 || getFilteredValue(optionVal2) == "" || getFilteredValue(optionVal2) == null || getFilteredValue(optionVal2) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal2.length > 0 ? ( getFilteredValue(optionVal2)==0? "NA" :getFilteredValue(optionVal2) ) : "NA"}</span> </div>
+                                        {/* <span>{optionVal2.length > 0 ? optionVal2[0].answer : null}</span> */}
+
+                                    </div>
+                                )
+                            })}
+
+
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-        </fieldset>
+                <div className="col-lg-12">
+                    <div className="button btn-align-step2">
+                        <input type="button" onClick={() => props.prev()} name="previous" className="previous-step-btn" defaultValue="Previous" />
+                        <input type="button" onClick={nextFunction} name="next" className="next-step-btn" defaultValue="Next" />
+                    </div>
+                </div>
+            </fieldset>
         </>
     )
 }

@@ -1,5 +1,6 @@
 import { Button, Checkbox, CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
+import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel';
 const items = [
     "Collaboration",
     "Vision and Purpose",
@@ -91,7 +92,7 @@ export default function Step5(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_answers/`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     console.log(resData);
@@ -137,7 +138,7 @@ export default function Step5(props) {
                     body: raw,
                     redirect: "follow",
                 };
-                fetch(`http://208.109.14.182:9000/masters/survey_answers/${alreadyVal[0].id}`, requestOptions)
+                fetch(`http://localhost:9000/masters/survey_answers/${alreadyVal[0].id}`, requestOptions)
                     .then((response) => response.json())
                     .then((resData) => {
                         console.log(resData);
@@ -192,7 +193,7 @@ export default function Step5(props) {
             body: raw,
             redirect: "follow"
         }
-        const response = await fetch(`http://208.109.14.182:9000/masters/survey_answers/step5-7`, requestOptions)
+        const response = await fetch(`http://localhost:9000/masters/survey_answers/step5-7`, requestOptions)
             .then(response => response.json())
             .then(resData => {
                 console.log("0008", resData.data)
@@ -220,7 +221,7 @@ export default function Step5(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response = await fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        const response = await fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -231,7 +232,7 @@ export default function Step5(props) {
             })
             .catch(error => console.log('error', error));
 
-        const response2 = await fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
+        const response2 = await fetch(`http://localhost:9000/masters/question/q_type/3`, requestOptions)
             .then(response2 => response2.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -247,7 +248,7 @@ export default function Step5(props) {
 
             })
 
-        const responseSurveyAnswer = await fetch(`http://208.109.14.182:9000/masters/survey_answers`, requestOptions)
+        const responseSurveyAnswer = await fetch(`http://localhost:9000/masters/survey_answers`, requestOptions)
             .then(responseSurveyAnswer => responseSurveyAnswer.json())
             .then(surveyResult => {
                 console.log(surveyResult.data)
@@ -264,7 +265,7 @@ export default function Step5(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response3 = fetch(`http://208.109.14.182:9000/masters/option/opt/${resIdC}`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/option/opt/${resIdC}`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 // setlistRecord(rwsOpt.data);
@@ -312,7 +313,10 @@ export default function Step5(props) {
             <fieldset style={{ pointerEvents: loading === 1 ? "none" : "all" }}>
                 <div className="row">
                     <div className="col-12">
-                        <h2 className="steps">50%</h2>
+                        {/* <h2 className="steps">50%</h2> */}
+                        <div className="steps">
+                            <CircularProgressWithLabel size={70} value={5 * 10} />
+                        </div>
                     </div>
                 </div>
                 <div className="form-card">

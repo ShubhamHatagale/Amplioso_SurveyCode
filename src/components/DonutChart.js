@@ -47,7 +47,7 @@ export default function DonutChart(props, props2) {
         };
         console.log(uid.userId)
 
-        const response3 = fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -65,7 +65,7 @@ export default function DonutChart(props, props2) {
                         redirect: 'follow'
                     };
 
-                    fetch(`http://208.109.14.182:9000/masters/collect_feedback/email/${result.data[0].user_email}`, requestOptions2)
+                    fetch(`http://localhost:9000/masters/collect_feedback/email/${result.data[0].user_email}`, requestOptions2)
                         .then(response => response.json())
                         .then(result => {
                             // setlistRecord(result.data);
@@ -78,7 +78,7 @@ export default function DonutChart(props, props2) {
 
                 }
             }).then(() => {
-                fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
+                fetch(`http://localhost:9000/masters/question/q_type/3`, requestOptions)
                     .then(response => response.json())
                     .then(result => {
                         // setlistRecord(result.data);
@@ -95,7 +95,7 @@ export default function DonutChart(props, props2) {
 
 
 
-                fetch(`http://208.109.14.182:9000/masters/company/managers/data/allData`, requestOptions)
+                fetch(`http://localhost:9000/masters/company/managers/data/allData`, requestOptions)
                     .then(response => response.json())
                     .then(result => {
                         // setlistRecord(result.data);
@@ -107,7 +107,7 @@ export default function DonutChart(props, props2) {
                     .catch(error => console.log('error', error));
 
 
-                fetch(`http://208.109.14.182:9000/masters/company`, requestOptions)
+                fetch(`http://localhost:9000/masters/company`, requestOptions)
                     .then(response => response.json())
                     .then(result => {
                         // setlistRecord(result.data);
@@ -139,7 +139,7 @@ export default function DonutChart(props, props2) {
             redirect: "follow",
         };
 
-        const response3 = fetch(`http://208.109.14.182:9000/masters/survey_answers_same`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/survey_answers_same`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 // setlistRecord(rwsOpt.data);

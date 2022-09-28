@@ -14,6 +14,7 @@ export default function SurveyHeader(props) {
     const history = useHistory();
     const survey_token = localStorage.getItem('survey_token');
     const uid = JSON.parse(localStorage.getItem('survey_token'));
+    const [ImageUrl, setImageUrl] = useState("")
 
     // alert(token_ele)
 
@@ -40,7 +41,7 @@ export default function SurveyHeader(props) {
             body: raw,
             redirect: "follow",
         };
-        fetch(`http://208.109.14.182:9000/masters/check_survey_key`, requestOptions)
+        fetch(`http://localhost:9000/masters/check_survey_key`, requestOptions)
             .then((response) => response.json())
             .then((resData) => {
                 console.log(resData);
@@ -78,23 +79,26 @@ export default function SurveyHeader(props) {
             redirect: 'follow'
         };
 
-        fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
                 console.log(result.data[0].first_name)
                 setfirst_name(result.data[0].first_name)
                 setlast_name(result.data[0].last_name)
+                // alert(result.data[0].prof_img)
+                setImageUrl("http://dev.amplioso.com/images/" + result.data[0].prof_img)
+
             })
 
             .catch(error => console.log('error', error));
     }
 
     useEffect(() => {
-        if(uid==null){
+        if (uid == null) {
             history.push({
-                pathname:"/unauthorized_tkn",
-                state:"Token Error"
+                pathname: "/unauthorized_tkn",
+                state: "Token Error"
             })
             return false
         }
@@ -116,8 +120,19 @@ export default function SurveyHeader(props) {
                                 <li className="nav-item dropdown header-profile">
                                     <a className="nav-link"
                                         onClick={handleToggle} role="button" data-bs-toggle="dropdown">
-                                        <div className="header-info me-3"> <span className="fs-16 font-w600 " style={{textTransform:"capitalize"}}>{first_name} {last_name}</span> <small className="text-end fs-14 font-w400">April 2021 - June 2021</small> </div>
-                                        <img src={profile} width={20} alt="profile" /> </a>
+                                        <div className="header-info me-3"> <span className="fs-16 font-w600 " style={{ textTransform: "capitalize" }}>{first_name} {last_name}</span> <small className="text-end fs-14 font-w400">April 2021 - June 2021</small> </div>
+                                        {/* {console.log(ImageUrl)} */}
+                                        {ImageUrl ? <img src={ImageUrl} width={20} /> : 
+                                        <div 
+                                        style={{ 
+                                            textTransform: "uppercase", border: "1px solid gray", borderRadius: "50px", height: "43px", width: "45px",textAlign:"center",
+                                        // boxShadow:"0px 1px 4px 0px grey" 
+                                        }}>
+                                            <h2 style={{color:"#996161",marginTop:"2px"}} >
+                                                {first_name.charAt(0) + "" + last_name.charAt(0)}
+                                            </h2>
+                                        </div>}
+                                    </a>
                                     <div className={`dropdown-menu dropdown-menu-end  ${isActive ? "" : "show"}`} > <a href="app-profile.html" className="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" className="text-blk" width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth='2' strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />

@@ -32,7 +32,7 @@ function WelcomeScreen(props) {
             body: raw,
             redirect: "follow",
         };
-        fetch(`http://208.109.14.182:9000/masters/check_survey_key`, requestOptions)
+        fetch(`http://localhost:9000/masters/check_survey_key`, requestOptions)
             .then((response) => response.json())
             .then((resData) => {
                 console.log(resData);
@@ -44,7 +44,7 @@ function WelcomeScreen(props) {
                         redirect: 'follow'
                     };
 
-                    fetch(`http://208.109.14.182:9000/masters/collect_feedback/${resData.data.id}`, requestOptions)
+                    fetch(`http://localhost:9000/masters/collect_feedback/${resData.data.id}`, requestOptions)
                         .then(response => response.json())
                         .then(result => {
                             // setlistRecord(result.data);
