@@ -227,7 +227,7 @@ export default function Step9(props) {
                                 // console.log(result5.data, "company lenght")
                                 set_company_length(result5.data.length)
 
-                               
+
                             }
                         })
                         .catch(error => console.log('error', error));
@@ -240,7 +240,7 @@ export default function Step9(props) {
 
     }
 
-    const impValFn =(val,valmed,intoVal)=>{
+    const impValFn = (val, valmed, intoVal) => {
         return parseFloat(val <= 1 ? valmed * intoVal : val * intoVal)
     }
 
@@ -677,7 +677,7 @@ export default function Step9(props) {
         // let external_benchmark = internal_benchmark * survey_count / company_length;
         return survey_mean
     }
-   
+
 
 
     const internalBenchmark = (value) => {
@@ -785,10 +785,10 @@ export default function Step9(props) {
 
                                 </div>
                             </>
-                        ) : null}        
-                        </div>
+                        ) : null}
+                    </div>
 
-                         {/* page ----3 */}
+                    {/* page ----3 */}
                     {feedbackData ? (
                         <>
                             <div className=" row page-break feed_block_row"  >
@@ -825,7 +825,7 @@ export default function Step9(props) {
                                                 </div>
                                                 {impVal2 ? (
                                                     <>
-                                                        <div  style={{ margin: "5px", width: "520px", height: "138px", border: "1px solid #707070", borderTop: "#FFFFFF", borderRight: "#FFFFFF" }}>
+                                                        <div style={{ margin: "5px", width: "520px", height: "138px", border: "1px solid #707070", borderTop: "#FFFFFF", borderRight: "#FFFFFF" }}>
                                                             {impVal2.map((item, key) => (
                                                                 <>
                                                                     {[Val2.[`data${key}`][0].length > 0] ? (<>
@@ -851,6 +851,13 @@ export default function Step9(props) {
                                                             ))}
                                                             <div class="display-table">
                                                                 <div style={{ fontSize: "10px", fontWeight: "lighter" }}>
+                                                                    {/* {Array.from({ length: 3 }, (item, index1) => {
+                                                                        // {item.option?():null}
+                                                                        // console.log("index"+index1)
+                                                                        // console.log(impVal2[index1])
+                                                                        <div className='options2_1 '>{impVal2[index1].option}</div>
+
+                                                                    })} */}
                                                                     {impVal2.map((item, key) => (
                                                                         <div className='options2_1 '>{item.option}</div>
 
@@ -1142,8 +1149,8 @@ export default function Step9(props) {
                             </div>
                         </>
                     ) : null}
-                        
-                   
+
+
                 </div>
             ) : null}
 
@@ -1312,13 +1319,13 @@ export default function Step9(props) {
                                                                                 <span style={{ fontWeight: "initial", fontSize: "10px" }}>Self</span><br />
                                                                                 <span style={{ fontWeight: "initial", fontSize: "10px" }}>Assessment</span></div>
                                                                         </div>
-                                                                        
-                                                                        <div style={{ padding: impValFn(item.answer,1,9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "rgb(211, 65, 57)" }} >
+
+                                                                        <div style={{ padding: impValFn(item.answer, 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "rgb(211, 65, 57)" }} >
                                                                             <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    
+
                                                                     <div className='col-2' style={{ margin: "0px 18px 0px 18px" }}>
                                                                         <div style={{ fontSize: "16px" }}>
                                                                             <div style={{ position: "relative", top: "300px", paddingLeft: "4px" }}>
@@ -1328,7 +1335,7 @@ export default function Step9(props) {
                                                                         </div>
 
                                                                         {/* Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) : 92 */}
-                                                                        <div style={{ padding: impValFn((Val.[`data${key}`][0].survey_mean),1,9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "#5e8ec4" }} >
+                                                                        <div style={{ padding: impValFn((Val.[`data${key}`][0].survey_mean), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "#5e8ec4" }} >
                                                                             <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}></div>
                                                                         </div>
                                                                     </div>
@@ -1341,7 +1348,7 @@ export default function Step9(props) {
                                                                         </div>
                                                                         {/* <div style={{ padding: Math.ceil(Math.ceil(Val.[`data${key}`][0].internal_bench) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].internal_bench) * 9.2) : 92, width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "rgb(175, 199, 208)" }} > */}
 
-                                                                        <div style={{ padding: impValFn((Val.[`data${key}`][0].internal_bench),1,9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "rgb(175, 199, 208)" }} >
+                                                                        <div style={{ padding: impValFn((Val.[`data${key}`][0].internal_bench), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "rgb(175, 199, 208)" }} >
                                                                             <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}></div>
                                                                         </div>
                                                                     </div>
@@ -1354,7 +1361,7 @@ export default function Step9(props) {
                                                                         </div>
                                                                         {/* <div style={{ padding: Math.ceil(Math.ceil(Val.[`data${key}`][0].external_bench) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].external_bench) * 9.2) : 92, width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "rgb(226, 235, 200)" }} > */}
 
-                                                                        <div style={{ padding: impValFn((Val.[`data${key}`][0].external_bench),1,9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "rgb(226, 235, 200)" }} >
+                                                                        <div style={{ padding: impValFn((Val.[`data${key}`][0].external_bench), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: "rgb(226, 235, 200)" }} >
                                                                             <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}></div>
                                                                         </div>
 
@@ -1415,7 +1422,7 @@ export default function Step9(props) {
                                                 </div>
 
                                                 <div style={{ position: "relative", bottom: "30px", left: "18%" }}>
-                                                    <div  style={{ margin: "5px" }}>
+                                                    <div style={{ margin: "5px" }}>
 
                                                         <> <div style={{ width: 312, height: 312, position: "relative", left: "0%" }}>
                                                             {/* <h1>{impVal}</h1> */}
@@ -1435,7 +1442,7 @@ export default function Step9(props) {
 
 
                                                                         <CircularProgressbarWithChildren
-                                                                            value={impValFn((Val.[`data${key}`][0].survey_mean),1,10)}
+                                                                            value={impValFn((Val.[`data${key}`][0].survey_mean), 1, 10)}
                                                                             // text={`${percentage}%`}
                                                                             // circleRatio={5}
                                                                             strokeWidth={10}
@@ -1458,7 +1465,7 @@ export default function Step9(props) {
                                                                                 // pathTransition: 'none',
 
                                                                                 // Colors
-                                                                                pathColor: `rgb(236,101,94, ${impValFn((Val.[`data${key}`][0].survey_mean),1,10)})`,
+                                                                                pathColor: `rgb(236,101,94, ${impValFn((Val.[`data${key}`][0].survey_mean), 1, 10)})`,
 
                                                                                 // pathColor: `rgb(236,101,94, ${item.answer * 10 / 100})`,
                                                                                 textColor: '#f88',
@@ -1472,7 +1479,7 @@ export default function Step9(props) {
                                                                                 {/* <span>{impValFn(item.answer,1,10)}</span> */}
                                                                                 <CircularProgressbarWithChildren
                                                                                     // value={Math.ceil(9) * 10}
-                                                                                    value={impValFn(item.answer,1,10)}
+                                                                                    value={impValFn(item.answer, 1, 10)}
                                                                                     // text={`${percentage}%`}
                                                                                     // circleRatio={5}
                                                                                     strokeWidth={14}
@@ -1495,7 +1502,7 @@ export default function Step9(props) {
                                                                                         // pathTransition: 'none',
 
                                                                                         // Colors
-                                                                                        pathColor: `rgb(90,90,147, ${impValFn(item.answer,1,10)})`,
+                                                                                        pathColor: `rgb(90,90,147, ${impValFn(item.answer, 1, 10)})`,
                                                                                         textColor: '#f88',
                                                                                         // trailColor: '#d6d6d6',
                                                                                         backgroundColor: '#3e98c7',
@@ -1504,7 +1511,7 @@ export default function Step9(props) {
 
                                                                                     <div style={{ width: 172, height: 172 }}>
                                                                                         <CircularProgressbarWithChildren
-                                                                                            value={impValFn((Val.[`data${key}`][0].internal_bench),1,10)}
+                                                                                            value={impValFn((Val.[`data${key}`][0].internal_bench), 1, 10)}
                                                                                             // text={`${percentage}%`}
                                                                                             // circleRatio={5}
                                                                                             strokeWidth={18}
@@ -1527,7 +1534,7 @@ export default function Step9(props) {
                                                                                                 // pathTransition: 'none',
 
                                                                                                 // Colors
-                                                                                                pathColor: `rgb(121,159,203, ${impValFn((Val.[`data${key}`][0].internal_bench),1,10)})`,
+                                                                                                pathColor: `rgb(121,159,203, ${impValFn((Val.[`data${key}`][0].internal_bench), 1, 10)})`,
                                                                                                 textColor: '#f88',
                                                                                                 // trailColor: '#d6d6d6',
                                                                                                 backgroundColor: '#3e98c7',
@@ -1536,7 +1543,7 @@ export default function Step9(props) {
 
                                                                                             <div style={{ width: 123, height: 123 }}>
                                                                                                 <CircularProgressbarWithChildren
-                                                                                                    value={impValFn((Val.[`data${key}`][0].external_bench),1,10)}
+                                                                                                    value={impValFn((Val.[`data${key}`][0].external_bench), 1, 10)}
                                                                                                     // text={`${percentage}%`}
                                                                                                     // circleRatio={5}
 
@@ -1560,7 +1567,7 @@ export default function Step9(props) {
                                                                                                         // pathTransition: 'none',
 
                                                                                                         // Colors
-                                                                                                        pathColor: `rgb(214,225,185, ${impValFn((Val.[`data${key}`][0].external_bench),1,10)})`,
+                                                                                                        pathColor: `rgb(214,225,185, ${impValFn((Val.[`data${key}`][0].external_bench), 1, 10)})`,
                                                                                                         textColor: '#f88',
                                                                                                         // trailColor: '#d6d6d6',
                                                                                                         backgroundColor: '#3e98c7',
@@ -1729,7 +1736,7 @@ export default function Step9(props) {
                                                 </div>
                                                 {impVal2 ? (
                                                     <>
-                                                        <div  style={{ margin: "5px", width: "520px", height: "138px", border: "1px solid #707070", borderTop: "#FFFFFF", borderRight: "#FFFFFF" }}>
+                                                        <div style={{ margin: "5px", width: "520px", height: "138px", border: "1px solid #707070", borderTop: "#FFFFFF", borderRight: "#FFFFFF" }}>
                                                             {impVal2.map((item, key) => (
                                                                 <>
                                                                     {[Val2.[`data${key}`][0].length > 0] ? (<>
@@ -2047,7 +2054,7 @@ export default function Step9(props) {
                         </>
                     ) : null}
 
-                    
+
                     {/* page ------ 5 */}
                     {feedbackData ? (
                         <>

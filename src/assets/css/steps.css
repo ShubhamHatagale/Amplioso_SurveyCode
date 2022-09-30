@@ -1,0 +1,30 @@
+.colOwn {
+    flex: 0 0 auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+    width: 33%;
+}
+
+
+@media only screen and (min-width: 200px) and (max-width: 600px) {
+    .colOwn {
+        flex: 0 0 auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 986px) {
+    .colOwn {
+        flex: 0 0 auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto;
+        width: 50%;
+    }
+}
+
+

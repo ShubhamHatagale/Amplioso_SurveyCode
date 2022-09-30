@@ -1,6 +1,7 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel';
+import "../../../assets/css/steps.css"
 export default function Step2(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
 
@@ -289,7 +290,7 @@ export default function Step2(props) {
 
                     <div className="row">
 
-                        <div className="col-sm-4">
+                        {/* <div className="col-sm-4">
 
                             <div className="card pad-card">
                                 <h2 className="fs-title">{first_name} THINKS</h2>
@@ -309,53 +310,67 @@ export default function Step2(props) {
                                 <h2 className="fs-title">{first_name} Makes Me FEEL</h2>
                             </div>
 
-                        </div>
+                        </div> */}
 
 
-                        <div className="col-sm-4" >
+                        <div className="colOwn" >
+                            <div className="cardp pad-cardp">
+                                <h2 className="fs-title">{first_name} THINKS</h2>
+                            </div>
 
                             {OptionDataCol1.map((item, key) => {
                                 var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
 
                                 return (
 
-                                    <div className="card pad-card" >
+                                    <div className="cardp pad-cardp" >
                                         <div className="range-slider" >
                                             <h3 className="sub-q min-height">{item.option}</h3>
                                             <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal)} onChange={inputChange} defaultValue={0} min={0} max={10} />
-                                            <span className="range-slider__value " style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == null || getFilteredValue(optionVal) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? ( getFilteredValue(optionVal)==0? "NA" :getFilteredValue(optionVal) ) : "NA"}</span> </div>
+                                            <span className="range-slider__value " style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == null || getFilteredValue(optionVal) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? (getFilteredValue(optionVal) == 0 ? "NA" : getFilteredValue(optionVal)) : "NA"}</span> </div>
                                     </div>
                                 )
                             })}
                         </div>
 
-                        <div className="col-sm-4" >
+                        <div className="colOwn" >
+
+                            <div className="cardp pad-cardp">
+                                <h2 className="fs-title">{first_name} ACTS</h2>
+                            </div>
+
+
                             {OptionDataCol2.map((item, key) => {
                                 var optionVal1 = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
 
                                 return (
 
-                                    <div className="card pad-card" >
+                                    <div className="cardp pad-cardp" >
                                         <div className="range-slider" >
                                             <h3 className="sub-q min-height">{item.option}</h3>
                                             <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal1)} onChange={inputChange} defaultValue={0} min={0} max={10} />
-                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal1) == 0 || getFilteredValue(optionVal1) == "" || getFilteredValue(optionVal1) == null || getFilteredValue(optionVal1) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal1.length > 0 ? ( getFilteredValue(optionVal1)==0? "NA" :getFilteredValue(optionVal1) ) : "NA"}</span> </div>
+                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal1) == 0 || getFilteredValue(optionVal1) == "" || getFilteredValue(optionVal1) == null || getFilteredValue(optionVal1) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal1.length > 0 ? (getFilteredValue(optionVal1) == 0 ? "NA" : getFilteredValue(optionVal1)) : "NA"}</span> </div>
                                     </div>
                                 )
                             })}
                         </div>
 
-                        <div className="col-sm-4" >
+                        <div className="colOwn" >
+
+                            <div className="cardp pad-cardp">
+                                <h2 className="fs-title">{first_name} Makes Me FEEL</h2>
+                            </div>
+
                             {OptionDataCol3.map((item, key) => {
                                 var optionVal2 = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
 
                                 return (
 
-                                    <div className="card pad-card" >
+                                    <div className="cardp pad-cardp" >
                                         <div className="range-slider" >
                                             <h3 className="sub-q min-height">{item.option}</h3>
                                             <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal2)} onChange={inputChange} defaultValue={0} min={0} max={10} />
-                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal2) == 0 || getFilteredValue(optionVal2) == "" || getFilteredValue(optionVal2) == null || getFilteredValue(optionVal2) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal2.length > 0 ? ( getFilteredValue(optionVal2)==0? "NA" :getFilteredValue(optionVal2) ) : "NA"}</span> </div>
+                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal2) == 0 || getFilteredValue(optionVal2) == "" || getFilteredValue(optionVal2) == null || getFilteredValue(optionVal2) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal2.length > 0 ? (getFilteredValue(optionVal2) == 0 ? "NA" : getFilteredValue(optionVal2)) : "NA"}</span> </div>
                                         {/* <span>{optionVal2.length > 0 ? optionVal2[0].answer : null}</span> */}
 
                                     </div>
