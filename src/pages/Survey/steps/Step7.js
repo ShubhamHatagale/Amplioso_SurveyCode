@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Checkbox, CircularProgress } from '@material-ui/core';
 import '../../../assets/css/Step7.css'
 import CircularProgressWithLabel from "../../../components/CircularProgressWithLabel";
+import { Modal } from "react-bootstrap";
 
 export default function Step2(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
@@ -21,6 +22,10 @@ export default function Step2(props) {
     const [SurveyAnswers, setSurveyAnswers] = useState([])
     const [showError, setshowError] = useState(false)
     const [loading, setloading] = useState(false)
+
+    const [Display, setDisplay] = useState(false);
+    const [notification, setnotification] = useState(false);
+
 
     // let uid.userId = 1;
 
@@ -54,12 +59,13 @@ export default function Step2(props) {
         console.log(alreadyVal)
         console.log(questionIdwiseData)
 
-        if (alreadyVal.length === 5) {
+        if (alreadyVal.length > 5) {
             getSelectedOptions()
 
             console.log("morethan 5")
-            setshowError(true)
-            window.scrollTo(0, 0)
+            setnotification("!Oops sorry, you can select only five options")
+            setDisplay(true)
+            // window.scrollTo(0, 0)
             setloading(0)
             return false
         } else if (alreadyVal.length === 0 && questionIdwiseData.length < 5) {
@@ -152,8 +158,9 @@ export default function Step2(props) {
                     })
                     .catch((error) => console.log("error", error));
             } else {
-                setshowError(true);
-                window.scrollTo(0, 0)
+                setnotification("!Oops sorry, you can select only five options")
+                setDisplay(true);
+                // window.scrollTo(0, 0)
                 setloading(0)
 
 
@@ -161,8 +168,9 @@ export default function Step2(props) {
 
         } else {
             console.log("morethan 5")
-            setshowError(true)
-            window.scrollTo(0, 0)
+            setnotification("!Oops sorry, you can select only five options")
+            setDisplay(true)
+            // window.scrollTo(0, 0)
             setloading(0)
 
         }
@@ -239,11 +247,12 @@ export default function Step2(props) {
             .then(resData => {
                 console.log("0008", resData.data)
                 // setOptionLenght(resData.data)
-                if (resData.data === 5) {
+                if (resData.data > 5) {
                     // alert("false")
                     console.log("morethan 5")
-                    setshowError(true)
-                    window.scrollTo(0, 0)
+                    setnotification("!Oops sorry, you can select only five options")
+                    setDisplay(true)
+                    // window.scrollTo(0, 0)
                     setloading(0)
                     return false
                 }
@@ -320,12 +329,34 @@ export default function Step2(props) {
 
     return (
         <fieldset>
+
+            <Modal
+                size="sm"
+                show={Display}
+                onHide={() => setDisplay(false)}
+                aria-labelledby="example-modal-sizes-title-md"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Error</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body className="success text-center mt-5">
+                    {/* <img style={{ height: "80px", width: "80px" }} src={Ico12} /> */}
+                    {/* <FaIconz.FaTimesCircle style={{ height: "60px", width: "60px" }} /> */}
+                </Modal.Body>
+
+                <Modal.Body className="success text-center text-danger bold h3">{notification}</Modal.Body>
+                <Modal.Body className="success text-center text-black bold" ><p style={{ cursor: 'pointer' }} onClick={() => setDisplay(false)} >Ok</p></Modal.Body>
+
+            </Modal>
+
             <div className="row">
                 <div className="col-12">
                     {/* <h2 className="steps">70%</h2> */}
                     <div className="steps">
-                            <CircularProgressWithLabel size={70} value={5 * 10} />
-                        </div>
+                        <CircularProgressWithLabel size={70} value={5 * 10} />
+                    </div>
                 </div>
             </div>
             <div className="form-card">
@@ -335,6 +366,7 @@ export default function Step2(props) {
                     <hr />
                     <br />
                     <br />
+
                     {showError == true ? (<span className="text-center bold text-danger">Please select only 5 options</span>) : null}
                     <div className="col-12">
 

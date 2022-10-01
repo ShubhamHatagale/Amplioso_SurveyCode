@@ -1,6 +1,8 @@
 import { Button, Checkbox, CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
+import { Modal } from 'react-bootstrap';
 import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel';
+
 const items = [
     "Collaboration",
     "Vision and Purpose",
@@ -24,6 +26,11 @@ export default function Step5(props) {
     const [showError, setshowError] = useState(false)
     const [loading, setloading] = useState(0)
     const [OptionLenght, setOptionLenght] = useState()
+    const [noti, setNoti] = useState(false)
+
+    const [notification, setnotification] = useState("");
+    const [Display, setDisplay] = useState(false);
+
 
     const nextFunction = () => {
         var questionIdwiseData = (SurveyAnswers.filter(({ question_id, answer, created_by }) => question_id === questionId && answer === "true" && created_by === uid.userId));
@@ -61,8 +68,9 @@ export default function Step5(props) {
         // if (OptionLenght===5) {
         //     console.log("false fj")
         //     console.log("morethan 5")
-        //     setshowError(true)
-        //     window.scrollTo(0, 0)
+        //      setnotification("!Oops sorry, you can select only five options")
+        // setDisplay(true)
+        // window.scrollTo(0, 0)
         //     setloading(0)
         //     return false
         // }
@@ -153,16 +161,18 @@ export default function Step5(props) {
                     })
                     .catch((error) => console.log("error", error));
             } else {
-                setshowError(true)
-                window.scrollTo(0, 0)
+                setnotification("!Oops sorry, you can select only five options")
+                setDisplay(true)
+                // window.scrollTo(0, 0)
                 setloading(0)
 
 
             }
         } else {
             console.log("morethan 5")
-            setshowError(true)
-            window.scrollTo(0, 0)
+            setnotification("!Oops sorry, you can select only five options")
+            setDisplay(true)
+            // window.scrollTo(0, 0)
             setloading(0)
 
 
@@ -198,11 +208,12 @@ export default function Step5(props) {
             .then(resData => {
                 console.log("0008", resData.data)
                 setOptionLenght(resData.data)
-                if (resData.data === 5) {
+                if (resData.data > 5) {
                     // alert("false")
                     console.log("morethan 5")
-                    setshowError(true)
-                    window.scrollTo(0, 0)
+                    setnotification("!Oops sorry, you can select only five options")
+                    setDisplay(true)
+                    // window.scrollTo(0, 0)
                     setloading(0)
                     return false
                 }
@@ -300,17 +311,47 @@ export default function Step5(props) {
                 getSelectedOptions()
             })
 
+        // renderModal()
+
     }, []);
 
     if (loading === 1) {
         return <div className="loader"> <CircularProgress /></div>
     }
+    // const renderModal = () => {
+    //     // e.preventDefault()
+    //     // alert("hhg")
+    //     setnotification("!Oops sorry, you can select only five options")
+    //     setDisplay(true)
+    // }
 
     return (
         <>
             {loading === 1 ? (<div className="loader" style={{ position: "fixed", top: "0px" }}> <CircularProgress /></div>) : null}
 
             <fieldset style={{ pointerEvents: loading === 1 ? "none" : "all" }}>
+                {/* <ModalComp data={{ display: noti, notification: "Errorss" }} /> */}
+                <Modal
+                    size="sm"
+                    show={Display}
+                    onHide={() => setDisplay(false)}
+                    aria-labelledby="example-modal-sizes-title-md"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Error</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body className="success text-center mt-5">
+                        {/* <img style={{ height: "80px", width: "80px" }} src={Ico12} /> */}
+                        {/* <FaIconz.FaTimesCircle style={{ height: "60px", width: "60px" }} /> */}
+                    </Modal.Body>
+
+                    <Modal.Body className="success text-center text-danger bold h3">{notification}</Modal.Body>
+                    <Modal.Body className="success text-center text-black bold" ><p style={{ cursor: 'pointer' }} onClick={() => setDisplay(false)} >Ok</p></Modal.Body>
+
+                </Modal>
+
                 <div className="row">
                     <div className="col-12">
                         {/* <h2 className="steps">50%</h2> */}
@@ -320,6 +361,8 @@ export default function Step5(props) {
                     </div>
                 </div>
                 <div className="form-card">
+                    {/* <button onClick={renderModal}  >check</button> */}
+
                     <div className="row">
                         {/* <Checkbox onChange={inputChange}
                     /> */}
