@@ -165,7 +165,7 @@ export default function Step2(props) {
 
     useEffect(() => {
         setloading(1)
-        GetAllRecords().then(()=>{
+        GetAllRecords().then(() => {
             setloading(0)
         })
 
@@ -361,8 +361,8 @@ export default function Step2(props) {
                                 <div className="col-12">
                                     {/* <h2 className="steps">10%</h2> */}
                                     <div className="steps">
-                            <CircularProgressWithLabel size={70} value={5 * 10} />
-                        </div>                                                                           
+                                        <CircularProgressWithLabel size={70} value={5 * 10} />
+                                    </div>
                                     {/* <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3> */}
                                 </div>
                             </div>

@@ -243,13 +243,6 @@ export default function Step2(props) {
                             if (optionVal.length > 0) {
                                 console.log(optionVal[0].answer)
                             }
-
-                            // console.log()
-
-                            // var total = nums.reduce(function(a,b) {
-                            //     return (+a)+(+b);
-                            // });
-
                             return (
                                 <div className="col-sm-6">
                                     <div className="card pad-card">
