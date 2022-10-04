@@ -42,16 +42,21 @@ export default function SurveyForm() {
     };
     const steps = [
         // <Pdf />,
-        <StepOne next={handleNextStep} data={data} />,
+        // <StepOne next={handleNextStep} data={data} />,
         <StepTwo next={handleNextStep} prev={handlePrevStep} data={data} />,
-        <StepThree next={handleNextStep} prev={handlePrevStep} data={data} />,
-        <StepFour next={handleNextStep} prev={handlePrevStep} data={data} />,
-        <StepFive next={handleNextStep} prev={handlePrevStep} data={data} />,
-        <StepSix next={handleNextStep} prev={handlePrevStep} data={data} />,
-        <StepSeven next={handleNextStep} prev={handlePrevStep} data={data} />,
-        <StepEight next={handleNextStep} prev={handlePrevStep} data={data} />,
-        <StepNine next={handleNextStep} prev={handlePrevStep} data={data} />
+        // <StepThree next={handleNextStep} prev={handlePrevStep} data={data} />,
+        // <StepFour next={handleNextStep} prev={handlePrevStep} data={data} />,
+        // <StepFive next={handleNextStep} prev={handlePrevStep} data={data} />,
+        // <StepSix next={handleNextStep} prev={handlePrevStep} data={data} />,
+        // <StepSeven next={handleNextStep} prev={handlePrevStep} data={data} />,
+        // <StepEight next={handleNextStep} prev={handlePrevStep} data={data} />,
+        // <StepNine next={handleNextStep} prev={handlePrevStep} data={data} />
+
+
+
     ];
+
+   
 
     return (
         <div className="content-body">

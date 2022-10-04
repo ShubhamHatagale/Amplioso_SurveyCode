@@ -45,4 +45,16 @@ const SuperAdminRouting = () => {
         </Switch>
     );
 };
+
+
+
+// const colorOptions={
+//     slices: {
+//         0: { color: "rgb(168,26,12)" },
+//         1: { color: "rgb(55,55,94)" },
+//         2: { color: "rgb(53,98,136)" },
+//         3: { color: "rgb(170,207,221)" },
+//     },
+// }
+
 export default SuperAdminRouting

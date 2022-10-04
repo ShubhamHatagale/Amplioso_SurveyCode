@@ -333,7 +333,7 @@ font-family: 'Nunito', sans-serif; */
 
 .sqr_list2 {
   height: 18px;
-  width: 6px;
+  width: 12px;
   /* padding: 10px; */
   /* background-color: #555; */
 }
@@ -487,3 +487,14 @@ font-family: 'Nunito', sans-serif; */
   position: relative;
   bottom: -14px;
 }
+
+.headerRightLogo{
+  height: 16px;
+  width: 60px;
+}
+
+/* color={`rgb(236,101,94)`
+color={`rgb(55,55,94)`
+color={`rgb(121,159,203)`
+color={`rgb(214,225,185)` */
+

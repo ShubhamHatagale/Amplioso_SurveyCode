@@ -13,7 +13,7 @@ export default function Step2(props) {
     const [questionId, setquestionId] = useState("")
     const [SurveyAnswers, setSurveyAnswers] = useState([])
     const [loading, setloading] = useState(0);
-    const [inputListFinal, setInputListFinal] = useState([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]);
+
 
     function validate() {
         var valid_val = true;
@@ -206,51 +206,12 @@ export default function Step2(props) {
 
 
     useEffect(() => {
-        // setInputListFinal("")
-
-        console.log(OptionData)
-        let val = [];
-        let total = OptionData.length;
-        for (let i = 1; i <= total; i++) {
-            inputListFinal.push({ range_val: 0 })
-        }
-
         setloading(1)
         GetAllRecords().then(() => {
             setloading(0)
         })
 
-        console.log(inputListFinal)
-
-
-
     }, []);
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(inputListFinal)
-    }
-
-    const handleInputChange = (e, index) => {
-        console.log(e.target.value)
-        console.log(e.target.name)
-
-
-
-        // const { name, value } = e.target;
-        // const list = [...inputListFinal];
-        // console.log("Here is the Value---1>", list);
-        // list[index][name] = value;
-        // console.log(value + "val");
-        // setInputListFinal(list);
-
-        const { name, value } = e.target;
-        const list = [...inputListFinal];
-        console.log("Here is the Value2", list);
-        list[index][name] = value;
-        setInputListFinal(list);
-
-    }
 
 
     const getFilteredValue = (optionVal) => {
@@ -274,9 +235,9 @@ export default function Step2(props) {
                     <br />
                     <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
                     <div className="row">
-                        {OptionData.map((item, i) => {
+                        {OptionData.map((item, key) => {
                             // console.log(item.id)
-                            // console.log(SurveyAnswers)
+                            console.log(SurveyAnswers)
                             var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
 
                             if (optionVal.length > 0) {
@@ -290,20 +251,9 @@ export default function Step2(props) {
                                             <ReactTooltip />
                                             {/* style={{pointerEvents:loading==0}} */}
                                             {/* <h1>{getFilteredValue(optionVal)}</h1> */}
-                                            {/* {console.log(getFilteredValue(optionVal))} */}
-                                            {/* <h1>{i}</h1> */}
-                                            <input className="range-slider__range"
-                                                type="range"
-                                                id={item.id}
-                                                // value={getFilteredValue(optionVal)}
-                                                defaultValue={0}
-                                                min={0}
-                                                max={10}
-                                                // name="range_val"
-                                                name={`range_val`}
-                                                ips="0"
-                                                onChange={(e) => handleInputChange(e, i)} />
-                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == null || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == "NA" || "" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? (getFilteredValue(optionVal) == 0 ? "NA" : getFilteredValue(optionVal)) : "NA"}</span>
+                                            {console.log(getFilteredValue(optionVal))}
+                                            <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal)} defaultValue={0} min={0} max={10} onChange={inputChange} />
+                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == null || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == "NA"||"" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? ( getFilteredValue(optionVal)==0? "NA" :getFilteredValue(optionVal) ) : "NA"}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -315,7 +265,7 @@ export default function Step2(props) {
                 <div className="col-lg-12">
                     <div className="button btn-align-step2">
                         <input type="button" onClick={() => props.prev()} name="previous" className="previous-step-btn" defaultValue="Previous" />
-                        <input type="button" onClick={handleSubmit} name="next" className="next-step-btn" defaultValue="Next" />
+                        <input type="button" onClick={nextFunction} name="next" className="next-step-btn" defaultValue="Next" />
                     </div>
                 </div>
             </fieldset>
