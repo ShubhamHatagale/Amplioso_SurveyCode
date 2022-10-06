@@ -17,124 +17,47 @@ export default function Step1(props) {
 
     const [OptData, setOptData] = useState("")
     const [OptionVal, setOptionVal] = useState("")
-    const [impVal, setimpVal] = useState([{ range_val: 0 }])
-    const [inputListFinal, setInputListFinal] = useState([{ range_val: 0 }]);
+    const [impVal, setimpVal] = useState(0)
 
     const [questionId, setquestionId] = useState("")
-    const [RecordeData, setRecordeData] = useState()
 
+    const [data, setData] = useState({
+        // inputVal: 0,
+        last_name: "",
+        email: "",
+        password: "",
+        que1: "",
+    });
 
     // let uid = 1;
     const [value, setValue] = useState(0);
     const handleChange = (e) => {
-        // let name=e.tar
-        // setimpVal([...impVal,{range_val:e.target.value}]);
-        // setimpVal(impVal => [...impVal, { range_val: e.target.value }])
-        // inputListFinal.push({ range_val: e.target.value })
-        const { name, value } = e.target;
-        const list = [...inputListFinal];
-        console.log("Here is the Value", list);
-        list[0][name] = value;
-        setInputListFinal(list);
-
-
+        setimpVal(e.target.value);
     }
 
 
     const handleSubmit = (values) => {
-        console.log(RecordeData)
-        // console.log(RecordeData ? "true" : "false")
-
-        // return false
+        console.log(impVal)
         // if (impVal == 0) {
         //     return false
         // }
         console.log(questionId);
-
-
-        // props.next(values);
-        if (RecordeData) {
-            console.log("update")
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            // inputList.map((item,key)=>{
-            var raw = JSON.stringify({
-                feature: inputListFinal,
-                updated_by: uid.userId
-            });
-            var requestOptions = {
-                method: "PUT",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        GetAllRecords();
-                        // props.next(values);
-                        console.log(resData);
-
-
-                    }
-                    // GetAllRecords();
-                })
-                .catch((error) => console.log("error", error));
-        } else {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            // inputList.map((item,key)=>{
-            var raw = JSON.stringify({
-                employee_id: uid.employeeId,
-                surveyor_id: uid.userId,
-                question_id: questionId,
-                manager_id: uid.managerId,
-                company_id: uid.companyId,
-                feature: inputListFinal,
-                created_by: uid.userId,
-                updated_by: uid.userId
-            });
-            var requestOptions = {
-                method: "POST",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_feedback`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        GetAllRecords();
-                        // props.next(values);
-                        console.log(resData);
-
-
-                    }
-                    // GetAllRecords();
-                })
-                .catch((error) => console.log("error", error));
-
-
-        }
-
-
-
-        return false
         if (OptData) {
             console.warn("update")
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             // inputList.map((item,key)=>{
             var raw = JSON.stringify({
+                survey_id: 0,
                 employee_id: uid.employeeId,
+                survey_user_mapping_id: 0,
                 surveyor_id: uid.userId,
-                question_id: questionId,
-                manager_id: uid.managerId,
                 company_id: uid.companyId,
-                feature: inputListFinal,
+                manager_id: uid.managerId,
+                question_id: questionId,
+
+                option_id: 190,
+                answer: impVal,
                 created_by: uid.userId,
                 updated_by: uid.userId
             });
@@ -166,14 +89,18 @@ export default function Step1(props) {
             myHeaders.append("Content-Type", "application/json");
             // inputList.map((item,key)=>{
             var raw = JSON.stringify({
+                survey_id: 0,
                 employee_id: uid.employeeId,
+                survey_user_mapping_id: 0,
                 surveyor_id: uid.userId,
-                question_id: questionId,
-                manager_id: uid.managerId,
                 company_id: uid.companyId,
-                feature: inputListFinal,
+                manager_id: uid.managerId,
+                question_id: questionId,
+
+                option_id: 190,
+                answer: impVal,
                 created_by: uid.userId,
-                updated_by: uid.userId
+                updated_by: uid.userId,
             });
             var requestOptions = {
                 method: "POST",
@@ -181,15 +108,14 @@ export default function Step1(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://localhost:9000/masters/survey_feedback/`, requestOptions)
+            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
+                    console.log(resData);
                     if (resData.status == 200) {
                         console.log("Values Submitted Succesfully");
                         GetAllRecords();
-                        // props.next(values);
-                        console.log(resData);
-
+                        props.next(values);
 
                     }
                     // GetAllRecords();
@@ -233,51 +159,32 @@ export default function Step1(props) {
                         console.log(result.data[0].id)
                         console.log(result.data[0].id)
                         setquestion(result.data[0].question);
-                        // getOptions(result.data[0].id);
+                        getOptions(result.data[0].id);
                     })
 
                     .catch(error => console.log('error', error));
             }).then(() => setloading(0))
 
 
-        const response4 = fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                // setlistRecord(result.data);
-                console.log(result)
-                console.log(result.data)
-                setRecordeData(result.data)
-
-                let MyValues = result.data;
-                // if (MyValues.length > 0) {
-                //   setedituser(true);
-                //   setUpid(result.data[0].id);
-                // }
-                console.log("Edit Values", MyValues);
-
-                // MyValues.map((item, key) => {
-                //     console.log("before Eval", item.features);
-                //     let Feature = eval(item.features);
-                //     console.log("SDfjdskjfn jsdhfkjsdfn", Feature);
-                //     setInputListFinal(Feature)
-
-                // });
-
-
-            })
-
     }
 
 
     const getOptions = (resIdC) => {
+        // console.log("checkIDsss", resIdC, questionId)
         var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw1 = JSON.stringify({
+            surveyor_id: uid.userId,
+            question_id: resIdC,
+        });
         var requestOptions = {
-            method: 'GET',
+            method: "POST",
             headers: myHeaders,
-            redirect: 'follow'
+            body: raw1,
+            redirect: "follow",
         };
 
-        const response3 = fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/survey_answers_same`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 // setlistRecord(rwsOpt.data);
@@ -290,7 +197,6 @@ export default function Step1(props) {
                     setOptData(rwsOpt.data.id);
                     setOptionVal(rwsOpt.data.answer)
                     setimpVal(rwsOpt.data.answer)
-                    setInputListFinal(rwsOpt.data.answer)
 
                 }
 
@@ -352,11 +258,8 @@ export default function Step1(props) {
                                         <br />
                                         <div className="card pad-card">
                                             <div className="range-slider">
-                                                <input className="range-slider__range" type="range" name="range_val" onChange={handleChange} value={inputListFinal[0].range_val} defaultValue={OptionVal} min={0} max={10} />
-                                                {/* <span className="range-slider__value" >{inputListFinal[0].range_val}</span>  */}
-                                                <span className="range-slider__value" style={{ backgroundColor: inputListFinal[0].range_val == 0 || inputListFinal[0].range_val == "" || inputListFinal[0].range_val == "NA" ? "rgb(221,38,60)" : "" }} >{inputListFinal[0].range_val == 0 ? "NA" : inputListFinal[0].range_val}</span>
-
-                                            </div>
+                                                <input className="range-slider__range" type="range" value={impVal} onChange={handleChange} name="inputVal" defaultValue={OptionVal} min={0} max={10} />
+                                                <span className="range-slider__value" style={{ backgroundColor: impVal == 0 || impVal == "" || impVal == "NA" ? "rgb(221,38,60)" : "" }} >{impVal == 0 ? "NA" : impVal}</span> </div>
                                             {/* <span className="range-slider__value" style={{backgroundColor:"rgb(221,38,60)"}} >{impVal == 0 ? "NA" : impVal}</span> </div> */}
 
                                             <div>

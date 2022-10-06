@@ -42,7 +42,7 @@ export default function SurveyForm() {
     };
     const steps = [
         // <Pdf />,
-        // <StepOne next={handleNextStep} data={data} />,
+        <StepOne next={handleNextStep} data={data} />,
         <StepTwo next={handleNextStep} prev={handlePrevStep} data={data} />,
         // <StepThree next={handleNextStep} prev={handlePrevStep} data={data} />,
         // <StepFour next={handleNextStep} prev={handlePrevStep} data={data} />,
