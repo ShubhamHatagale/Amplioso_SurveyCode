@@ -53,7 +53,7 @@ export default function Step1(props) {
 
 
         // props.next(values);
-        if (RecordeData) {
+        if (RecordeData.length > 0) {
             console.log("update")
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -247,6 +247,7 @@ export default function Step1(props) {
                 console.log(result)
                 console.log(result.data)
                 setRecordeData(result.data)
+                console.log(result.data.feature)
 
                 let MyValues = result.data;
                 // if (MyValues.length > 0) {
@@ -254,6 +255,12 @@ export default function Step1(props) {
                 //   setUpid(result.data[0].id);
                 // }
                 console.log("Edit Values", MyValues);
+                MyValues.map((x,i)=>{
+                    console.log(i)
+                    let Feature = eval(x.feature);
+                    console.log("feature", Feature);
+                    setInputListFinal(Feature)
+                })
 
                 // MyValues.map((item, key) => {
                 //     console.log("before Eval", item.features);
