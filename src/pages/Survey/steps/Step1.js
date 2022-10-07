@@ -26,7 +26,7 @@ export default function Step1(props) {
 
     // let uid = 1;
     const [value, setValue] = useState(0);
-    const handleChange = (e) => {
+    const handleInputChange = (e) => {
         // let name=e.tar
         // setimpVal([...impVal,{range_val:e.target.value}]);
         // setimpVal(impVal => [...impVal, { range_val: e.target.value }])
@@ -74,7 +74,7 @@ export default function Step1(props) {
                     if (resData.status == 200) {
                         console.log("Values Submitted Succesfully");
                         GetAllRecords();
-                        // props.next(values);
+                        props.next(values);
                         console.log(resData);
 
 
@@ -108,86 +108,7 @@ export default function Step1(props) {
                     if (resData.status == 200) {
                         console.log("Values Submitted Succesfully");
                         GetAllRecords();
-                        // props.next(values);
-                        console.log(resData);
-
-
-                    }
-                    // GetAllRecords();
-                })
-                .catch((error) => console.log("error", error));
-
-
-        }
-
-
-
-        return false
-        if (OptData) {
-            console.warn("update")
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            // inputList.map((item,key)=>{
-            var raw = JSON.stringify({
-                employee_id: uid.employeeId,
-                surveyor_id: uid.userId,
-                question_id: questionId,
-                manager_id: uid.managerId,
-                company_id: uid.companyId,
-                feature: inputListFinal,
-                created_by: uid.userId,
-                updated_by: uid.userId
-            });
-            var requestOptions = {
-                method: "PUT",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_answers/${OptData}`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
-                    console.log(resData);
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        GetAllRecords();
                         props.next(values);
-
-                    }
-                    // GetAllRecords();
-                })
-                .catch((error) => console.log("error", error));
-
-        } else {
-            console.warn("post")
-            // props.next(values);
-
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            // inputList.map((item,key)=>{
-            var raw = JSON.stringify({
-                employee_id: uid.employeeId,
-                surveyor_id: uid.userId,
-                question_id: questionId,
-                manager_id: uid.managerId,
-                company_id: uid.companyId,
-                feature: inputListFinal,
-                created_by: uid.userId,
-                updated_by: uid.userId
-            });
-            var requestOptions = {
-                method: "POST",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_feedback/`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        GetAllRecords();
-                        // props.next(values);
                         console.log(resData);
 
 
@@ -200,6 +121,7 @@ export default function Step1(props) {
         }
 
     };
+    
     const stepOneValidationSchema = Yup.object({
         // first_name: Yup.number().required().label("First name").min(1, "Please select a value")
         // last_name: Yup.string().required().label("Last name")
@@ -262,13 +184,6 @@ export default function Step1(props) {
                     setInputListFinal(Feature)
                 })
 
-                // MyValues.map((item, key) => {
-                //     console.log("before Eval", item.features);
-                //     let Feature = eval(item.features);
-                //     console.log("SDfjdskjfn jsdhfkjsdfn", Feature);
-                //     setInputListFinal(Feature)
-
-                // });
 
 
             })
@@ -324,7 +239,7 @@ export default function Step1(props) {
                 {(formik) => {
                     const {
                         values,
-                        // handleChange,
+                        // handleInputChange,
                         handleSubmit,
                         errors,
                         touched,
@@ -359,7 +274,7 @@ export default function Step1(props) {
                                         <br />
                                         <div className="card pad-card">
                                             <div className="range-slider">
-                                                <input className="range-slider__range" type="range" name="range_val" onChange={handleChange} value={inputListFinal[0].range_val} defaultValue={OptionVal} min={0} max={10} />
+                                                <input className="range-slider__range" type="range" name="range_val" onChange={handleInputChange} value={inputListFinal[0].range_val} defaultValue={OptionVal} min={0} max={10} />
                                                 {/* <span className="range-slider__value" >{inputListFinal[0].range_val}</span>  */}
                                                 <span className="range-slider__value" style={{ backgroundColor: inputListFinal[0].range_val == 0 || inputListFinal[0].range_val == "" || inputListFinal[0].range_val == "NA" ? "rgb(221,38,60)" : "" }} >{inputListFinal[0].range_val == 0 ? "NA" : inputListFinal[0].range_val}</span>
 

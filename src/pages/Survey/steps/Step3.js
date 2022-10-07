@@ -16,8 +16,10 @@ export default function Step3(props) {
     const [inputValue, setinputValue] = useState([{ inpV: "" }])
     const [SurveyAnswers, setSurveyAnswers] = useState([])
     const [loading, setloading] = useState(0)
-
+    // const [inputListFinal, setInputListFinal] = useState([{ range_value: 0, range_value: 0, range_value: 0, range_value: 0, range_value: 0 }]);
     // let uid.userId = 1;
+    const [inputListFinal, setInputListFinal] = useState([{ range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }]);
+    const [RecordeData, setRecordeData] = useState()
 
 
     function validate() {
@@ -46,101 +48,7 @@ export default function Step3(props) {
     }
 
 
-    const inputChange = (e) => {
-        setloading(1)
-        let val1 = e.target.value;
-        let optionId = e.target.id;
-        console.log(val1)
-        console.log(optionId)
-        setinputValue(val1);
 
-        var alreadyVal = (SurveyAnswers.filter(({ question_id, option_id, created_by }) => question_id == questionId && option_id == optionId && created_by == uid.userId));
-        console.log(alreadyVal);
-        if (alreadyVal.length > 0) {
-            console.log("update")
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            // inputList.map((item,key)=>{
-            var raw = JSON.stringify({
-                survey_id: 0,
-                employee_id: uid.employeeId,
-                survey_user_mapping_id: 0,
-                surveyor_id: uid.userId,
-                company_id: uid.companyId,
-                manager_id: uid.managerId,
-                question_id: questionId,
-
-                option_id: optionId,
-                answer: val1,
-                created_by: uid.userId,
-                updated_by: uid.userId,
-            });
-            var requestOptions = {
-                method: "PUT",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_answers/${alreadyVal[0].id}`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
-                    console.log(resData);
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        GetAllRecords();
-                        // props.next(values);
-                        setloading(0)
-                    }
-                    // GetAllRecords();
-                })
-                .catch((error) => console.log("error", error));
-
-
-        } else {
-            console.log("post")
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            // inputList.map((item,key)=>{
-            var raw = JSON.stringify({
-                survey_id: 0,
-                employee_id: uid.employeeId,
-                survey_user_mapping_id: 0,
-                surveyor_id: uid.userId,
-                company_id: uid.companyId,
-                manager_id: uid.managerId,
-                question_id: questionId,
-
-                option_id: optionId,
-                answer: val1,
-                created_by: uid.userId,
-                updated_by: uid.userId,
-            });
-            var requestOptions = {
-                method: "POST",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
-                    console.log(resData);
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        setloading(0)
-
-                    }
-                    GetAllRecords();
-                })
-                .catch((error) => console.log("error", error));
-
-        }
-
-
-        // props.next(values);
-
-
-    }
 
     const GetAllRecords = async () => {
         // console.log(props.data.que1)
@@ -176,6 +84,37 @@ export default function Step3(props) {
                 // }
 
             })
+
+        const response4 = fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                // setlistRecord(result.data);
+                console.log(result)
+                console.log(result.data)
+                setRecordeData(result.data)
+                console.log(result.data.feature)
+
+                let MyValues = result.data;
+                // if (MyValues.length > 0) {
+                //   setedituser(true);
+                //   setUpid(result.data[0].id);
+                // }
+                console.log("Edit Values", MyValues);
+
+                MyValues.map((x, i) => {
+                    console.log(i)
+                    let Feature = eval(x.feature2);
+                    console.log("feature", Feature);
+                    if (Feature) {
+                        setInputListFinal(Feature)
+
+                    }
+                })
+
+
+
+            })
+
         const responseSurveyAnswer = await fetch(`http://localhost:9000/masters/survey_answers`, requestOptions)
             .then(responseSurveyAnswer => responseSurveyAnswer.json())
             .then(surveyResult => {
@@ -219,6 +158,52 @@ export default function Step3(props) {
         return optionVal.length != 0 ? optionVal[0].answer : null
     }
 
+    const handleInputChange = (e, index) => {
+        console.log(e.target.value)
+        console.log(e.target.name)
+        // alert(index)
+
+        const { name, value } = e.target;
+        const list = [...inputListFinal];
+        console.log("Here is the Value", list);
+        list[index][name] = value;
+        setInputListFinal(list);
+
+    }
+
+    const handleSubmit = (values) => {
+        console.log(RecordeData)
+        console.log(questionId);
+        // props.next(values);
+        console.log("update")
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({
+            feature2: inputListFinal,
+            updated_by: uid.userId
+        });
+        var requestOptions = {
+            method: "PUT",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+        };
+        fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+            .then((response) => response.json())
+            .then((resData) => {
+                if (resData.status == 200) {
+                    console.log("Values Submitted Succesfully");
+                    GetAllRecords();
+                    props.next(values);
+                    console.log(resData);
+                }
+            })
+            .catch((error) => console.log("error", error));
+
+
+    };
+
+
     return (
         <>
             {loading === 1 ? (<div className="loader"> <CircularProgress /></div>) : null}
@@ -247,20 +232,32 @@ export default function Step3(props) {
 
 
 
-                        {OptionData.map((item, key) => {
+                        {OptionData.map((item, i) => {
                             var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
 
                             return (
                                 <div className="col-sm-12">
                                     <div className="card pad-card">
-                                        <div className="range-slider">
-                                            {/* <h3 className="sub-q">{item.option}</h3> */}
-                                            <div className="sub-q" data-tip={item.option}>{item.option}</div>
-                                            <ReactTooltip />
+                                        {inputListFinal ? (
+                                            <div className="range-slider">
+                                                {/* <h3 className="sub-q">{item.option}</h3> */}
+                                                <div className="sub-q" data-tip={item.option}>{item.option}</div>
+                                                <ReactTooltip />
 
-                                            <input className="range-slider__range" type="range" id={item.id} value={getFilteredValue(optionVal)} onChange={inputChange} defaultValue={0} min={0} max={10} />
-                                            <span className="range-slider__value" style={{ backgroundColor: getFilteredValue(optionVal) == 0 || getFilteredValue(optionVal) == null || getFilteredValue(optionVal) == "" || getFilteredValue(optionVal) == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? ( getFilteredValue(optionVal)==0? "NA" :getFilteredValue(optionVal) ) : "NA"}</span> </div>
+                                                <input className="range-slider__range" type="range" id={item.id}
+                                                    // value={getFilteredValue(optionVal)}
+                                                    name="range_val"
+                                                    value={inputListFinal[i].range_val}
+                                                    defaultValue={0}
+                                                    min={0}
+                                                    max={10}
+                                                    onChange={(e) => handleInputChange(e, i)} />
+
+                                                <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val == 0 || inputListFinal[i].range_val == null || inputListFinal[i].range_val == "" || inputListFinal[i].range_val == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? (inputListFinal[i].range_val == 0 ? "NA" : inputListFinal[i].range_val) : "NA"}</span>
+                                            </div>
+                                        ) : null}
                                     </div>
+
                                 </div>
                             )
                         })}
@@ -269,7 +266,7 @@ export default function Step3(props) {
                 </div>
                 <div className="button btn-align-step2">
                     <input type="button" onClick={() => props.prev()} name="previous" className="previous-step-btn" defaultValue="Previous" />
-                    <input type="button" onClick={nextFunction} name="next" className="next-step-btn" defaultValue="Next" />
+                    <input type="button" onClick={handleSubmit} name="next" className="next-step-btn" defaultValue="Next" />
                 </div>
             </fieldset>
         </>
