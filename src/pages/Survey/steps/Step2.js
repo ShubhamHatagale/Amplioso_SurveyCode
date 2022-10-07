@@ -13,123 +13,15 @@ export default function Step2(props) {
     const [questionId, setquestionId] = useState("")
     const [SurveyAnswers, setSurveyAnswers] = useState([])
     const [loading, setloading] = useState(0);
-    const [inputListFinal, setInputListFinal] = useState([]);
+    const [inputListFinal, setInputListFinal] = useState([{ range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }]);
+    const [RecordeData, setRecordeData] = useState();
 
-    function validate() {
-        var valid_val = true;
-        OptionData.map((item, key) => {
-            var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
-            if (optionVal.length == 0) {
-                console.log(false)
-                valid_val = false
-            }
-
-            optionVal.map((item, key) => {
-                console.log(item)
-                if (item.answer == 0 || item.length == 0) {
-                    console.log(false)
-                    valid_val = false
-                }
-            })
-        })
-        return valid_val
-    }
-
-    const nextFunction = () => {
-        // if (validate()) {
-        //     props.next()
-        // }
-        props.next()
-
-    }
-
-    const inputChange = (e) => {
-        setloading(1)
-        let val1 = e.target.value;
-        let optionId = e.target.id;
-        console.log(val1)
-        console.log(questionId)
-        console.log(optionId)
-        var alreadyVal = (SurveyAnswers.filter(({ question_id, option_id, created_by }) => question_id == questionId && option_id == optionId && created_by == uid.userId));
-        console.log(alreadyVal)
-        if (alreadyVal.length > 0) {
-            console.log("update")
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            var raw = JSON.stringify({
-                survey_id: 0,
-                employee_id: uid.employeeId,
-                survey_user_mapping_id: 0,
-                surveyor_id: uid.userId,
-                company_id: uid.companyId,
-                manager_id: uid.managerId,
-                question_id: questionId,
-                option_id: optionId,
-                answer: val1,
-                created_by: uid.userId,
-                updated_by: uid.userId,
-            });
-            var requestOptions = {
-                method: "PUT",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_answers/${alreadyVal[0].id}`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
-                    console.log(resData);
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        GetAllRecords();
-                        setloading(0)
-
-                    }
-                    setloading(0)
-
-                })
-                .catch((error) => console.log("error", error));
-
-        } else {
-            console.log("post")
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            var raw = JSON.stringify({
-                survey_id: 0,
-                employee_id: uid.employeeId,
-                survey_user_mapping_id: 0,
-                surveyor_id: uid.userId,
-                company_id: uid.companyId,
-                manager_id: uid.managerId,
-                question_id: questionId,
-                option_id: optionId,
-                answer: val1,
-                created_by: uid.userId,
-                updated_by: uid.userId,
-            });
-            var requestOptions = {
-                method: "POST",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
-                    console.log(resData);
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        setloading(0)
-
-                    }
-                    GetAllRecords();
-                })
-                .catch((error) => console.log("error", error));
-        }
-
-    }
-
+   
     const GetAllRecords = async () => {
+        // console.log(inputListFinal)
+        // console.log(inputListFinal[0].range_val)
+
+        // return false
         var myHeaders = new Headers();
         var requestOptions = {
             method: 'GET',
@@ -156,7 +48,7 @@ export default function Step2(props) {
                 console.log(result.data[1].id)
                 setquestion(result.data[1].question);
                 getOptions(result.data[1].id);
-                getOptions1(result.data[0].id);
+                // getOptions1(result.data[0].id);
             })
 
         const responseSurveyAnswer = await fetch(`http://localhost:9000/masters/survey_answers`, requestOptions)
@@ -165,6 +57,38 @@ export default function Step2(props) {
                 console.log(surveyResult.data)
                 setSurveyAnswers(surveyResult.data);
             })
+
+        const response4 = fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                // setlistRecord(result.data);
+                console.log(result)
+                console.log(result.data)
+                setRecordeData(result.data)
+                console.log(result.data.feature)
+
+                let MyValues = result.data;
+                // if (MyValues.length > 0) {
+                //   setedituser(true);
+                //   setUpid(result.data[0].id);
+                // }
+                console.log("Edit Values", MyValues);
+
+                MyValues.map((x, i) => {
+                    console.log(i)
+                    let Feature = eval(x.feature1);
+                    console.log("feature", Feature);
+                    if (Feature) {
+                        setInputListFinal(Feature)
+
+                    }
+                })
+
+
+
+            })
+
+
     }
 
     const getOptions = (resIdC) => {
@@ -183,37 +107,17 @@ export default function Step2(props) {
                 console.log(rwsOpt.data)
                 let optionDataResult = rwsOpt.data
                 let val = [];
-                if (optionDataResult.length != inputListFinal.length) {
-                    optionDataResult.map((item, index) => {
-                        setInputListFinal(inputListFinal => [...inputListFinal, { range_val: 0 }])
-                    })
-                }
+                // if (optionDataResult.length != inputListFinal.length) {
+                //     optionDataResult.map((item, index) => {
+                //         setInputListFinal(inputListFinal => [...inputListFinal, { range_val: 0 }])
+                //     })
+                // }
 
 
             })
     }
 
-    const getOptions1 = (resIdC) => {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        var raw1 = JSON.stringify({
-            surveyor_id: uid.userId,
-            question_id: resIdC,
-        });
-        var requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            body: raw1,
-            redirect: "follow",
-        };
-        const response3 = fetch(`http://localhost:9000/masters/survey_answers_same`, requestOptions)
-            .then(response3 => response3.json())
-            .then(rwsOpt => {
-                if (rwsOpt.data) {
-                    console.log(rwsOpt.data)
-                }
-            })
-    }
+  
 
 
     useEffect(() => {
@@ -232,15 +136,16 @@ export default function Step2(props) {
 
     }, []);
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(inputListFinal)
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     console.log(inputListFinal)
+    // }
+
 
     const handleInputChange = (e, index) => {
         console.log(e.target.value)
         console.log(e.target.name)
-        
+
         const { name, value } = e.target;
         const list = [...inputListFinal];
         console.log("Here is the Value", list);
@@ -248,6 +153,48 @@ export default function Step2(props) {
         setInputListFinal(list);
 
     }
+
+    const handleSubmit = (values) => {
+        console.log(RecordeData)
+        // console.log(RecordeData ? "true" : "false")
+
+        // return false
+        // if (impVal == 0) {
+        //     return false
+        // }
+        console.log(questionId);
+
+
+        // props.next(values);
+        console.log("update")
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        // inputList.map((item,key)=>{
+        var raw = JSON.stringify({
+            feature1: inputListFinal,
+            updated_by: uid.userId
+        });
+        var requestOptions = {
+            method: "PUT",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+        };
+        fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+            .then((response) => response.json())
+            .then((resData) => {
+                if (resData.status == 200) {
+                    console.log("Values Submitted Succesfully");
+                    GetAllRecords();
+                    props.next(values);
+                    console.log(resData);
+                }
+                // GetAllRecords();
+            })
+            .catch((error) => console.log("error", error));
+
+
+    };
 
 
     const getFilteredValue = (optionVal) => {
@@ -277,32 +224,31 @@ export default function Step2(props) {
                             var optionVal = SurveyAnswers.filter(({ option_id, created_by }) => option_id === item.id && created_by === uid.userId)
 
                             if (optionVal.length > 0) {
-                                console.log(optionVal[0].answer)
+                                // console.log(optionVal[0].answer)
                             }
+
                             return (
                                 <div className="col-sm-6">
                                     <div className="card pad-card">
-                                        <div className="range-slider">
-                                            <div className="sub-q" data-tip={item.option}>{item.option}</div>
-                                            <ReactTooltip />
-                                            {/* style={{pointerEvents:loading==0}} */}
-                                            {/* <h1>{getFilteredValue(optionVal)}</h1> */}
-                                            {/* {console.log(getFilteredValue(optionVal))} */}
-                                            {/* <h1>{i}</h1> */}
-                                            <input className="range-slider__range"
-                                                type="range"
-                                                id={item.id}
-                                                // value={getFilteredValue(optionVal)}
-                                                defaultValue={0}
-                                                min={0}
-                                                max={10}
-                                                // name="range_val"
-                                                value={inputListFinal[i].range_val}
-                                                name={`range_val`}
-                                                ips="0"
-                                                onChange={(e) => handleInputChange(e, i)} />
-                                            <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val == 0 || inputListFinal[i].range_val == null || inputListFinal[i].range_val == "" || inputListFinal[i].range_val == "NA" || "" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? (inputListFinal[i].range_val == 0 ? "NA" : inputListFinal[i].range_val) : "NA"}</span>
-                                        </div>
+                                        {inputListFinal ? (
+                                            <div className="range-slider">
+                                                <div className="sub-q" data-tip={item.option}>{item.option}</div>
+                                                <ReactTooltip />
+
+                                                <input className="range-slider__range"
+                                                    type="range"
+                                                    id={item.id}
+                                                    // value={getFilteredValue(optionVal)}
+                                                    defaultValue={0}
+                                                    min={0}
+                                                    max={10}
+                                                    name="range_val"
+                                                    value={inputListFinal[i].range_val}
+                                                    ips="0"
+                                                    onChange={(e) => handleInputChange(e, i)} />
+                                                <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val == 0 || inputListFinal[i].range_val == null || inputListFinal[i].range_val == "" || inputListFinal[i].range_val == "NA" || "" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? (inputListFinal[i].range_val == 0 ? "NA" : inputListFinal[i].range_val) : "NA"}</span>
+                                            </div>
+                                        ) : null}
                                     </div>
                                 </div>
                             )

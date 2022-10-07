@@ -30,7 +30,7 @@ import CircularProgressWithLabel from '../../../components/CircularProgressWithL
 
 export default function Step9(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
-    const [DisplayDiv, setDisplayDiv] = useState(true);
+    const [DisplayDiv, setDisplayDiv] = useState(false);
     const [pdfShowDes, setpdfShowDes] = useState(0);
     const history = useHistory();
     const [beliverName, setbeliverName] = useState("");
@@ -1287,9 +1287,9 @@ export default function Step9(props) {
                                         <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_end.split('T')[0]}</span><br />
                                     </div>
 
-                                    <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px" }}>
+                                    <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px",textTransform:"capitalize" }}>
                                         <span style={{ fontSize: "10px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>Created By</span><br />
-                                        <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.first_name}</span><br />
+                                        <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.last_name}</span><br />
                                         <span style={{ fontSize: "10px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>Generated On</span><br />
                                         <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].createdAt.split('T')[0]}</span><br />
 
@@ -1328,7 +1328,7 @@ export default function Step9(props) {
                                                                 <>
                                                                     <div className='col-2'>
                                                                         <div style={{ fontSize: "16px" }}>
-                                                                            <div style={{ position: "relative", top: "150px", paddingLeft: "4px" }}>
+                                                                            <div style={{ position: "relative", top: "300px", paddingLeft: "4px" }}>
                                                                                 <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br />
                                                                                 <span style={{ fontWeight: "initial", fontSize: "10px" }}>Survey</span><br />
                                                                                 <span style={{ fontWeight: "initial", fontSize: "10px" }}>Mean</span>
