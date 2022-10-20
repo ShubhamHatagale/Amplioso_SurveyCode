@@ -35,6 +35,7 @@ export default function Step9(props) {
     const history = useHistory();
     const [beliverName, setbeliverName] = useState("");
     const [SurveyVal, setSurveyVal] = useState({});
+    const [feat, setfeat] = useState();
 
 
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -138,6 +139,7 @@ export default function Step9(props) {
     const [step_4, setstep_4] = useState()
     const [cal, setcal] = useState("")
     const [list1, setlist1] = useState([])
+    const [SurveyLength, setSurveyLength] = useState()
 
     const [data, setData] = useState({
         // inputVal: 0,
@@ -219,10 +221,15 @@ export default function Step9(props) {
 
 
     const checkUserHosting = async (hostEmail, callback) => {
-        let hostEmailData = await fetch(`http://localhost:9000/masters/company/managers/${uid.companyId}`)
+        let managersData = await fetch(`http://localhost:9000/masters/company/managers/${uid.companyId}`)
+        let companyData = await fetch(`http://localhost:9000/masters/company`)
+
+
         //use string literals
-        let hostEmailJson = await hostEmailData.json();
-        return hostEmailJson;
+        let managersDataJson = await managersData.json();
+        let companyDataJson = await companyData.json();
+
+        return [managersDataJson, companyDataJson];
     }
 
 
@@ -778,21 +785,28 @@ export default function Step9(props) {
                 console.log(result.data)
                 let MyValues = result.data;
                 console.log("Edit Values", MyValues);
+                if (MyValues) {
 
+                    setSurveyLength(MyValues.length)
+
+                }
                 // console.log(MyValues.reduce(add, 0))
                 // const sum = MyValues.reduce(add, 0)
 
                 // console.log(sum)
 
 
-                async function calco(val) {
+                async function calco(val, len) {
                     let jsonData = await checkUserHosting();
+                    let manager_count = jsonData[0].totalItems;
+                    let company_count = jsonData[1].totalItems;
 
-                    let surveyMean = val * 2 / 2;
-                    let internalBenchmark = val * 2 / 2;
-                    let externalBenchmark = val * 2 / 2;
+                    console.log(manager_count)
+                    let surveyMean = val / manager_count;
+                    let internalBenchmark = surveyMean * len / manager_count;
+                    let externalBenchmark = internalBenchmark * len / company_count;
 
-                    return { surveyMean, internalBenchmark, externalBenchmark, jsonData }
+                    return { surveyMean, internalBenchmark, externalBenchmark }
                 }
 
                 async function sumArray(array) {
@@ -884,48 +898,49 @@ export default function Step9(props) {
                     let survey_mean = feature1_sum0 / array.length;
                     let internal_benchmark = (survey_mean * array.length) / 2;
                     let external_benchmark = (survey_mean * array.length) / 2;
+                    let arraylength = array.length;
 
-                    console.log(calco(feature1_sum0))
-                    featArr0.push(await calco(feature1Sum0))
+                    console.log(await calco(feature1Sum0, arraylength))
+                    featArr0.push(await calco(feature1Sum0, arraylength))
 
-                    featArr1.push(feature1Sum0)
-                    featArr1.push(feature1Sum1)
-                    featArr1.push(feature1Sum2)
-                    featArr1.push(feature1Sum3)
-                    featArr1.push(feature1Sum4)
-                    featArr1.push(feature1Sum5)
-                    featArr1.push(feature1Sum6)
-                    featArr1.push(feature1Sum7)
-                    featArr1.push(feature1Sum8)
-                    featArr1.push(feature1Sum9)
-
-
-                    featArr2.push(feature2Sum0)
-                    featArr2.push(feature2Sum1)
-                    featArr2.push(feature2Sum2)
-                    featArr2.push(feature2Sum3)
-                    featArr2.push(feature2Sum4)
+                    featArr1.push(await calco(feature1Sum0, arraylength))
+                    featArr1.push(await calco(feature1Sum1, arraylength))
+                    featArr1.push(await calco(feature1Sum2, arraylength))
+                    featArr1.push(await calco(feature1Sum3, arraylength))
+                    featArr1.push(await calco(feature1Sum4, arraylength))
+                    featArr1.push(await calco(feature1Sum5, arraylength))
+                    featArr1.push(await calco(feature1Sum6, arraylength))
+                    featArr1.push(await calco(feature1Sum7, arraylength))
+                    featArr1.push(await calco(feature1Sum8, arraylength))
+                    featArr1.push(await calco(feature1Sum9, arraylength))
 
 
-                    console.log(feature3Sum0[0])
-                    console.log(feature3Sum0[1])
-                    console.log(feature3Sum0[2])
-
-                    console.log(feature3Sum1[0])
-                    console.log(feature3Sum1[1])
-                    console.log(feature3Sum1[2])
+                    featArr2.push(await calco(feature2Sum0, arraylength))
+                    featArr2.push(await calco(feature2Sum1, arraylength))
+                    featArr2.push(await calco(feature2Sum2, arraylength))
+                    featArr2.push(await calco(feature2Sum3, arraylength))
+                    featArr2.push(await calco(feature2Sum4, arraylength))
 
 
-                    console.log(feature3Sum2[0])
-                    console.log(feature3Sum2[1])
-                    console.log(feature3Sum2[2])
+                    console.log(await calco(feature3Sum0[0], arraylength))
+                    console.log(await calco(feature3Sum0[1], arraylength))
+                    console.log(await calco(feature3Sum0[2], arraylength))
 
-                    featArr3.push([feature3Sum0[0], feature3Sum1[0], feature3Sum2[0]])
-                    featArr3.push([feature3Sum0[1], feature3Sum1[1], feature3Sum2[1]])
-                    featArr3.push([feature3Sum0[2], feature3Sum1[2], feature3Sum2[2]])
+                    console.log(await calco(feature3Sum1[0], arraylength))
+                    console.log(await calco(feature3Sum1[1], arraylength))
+                    console.log(await calco(feature3Sum1[2], arraylength))
 
 
-                    featArr4.push(feature5_sum0)
+                    console.log(await calco(feature3Sum2[0], arraylength))
+                    console.log(await calco(feature3Sum2[1], arraylength))
+                    console.log(await calco(feature3Sum2[2], arraylength))
+
+                    featArr3.push([await calco(feature3Sum0[0], arraylength), await calco(feature3Sum1[0], arraylength), await calco(feature3Sum2[0], arraylength)])
+                    featArr3.push([await calco(feature3Sum0[1], arraylength), await calco(feature3Sum1[1], arraylength), await calco(feature3Sum2[1], arraylength)])
+                    featArr3.push([await calco(feature3Sum0[2], arraylength), await calco(feature3Sum1[2], arraylength), await calco(feature3Sum2[2], arraylength)])
+
+
+                    featArr4.push(await calco(feature5_sum0, arraylength))
 
 
                     // featArr3.push([feature3Sum0[0], feature3Sum0[1], feature3Sum0[2]])
@@ -942,99 +957,28 @@ export default function Step9(props) {
                     console.log(featArr3) // 11
                     console.log(featArr4) // 11
 
+
+
                     return [featArr0, featArr1, featArr2, featArr3, featArr4]
 
                 }
                 //   console.log(add(3,2))
 
-                console.log(sumArray(MyValues)); // logs 11
-
-                var [featarr] = [[]];
-
-                var [featarr1_0,
-                    featarr1_1,
-                    featarr1_2,
-                    featarr1_3,
-                    featarr1_4,
-                    featarr1_5,
-                    featarr1_6,
-                    featarr1_7,
-                    featarr1_8,
-                    featarr1_9
-                ] = [
-                        [],
-                        [],
-                        [],
-                        [],
-                        [],
-                        [],
-                        [],
-                        [],
-                        [],
-                        []
-                    ];
-
-                // var featarr1_0 = [];
-
-                MyValues.map((x, i) => {
-                    var Feature = eval(x.feature);
-                    var Feature1 = eval(x.feature1);
-
-                    console.log(Feature)
-                    console.log(Feature1[0])
-                    // calculate(Feature1)
-
-                    // Feature1.map
-                    featarr.push(Feature[0].range_val)
-
-                    // Feature1.map((x, i) => {
-                    //     // featarr1_[i].push(Feature1[i].range_val)
-                    //     setlist1(list1 => [...list1, Feature1[i].range_val])
-                    // })
-
-                    featarr1_0.push(Feature1[0].range_val)
-                    featarr1_1.push(Feature1[1].range_val)
-                    featarr1_2.push(Feature1[2].range_val)
-                    featarr1_3.push(Feature1[3].range_val)
-                    featarr1_4.push(Feature1[4].range_val)
-                    featarr1_5.push(Feature1[5].range_val)
-                    featarr1_6.push(Feature1[6].range_val)
-                    featarr1_7.push(Feature1[7].range_val)
-                    featarr1_8.push(Feature1[8].range_val)
-                    featarr1_9.push(Feature1[9].range_val)
-
-
-
-                    // console.log(Feature.reduce((n, { range_val }) => n + parseInt(range_val), 0))
-
-                    // var Feature1 = eval(x.feature1);
-                    // var Feature2 = eval(x.feature2);
-                    // var Feature3 = eval(x.feature3);
-                    // var Feature4 = eval(x.feature4);
-                    // var Feature5 = eval(x.feature5);
-                    // var Feature6 = eval(x.feature6);
-                    // var Feature7 = eval(x.feature7);
-
-                    if (Feature) {
-                        console.log("feature", Feature);
-
-                        // setInputListFinal([Feature],[Feature1])
-                        // setInputListFinal(inputListFinal => [...inputListFinal, { Feature, Feature1, Feature2, Feature3, Feature4, Feature5, Feature6, Feature7 }])
-
+                sumArray(MyValues).then((result) => {
+                    if (result.length == 5) {
+                        setlist1(result)
+                        console.log(result)
                     }
-                })
-                console.log(featarr)
+                    // setfeat(featArr0)
+                    // setlist1(list1 => [...list1, featArr0])
+                    // setlist1(list1 => [...list1, featArr1])
+                    // setlist1(list1 => [...list1, featArr2])
+                    // setlist1(list1 => [...list1, featArr3])
+                    // setlist1(list1 => [...list1, featArr4])
+                }); // logs 11
 
-                console.log(featarr1_0)
-                console.log(featarr1_1)
-                console.log(featarr1_2)
-                console.log(featarr1_3)
-                console.log(featarr1_4)
-                console.log(featarr1_5)
-                console.log(featarr1_6)
-                console.log(featarr1_7)
-                console.log(featarr1_8)
-                console.log(featarr1_9)
+
+
 
             })
 
@@ -1074,9 +1018,11 @@ export default function Step9(props) {
     return (
         <>
 
-            {DisplayDiv ? (
+            {console.log(list1.length > 0 ? list1 : null)}
+
+            {DisplayDiv && list1.length == 5 ? (
                 <>
-                    <button onClick={checkbtn} > check</button>
+                    <button onClick={checkbtn} > check {list1[4][0].surveyMean}</button>
                     {/* <Pdf_page1 /> */}
                     {feedbackData ? (
                         <>
@@ -1116,13 +1062,13 @@ export default function Step9(props) {
                                                                     <div className='col-2'>
                                                                         <div style={{ fontSize: "16px" }}>
                                                                             <div style={{ position: "relative", top: "300px", paddingLeft: "4px" }}>
-                                                                                {/* <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br /> */}
+                                                                                <span style={{ fontSize: "20px", }}>{Math.ceil(list1[0][0].surveyMean).toFixed(1)}</span><br />
                                                                                 <span style={{ fontWeight: "initial", fontSize: "10px" }}>Survey</span><br />
                                                                                 <span style={{ fontWeight: "initial", fontSize: "10px" }}>Mean</span>
                                                                             </div>
                                                                         </div>
 
-                                                                        <div style={{ padding: impValFn(item.answer, 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[0].color }} >
+                                                                        <div style={{ padding: impValFn(list1[0][0].surveyMean, 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[0].color }} >
                                                                             <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}>
                                                                             </div>
                                                                         </div>
