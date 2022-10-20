@@ -16,7 +16,7 @@ export default function Step2(props) {
     const [inputListFinal, setInputListFinal] = useState([{ range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }, { range_val: 0 }]);
     const [RecordeData, setRecordeData] = useState();
 
-   
+
     const GetAllRecords = async () => {
         // console.log(inputListFinal)
         // console.log(inputListFinal[0].range_val)
@@ -62,27 +62,32 @@ export default function Step2(props) {
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
-                console.log(result)
-                console.log(result.data)
-                setRecordeData(result.data)
-                console.log(result.data.feature)
+                if (result.status == 200) {
 
-                let MyValues = result.data;
-                // if (MyValues.length > 0) {
-                //   setedituser(true);
-                //   setUpid(result.data[0].id);
-                // }
-                console.log("Edit Values", MyValues);
+                    console.log(result)
+                    console.log(result.data)
+                    setRecordeData(result.data)
+                    console.log(result.data.feature)
 
-                MyValues.map((x, i) => {
-                    console.log(i)
-                    let Feature = eval(x.feature1);
-                    console.log("feature", Feature);
-                    if (Feature) {
-                        setInputListFinal(Feature)
+                    let MyValues = result.data;
+                    // if (MyValues.length > 0) {
+                    //   setedituser(true);
+                    //   setUpid(result.data[0].id);
+                    // }
+                    console.log("Edit Values", MyValues);
+                    if (MyValues.length > 0) {
+                        MyValues.map((x, i) => {
+                            let Feature = eval(x.feature1);
+                            if (Feature) {
+                                setInputListFinal(Feature)
 
+                            }
+                        })
                     }
-                })
+
+
+
+                }
 
 
 
@@ -117,7 +122,7 @@ export default function Step2(props) {
             })
     }
 
-  
+
 
 
     useEffect(() => {
@@ -214,9 +219,11 @@ export default function Step2(props) {
                 <div className="form-card">
                     <p className='fs-title-m'>Next, {question.replace("[FIRST NAME]", first_name)}</p>
                     <hr />
-                    <br />
+                    {/* <br /> */}
                     <br />
                     <h3 className="smtxt">1 = Poor &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Outstanding &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
+                    <br />
+
                     <div className="row">
                         {OptionData.map((item, i) => {
                             // console.log(item.id)
@@ -245,8 +252,12 @@ export default function Step2(props) {
                                                     name="range_val"
                                                     value={inputListFinal[i].range_val}
                                                     ips="0"
-                                                    onChange={(e) => handleInputChange(e, i)} />
-                                                <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val == 0 || inputListFinal[i].range_val == null || inputListFinal[i].range_val == "" || inputListFinal[i].range_val == "NA" || "" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? (inputListFinal[i].range_val == 0 ? "NA" : inputListFinal[i].range_val) : "NA"}</span>
+                                                    onChange={(e) => handleInputChange(e, i)}
+                                                />
+                                                {/* <span>{inputListFinal[i].range_val}</span> */}
+                                                <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val == 0 || inputListFinal[i].range_val == null || inputListFinal[i].range_val == "" || inputListFinal[i].range_val == "NA" || "" ? "rgb(221,38,60)" : "" }}>
+                                                    {(inputListFinal[i].range_val == 0 ? "NA" : inputListFinal[i].range_val)}
+                                                </span>
                                             </div>
                                         ) : null}
                                     </div>

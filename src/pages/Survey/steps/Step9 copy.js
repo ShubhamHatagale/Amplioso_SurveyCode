@@ -30,7 +30,7 @@ import CircularProgressWithLabel from '../../../components/CircularProgressWithL
 
 export default function Step9(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
-    const [DisplayDiv, setDisplayDiv] = useState(true);
+    const [DisplayDiv, setDisplayDiv] = useState(false);
     const [pdfShowDes, setpdfShowDes] = useState(0);
     const history = useHistory();
     const [beliverName, setbeliverName] = useState("");
@@ -1287,9 +1287,9 @@ export default function Step9(props) {
                                         <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_end.split('T')[0]}</span><br />
                                     </div>
 
-                                    <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px" }}>
+                                    <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px",textTransform:"capitalize" }}>
                                         <span style={{ fontSize: "10px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>Created By</span><br />
-                                        <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.first_name}</span><br />
+                                        <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.last_name}</span><br />
                                         <span style={{ fontSize: "10px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>Generated On</span><br />
                                         <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].createdAt.split('T')[0]}</span><br />
 
@@ -1328,7 +1328,7 @@ export default function Step9(props) {
                                                                 <>
                                                                     <div className='col-2'>
                                                                         <div style={{ fontSize: "16px" }}>
-                                                                            <div style={{ position: "relative", top: "150px", paddingLeft: "4px" }}>
+                                                                            <div style={{ position: "relative", top: "300px", paddingLeft: "4px" }}>
                                                                                 <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br />
                                                                                 <span style={{ fontWeight: "initial", fontSize: "10px" }}>Survey</span><br />
                                                                                 <span style={{ fontWeight: "initial", fontSize: "10px" }}>Mean</span>
@@ -2198,6 +2198,137 @@ export default function Step9(props) {
                             </div>
                         </>
                     ) : null}
+
+
+                     {/* page ------ 5 */}
+                     {feedbackData ? (
+                        <>
+                            <div className=" row page-break feed_block_row"  >
+                                <div className='row' style={{ padding: "25px 0px 0px 25px" }}>
+                                    <div >
+                                        {feedbackData ? (
+                                            <>
+                                                <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "capitalize" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
+                                                <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
+                                                <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
+
+                                            </>
+                                        ) : null}
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+
+                                            <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
+                                                <div className="square_bar"></div>
+                                                <div className='page_left_header' >
+                                                    <span className='text-future-potential'>Think-Act-Feel Leadership Rating</span>
+                                                    {/* </br><span>Potential</span> */}
+                                                </div>
+
+                                                <div style={{ fontSize: "7px", position: "relative", bottom: "50px" }}>
+                                                    {impVal4 && Val4 ? (
+                                                        <div className='row ' >
+                                                            {impVal3.map((item, key) => (
+                                                                <div className='col-lg-6 ' style={{ borderLeft: key % 2 != 0 ? "1px solid rgb(209,209,209)" : "", borderBlockEnd: key != 4 ? "1px solid rgb(209,209,209)" : "" }} >
+
+                                                                    {[Val4.[`data${key}`][0].length > 0] ? (
+                                                                        <>
+
+                                                                            <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
+
+                                                                                <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", fontWeight: "bold", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                    {item.option}
+                                                                                </div>
+                                                                                <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
+                                                                                    <GraphVerticalBars percentage={[Math.ceil(Val4.[`data${key}`][0].survey_mean)]} color={colorOptions.slices[0].color} />
+
+                                                                                </div>
+                                                                                <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                    <GraphVerticalBars percentage={item.answer} color={colorOptions.slices[1].color} />
+
+                                                                                </div>
+                                                                                <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                    <GraphVerticalBars percentage={[Math.ceil(Val4.[`data${key}`][0].internal_bench)]} color={colorOptions.slices[2].color} />
+
+                                                                                </div>
+                                                                                <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                    <GraphVerticalBars percentage={[Math.ceil(Val4.[`data${key}`][0].external_bench)]} color={colorOptions.slices[3].color} />
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </>
+                                                                    ) : null}
+                                                                </div>
+
+                                                            ))}
+
+
+
+                                                            <div className='col-lg-6 ' style={{ borderLeft: "1px solid rgb(209,209,209)", fontWeight: "lighter" }} >
+                                                                <div style={{ position: "relative", bottom: "5px", left: "50px", paddingTop: "40px" }}>
+                                                                    <div className='row m-2' >
+                                                                        <div className='col-lg-3 single_sqr_list2' style={{ backgroundColor: colorOptions.slices[0].color }}>
+                                                                        </div>
+                                                                        <div className='col-lg-3 w-50' style={{ textAlign: "left", textSize: "12px", paddingLeft: "50px", marginTop: "inherit" }}>
+                                                                            Survey Mean
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div className='row m-2' >
+                                                                        <div className='col-lg-3 single_sqr_list2' style={{ backgroundColor: colorOptions.slices[1].color }}>
+                                                                        </div>
+                                                                        <div className='col-lg-3 w-50' style={{ textAlign: "left", textSize: "12px", paddingLeft: "50px", marginTop: "inherit" }}>
+                                                                            Self Assessment
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='row m-2' >
+                                                                        <div className='col-lg-3 single_sqr_list2' style={{ backgroundColor: colorOptions.slices[2].color }}>
+                                                                        </div>
+                                                                        <div className='col-lg-3 w-50' style={{ textAlign: "left", textSize: "12px", paddingLeft: "50px", marginTop: "inherit" }}>
+                                                                            Internal Benchmark
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='row m-2' >
+                                                                        <div className='col-lg-3 single_sqr_list2' style={{ backgroundColor: colorOptions.slices[3].color }}>
+                                                                        </div>
+                                                                        <div className='col-lg-3 w-50' style={{ textAlign: "left", textSize: "12px", paddingLeft: "50px", marginTop: "inherit" }}>
+                                                                            External Benchmark
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+
+
+
+
+                                                        </div>
+                                                    ) : null}
+
+
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <hr style={{ border: "1px thin rgb(209,209,209)", marginLeft: 0, position: "absolute", bottom: "20px" }} />
+                                <div style={{ fontSize: "8px", position: "absolute", bottom: "0px" }}>
+                                    <span style={{ position: "relative", left: "45%", bottom: "10px" }}>www.amplioso.com</span>
+                                    <span style={{ position: "relative", left: "-20%", bottom: "10px" }}>{new Date().getFullYear()}</span>
+                                    <span style={{ position: "relative", left: "-45%", bottom: "10px" }}>{feedbackData[0].CompanyId.company_name}</span>
+                                </div>
+
+
+                            </div>
+                        </>
+                    ) : null}
+
+                    
                     {/* page ------ 6 */}
                     {feedbackData ? (
                         <>

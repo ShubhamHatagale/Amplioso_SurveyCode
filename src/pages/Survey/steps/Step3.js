@@ -227,8 +227,10 @@ export default function Step3(props) {
                         <hr />
                         <br />
                         <br />
-                        <br />
+                        {/* <br /> */}
                         <h3 className="smtxt">1 = Completely Disagree &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Completely Agree &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
+                        <br />
+                        <br />
 
 
 
@@ -253,7 +255,10 @@ export default function Step3(props) {
                                                     max={10}
                                                     onChange={(e) => handleInputChange(e, i)} />
 
-                                                <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val == 0 || inputListFinal[i].range_val == null || inputListFinal[i].range_val == "" || inputListFinal[i].range_val == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? (inputListFinal[i].range_val == 0 ? "NA" : inputListFinal[i].range_val) : "NA"}</span>
+                                                <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val == 0 || inputListFinal[i].range_val == null || inputListFinal[i].range_val == "" || inputListFinal[i].range_val == "NA" ? "rgb(221,38,60)" : "" }}>
+                                                    {(inputListFinal[i].range_val == 0 ? "NA" : inputListFinal[i].range_val)}
+
+                                                </span>
                                             </div>
                                         ) : null}
                                     </div>

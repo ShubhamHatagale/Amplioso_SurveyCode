@@ -705,8 +705,16 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-h3.smtxt{ font-size: 14px; color: #000; text-align: right; margin-bottom:10px;position: relative;
-    top: -50px; }
+h3.smtxt{ 
+  font-size: 14px; 
+  color: #000; 
+  /* text-align: right;  */
+  margin-bottom:10px;
+  position: relative;
+  top: -18px; 
+  /* right: 1209px; */
+  margin: 5px;
+  }
 
 .range-slider h3.sub-q.min-height{font-size: 1rem;
     color: #000;

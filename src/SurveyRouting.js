@@ -24,7 +24,7 @@ const SuperAdminRouting = () => {
                 <Redirect to="/unauthorized_tkn" />
             )} />
 
-            <Route path="/tkn/:token_ele">
+            <Route path="/tkn/:token_ele"> 
                 <WelcomeScreen />
             </Route>
             <Route path="/instruction">

@@ -30,7 +30,7 @@ import CircularProgressWithLabel from '../../../components/CircularProgressWithL
 
 export default function Step9(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
-    const [DisplayDiv, setDisplayDiv] = useState(false);
+    const [DisplayDiv, setDisplayDiv] = useState(true);
     const [pdfShowDes, setpdfShowDes] = useState(0);
     const history = useHistory();
     const [beliverName, setbeliverName] = useState("");
@@ -66,7 +66,7 @@ export default function Step9(props) {
     const [survey_count, set_survey_count] = useState()
     const [managers_length, set_managers_length] = useState()
     const [company_length, set_company_length] = useState()
-    const [inputListFinal, setInputListFinal] = useState([{ competition: "" }]);
+    const [inputListFinal, setInputListFinal] = useState([]);
     const [SurveyAnswers, setSurveyAnswers] = useState([])
     const [viewModal, setviewModal] = useState(false);
 
@@ -129,12 +129,15 @@ export default function Step9(props) {
     const [OptionDataCol5, setOptionDataCol5] = useState([])
     const [OptionDataCol5_2, setOptionDataCol5_2] = useState([])
     const [OptionDataCol5_3, setOptionDataCol5_3] = useState([])
+    const [RecordeData, setRecordeData] = useState([])
 
     const [ReportData, setReportData] = useState({})
     const [step_1, setstep_1] = useState()
     const [step_2, setstep_2] = useState()
     const [step_3, setstep_3] = useState()
     const [step_4, setstep_4] = useState()
+    const [cal, setcal] = useState("")
+    const [list1, setlist1] = useState([])
 
     const [data, setData] = useState({
         // inputVal: 0,
@@ -215,6 +218,14 @@ export default function Step9(props) {
 
 
 
+    const checkUserHosting = async (hostEmail, callback) => {
+        let hostEmailData = await fetch(`http://localhost:9000/masters/company/managers/${uid.companyId}`)
+        //use string literals
+        let hostEmailJson = await hostEmailData.json();
+        return hostEmailJson;
+    }
+
+
     const ManagersLength = async () => {
         var myHeaders4 = new Headers();
         var requestOptions4 = {
@@ -224,7 +235,7 @@ export default function Step9(props) {
         };
 
 
-        fetch(`http://localhost:9000/masters/company/managers/${uid.userId}`, requestOptions4)
+        fetch(`http://localhost:9000/masters/company/managers/${uid.companyId}`, requestOptions4)
             .then(response => response.json())
             .then(result4 => {
                 // console.log(result4,"res4")
@@ -269,6 +280,7 @@ export default function Step9(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
+
 
         fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
@@ -317,7 +329,7 @@ export default function Step9(props) {
                                             var myHeaders = new Headers();
                                             myHeaders.append("Content-Type", "application/json");
                                             var raw1 = JSON.stringify({
-                                                surveyor_id: uid.userId,
+                                                surveyor_id: 5,
                                                 question_id: result2.data[0].id,
                                             });
                                             var requestOptions = {
@@ -352,7 +364,7 @@ export default function Step9(props) {
                                             var myHeaders = new Headers();
                                             myHeaders.append("Content-Type", "application/json");
                                             var raw1 = JSON.stringify({
-                                                surveyor_id: uid.userId,
+                                                surveyor_id: 5,
                                                 question_id: result2.data[1].id,
                                             });
                                             var requestOptions = {
@@ -404,7 +416,7 @@ export default function Step9(props) {
                                             var myHeaders = new Headers();
                                             myHeaders.append("Content-Type", "application/json");
                                             var raw1 = JSON.stringify({
-                                                surveyor_id: uid.userId,
+                                                surveyor_id: 5,
                                                 question_id: result2.data[2].id,
                                             });
                                             var requestOptions = {
@@ -443,7 +455,7 @@ export default function Step9(props) {
                                             var myHeaders = new Headers();
                                             myHeaders.append("Content-Type", "application/json");
                                             var raw1 = JSON.stringify({
-                                                surveyor_id: uid.userId,
+                                                surveyor_id: 5,
                                                 question_id: result2.data[3].id,
                                             });
                                             var requestOptions = {
@@ -477,7 +489,7 @@ export default function Step9(props) {
                                             var myHeaders = new Headers();
                                             myHeaders.append("Content-Type", "application/json");
                                             var raw1 = JSON.stringify({
-                                                surveyor_id: uid.userId,
+                                                surveyor_id: 5,
                                                 question_id: result2.data[4].id,
                                             });
                                             var requestOptions = {
@@ -512,7 +524,7 @@ export default function Step9(props) {
                                             var myHeaders = new Headers();
                                             myHeaders.append("Content-Type", "application/json");
                                             var raw1 = JSON.stringify({
-                                                surveyor_id: uid.userId,
+                                                surveyor_id: 5,
                                                 question_id: result2.data[6].id,
                                             });
                                             var requestOptions = {
@@ -544,7 +556,7 @@ export default function Step9(props) {
                                             var myHeaders = new Headers();
                                             myHeaders.append("Content-Type", "application/json");
                                             var raw1 = JSON.stringify({
-                                                surveyor_id: uid.userId,
+                                                surveyor_id: 5,
                                                 question_id: result2.data[7].id,
                                             });
                                             var requestOptions = {
@@ -579,7 +591,7 @@ export default function Step9(props) {
                                             var myHeaders = new Headers();
                                             myHeaders.append("Content-Type", "application/json");
                                             var raw1 = JSON.stringify({
-                                                surveyor_id: uid.userId,
+                                                surveyor_id: 5,
                                                 question_id: result2.data[5].id,
                                             });
                                             var requestOptions = {
@@ -627,7 +639,7 @@ export default function Step9(props) {
                                                         // setlistRecord(result4.data);
                                                         // console.log(result4)
                                                         // console.log(result4.data, "hhs")
-                                                        set_managers_length(result4.data.length)
+                                                        // set_managers_length(result4.data.length)
 
 
                                                         fetch(`http://localhost:9000/masters/company`, requestOptions4)
@@ -677,7 +689,7 @@ export default function Step9(props) {
         ManagersLength();
 
         console.log(colorOptions)
-
+        GetSurveyFeedRec()
         GetAllRecords().then(() => {
             setTimeout(() => {
                 // exportPDFWithMethod()
@@ -721,11 +733,350 @@ export default function Step9(props) {
     ];
 
 
+    function checkbtn() {
+        console.log(cal)
+        console.log(list1)
+
+    }
+
+    const calculate = (val) => {
+        console.log(val)
+        var featSum = 0
+        // featSum += parseInt(val[0].range_val)
+        // setcal([...cal, featSum])
+
+        // setcal((prev) => ({ ...prev, ...newData }));
+
+        console.log(cal)
+        console.log(featSum)
+
+    }
+
+    // const getActivity = async () => {
+    //     let jsonData = await checkUserHosting();
+    //     //now you can directly use jsonData
+    // }
+
+    const GetSurveyFeedRec = async () => {
+        // console.log(managers_length ? managers_length : 0)
+        let jsonData = await checkUserHosting();
+
+        // console.log(getActivity())
+
+        var myHeaders = new Headers();
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+        console.log(uid)
+        fetch(`http://localhost:9000/masters/survey_feedback/company/${uid.companyId}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                // setlistRecord(result.data);
+                console.log(result.data.length)
+                console.log(result.data)
+                let MyValues = result.data;
+                console.log("Edit Values", MyValues);
+
+                // console.log(MyValues.reduce(add, 0))
+                // const sum = MyValues.reduce(add, 0)
+
+                // console.log(sum)
+
+
+                async function calco(val) {
+                    let jsonData = await checkUserHosting();
+
+                    let surveyMean = val * 2 / 2;
+                    let internalBenchmark = val * 2 / 2;
+                    let externalBenchmark = val * 2 / 2;
+
+                    return { surveyMean, internalBenchmark, externalBenchmark, jsonData }
+                }
+
+                async function sumArray(array) {
+                    let sum = 0 // the sum is initialed to 0
+
+                    /* js arrays are zero-index based
+                    ourArray.length = 5, the initialization block is set to 0.
+                    the last item is index 4 that is < 5 (what we define in the condition block)
+                    */
+                    // var featSum = []
+                    var [feature1_sum0] = [0];
+                    var [feature1Sum0, feature1Sum1, feature1Sum2, feature1Sum3, feature1Sum4, feature1Sum5, feature1Sum6, feature1Sum7, feature1Sum8, feature1Sum9] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    var [feature2Sum0, feature2Sum1, feature2Sum2, feature2Sum3, feature2Sum4] = [0, 0, 0, 0, 0]
+                    var [feature3Sum0, feature3Sum1, feature3Sum2] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+                    var [feature5_sum0] = [0];
+
+                    var [featArr0, featArr1, featArr2, featArr3, featArr4] = [[], [], [], [], []]
+                    // var featArr1 = []
+
+                    for (let i = 0; i < array.length; i++) {
+                        // take every item in the array and add it to sum variable
+                        console.log(eval(array[i].feature)[0].range_val)
+                        // console.log(eval(array[i].feature1))
+                        var feat = eval(array[i].feature)
+                        var feat1 = eval(array[i].feature1)
+                        var feat2 = eval(array[i].feature2)
+                        var feat3 = eval(array[i].feature3)
+                        // var feat4 = eval(array[i].feature4)
+                        var feat5 = eval(array[i].feature5)
+                        // var feat6 = eval(array[i].feature6)
+                        // var feat7 = eval(array[i].feature7)
+
+                        // featSum += parseInt(eval(array[i].feature)[0].range_val)
+                        // for (var a = 0; a < 4; a++) {
+                        console.log(feat[0].range_val)
+
+                        feature1_sum0 += parseInt(feat[0].range_val)
+
+                        feature1Sum0 += parseInt(feat1[0].range_val)
+                        feature1Sum1 += parseInt(feat1[1].range_val)
+                        feature1Sum2 += parseInt(feat1[2].range_val)
+                        feature1Sum3 += parseInt(feat1[3].range_val)
+                        feature1Sum4 += parseInt(feat1[4].range_val)
+                        feature1Sum5 += parseInt(feat1[5].range_val)
+                        feature1Sum6 += parseInt(feat1[6].range_val)
+                        feature1Sum7 += parseInt(feat1[7].range_val)
+                        feature1Sum8 += parseInt(feat1[8].range_val)
+                        feature1Sum9 += parseInt(feat1[9].range_val)
+
+
+                        feature2Sum0 += parseInt(feat2[0].range_val)
+                        feature2Sum1 += parseInt(feat2[1].range_val)
+                        feature2Sum2 += parseInt(feat2[2].range_val)
+                        feature2Sum3 += parseInt(feat2[3].range_val)
+                        feature2Sum4 += parseInt(feat2[4].range_val)
+
+                        feature3Sum0[0] += parseInt(feat3[0].range_val)
+                        feature3Sum0[1] += parseInt(feat3[1].range_val)
+                        feature3Sum0[2] += parseInt(feat3[2].range_val)
+                        feature3Sum1[0] += parseInt(feat3[0].range_val1)
+                        feature3Sum1[1] += parseInt(feat3[1].range_val1)
+                        feature3Sum1[2] += parseInt(feat3[2].range_val1)
+                        feature3Sum2[0] += parseInt(feat3[0].range_val2)
+                        feature3Sum2[1] += parseInt(feat3[1].range_val2)
+                        feature3Sum2[2] += parseInt(feat3[2].range_val2)
+
+
+                        feature5_sum0 += parseInt(feat5[0].range_val)
+
+
+
+                        // feature3Sum1 += parseInt(feat3[1].range_val)
+                        // feature3Sum2 += parseInt(feat3[2].range_val)
+
+
+
+
+                    }
+
+
+
+
+                    // console.log(feature3Sum0[1])
+
+                    // console.log(feature3Sum1)
+                    // console.log(feature3Sum2)
+
+                    console.log(jsonData)
+                    let survey_mean = feature1_sum0 / array.length;
+                    let internal_benchmark = (survey_mean * array.length) / 2;
+                    let external_benchmark = (survey_mean * array.length) / 2;
+
+                    console.log(calco(feature1_sum0))
+                    featArr0.push(await calco(feature1Sum0))
+
+                    featArr1.push(feature1Sum0)
+                    featArr1.push(feature1Sum1)
+                    featArr1.push(feature1Sum2)
+                    featArr1.push(feature1Sum3)
+                    featArr1.push(feature1Sum4)
+                    featArr1.push(feature1Sum5)
+                    featArr1.push(feature1Sum6)
+                    featArr1.push(feature1Sum7)
+                    featArr1.push(feature1Sum8)
+                    featArr1.push(feature1Sum9)
+
+
+                    featArr2.push(feature2Sum0)
+                    featArr2.push(feature2Sum1)
+                    featArr2.push(feature2Sum2)
+                    featArr2.push(feature2Sum3)
+                    featArr2.push(feature2Sum4)
+
+
+                    console.log(feature3Sum0[0])
+                    console.log(feature3Sum0[1])
+                    console.log(feature3Sum0[2])
+
+                    console.log(feature3Sum1[0])
+                    console.log(feature3Sum1[1])
+                    console.log(feature3Sum1[2])
+
+
+                    console.log(feature3Sum2[0])
+                    console.log(feature3Sum2[1])
+                    console.log(feature3Sum2[2])
+
+                    featArr3.push([feature3Sum0[0], feature3Sum1[0], feature3Sum2[0]])
+                    featArr3.push([feature3Sum0[1], feature3Sum1[1], feature3Sum2[1]])
+                    featArr3.push([feature3Sum0[2], feature3Sum1[2], feature3Sum2[2]])
+
+
+                    featArr4.push(feature5_sum0)
+
+
+                    // featArr3.push([feature3Sum0[0], feature3Sum0[1], feature3Sum0[2]])
+                    // featArr3.push([feature3Sum1[0], feature3Sum1[1], feature3Sum1[2]])
+                    // featArr3.push([feature3Sum2[0], feature3Sum2[1], feature3Sum2[2]])
+
+                    // console.log("fatSum" + featSum1) // 11
+                    // console.log(sum) // 11
+                    // return sum
+                    // return sum
+                    console.log(featArr0) // 11
+                    console.log(featArr1) // 11
+                    console.log(featArr2) // 11
+                    console.log(featArr3) // 11
+                    console.log(featArr4) // 11
+
+                    return [featArr0, featArr1, featArr2, featArr3, featArr4]
+
+                }
+                //   console.log(add(3,2))
+
+                console.log(sumArray(MyValues)); // logs 11
+
+                var [featarr] = [[]];
+
+                var [featarr1_0,
+                    featarr1_1,
+                    featarr1_2,
+                    featarr1_3,
+                    featarr1_4,
+                    featarr1_5,
+                    featarr1_6,
+                    featarr1_7,
+                    featarr1_8,
+                    featarr1_9
+                ] = [
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        []
+                    ];
+
+                // var featarr1_0 = [];
+
+                MyValues.map((x, i) => {
+                    var Feature = eval(x.feature);
+                    var Feature1 = eval(x.feature1);
+
+                    console.log(Feature)
+                    console.log(Feature1[0])
+                    // calculate(Feature1)
+
+                    // Feature1.map
+                    featarr.push(Feature[0].range_val)
+
+                    // Feature1.map((x, i) => {
+                    //     // featarr1_[i].push(Feature1[i].range_val)
+                    //     setlist1(list1 => [...list1, Feature1[i].range_val])
+                    // })
+
+                    featarr1_0.push(Feature1[0].range_val)
+                    featarr1_1.push(Feature1[1].range_val)
+                    featarr1_2.push(Feature1[2].range_val)
+                    featarr1_3.push(Feature1[3].range_val)
+                    featarr1_4.push(Feature1[4].range_val)
+                    featarr1_5.push(Feature1[5].range_val)
+                    featarr1_6.push(Feature1[6].range_val)
+                    featarr1_7.push(Feature1[7].range_val)
+                    featarr1_8.push(Feature1[8].range_val)
+                    featarr1_9.push(Feature1[9].range_val)
+
+
+
+                    // console.log(Feature.reduce((n, { range_val }) => n + parseInt(range_val), 0))
+
+                    // var Feature1 = eval(x.feature1);
+                    // var Feature2 = eval(x.feature2);
+                    // var Feature3 = eval(x.feature3);
+                    // var Feature4 = eval(x.feature4);
+                    // var Feature5 = eval(x.feature5);
+                    // var Feature6 = eval(x.feature6);
+                    // var Feature7 = eval(x.feature7);
+
+                    if (Feature) {
+                        console.log("feature", Feature);
+
+                        // setInputListFinal([Feature],[Feature1])
+                        // setInputListFinal(inputListFinal => [...inputListFinal, { Feature, Feature1, Feature2, Feature3, Feature4, Feature5, Feature6, Feature7 }])
+
+                    }
+                })
+                console.log(featarr)
+
+                console.log(featarr1_0)
+                console.log(featarr1_1)
+                console.log(featarr1_2)
+                console.log(featarr1_3)
+                console.log(featarr1_4)
+                console.log(featarr1_5)
+                console.log(featarr1_6)
+                console.log(featarr1_7)
+                console.log(featarr1_8)
+                console.log(featarr1_9)
+
+            })
+
+        fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                // setlistRecord(result.data);
+                console.log(result)
+                console.log(result.data)
+                setRecordeData(result.data)
+                console.log(result.data.feature)
+
+                let MyValues = result.data;
+                console.log("Edit Values", MyValues);
+                MyValues.map((x, i) => {
+                    var Feature = eval(x.feature);
+                    var Feature1 = eval(x.feature1);
+                    var Feature2 = eval(x.feature2);
+                    var Feature3 = eval(x.feature3);
+                    var Feature4 = eval(x.feature4);
+                    var Feature5 = eval(x.feature5);
+                    var Feature6 = eval(x.feature6);
+                    var Feature7 = eval(x.feature7);
+
+                    if (Feature) {
+                        console.log("feature", Feature);
+                        // setInputListFinal([Feature],[Feature1])
+                        setInputListFinal(inputListFinal => [...inputListFinal, { Feature, Feature1, Feature2, Feature3, Feature4, Feature5, Feature6, Feature7 }])
+
+                    }
+
+                })
+
+            })
+    }
+
     return (
         <>
 
             {DisplayDiv ? (
-                <div>
+                <>
+                    <button onClick={checkbtn} > check</button>
                     {/* <Pdf_page1 /> */}
                     {feedbackData ? (
                         <>
@@ -748,139 +1099,83 @@ export default function Step9(props) {
                                                 <span>the quick,brown fox jumps over a lazy dog, djs flock by when mtv ax quiz prog.junk mtv quiz graced by fox whelps.bawds jog,flick quartz, </span><br>
                                                 </br><span>vex nymphs.waltz,bad nymph,for quick jigs vex! fox nymphs grab quick-j</span>
                                             </div>
-                                            <div className='row p-5' style={{ textAlign: "justify", MozTextAlignLast: "justify", border: "0px solid black", width: "100%", position: "relative", left: "5%", top: "-40px", width: "40%" }}>
-                                                {impVal.map((item, key) => {
+                                            <div className='row p-5' style={{ textAlign: "justify", MozTextAlignLast: "justify", border: "0px solid black", width: "100%", position: "relative", left: "5%", top: "-40px" }}>
+                                                {console.log(inputListFinal)}
+                                                {inputListFinal[0].Feature.map((item, key) => {
+                                                    console.log(item)
+                                                })}
+
+
+                                                {inputListFinal[0].Feature.map((item, key) => {
+                                                    // { console.log(item) }
+
                                                     return (
                                                         <>
                                                             {[Val.[`data${key}`][0].length > 0] ? (
                                                                 <>
-                                                                    <div className='ttu' style={{ flex: "0 0 auto", width: "14.666667" }}>
-                                                                        <div className='row'>
-
-                                                                            <div className='col-1'>
-                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                    <div style={{ position: "relative", top: "150px", paddingLeft: "4px" }}>
-                                                                                        <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Survey</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Mean</span>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div style={{ padding: impValFn(item.answer, 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[0].color }} >
-                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "150px" }}>
-                                                                                    </div>
-                                                                                </div>
+                                                                    <div className='col-2'>
+                                                                        <div style={{ fontSize: "16px" }}>
+                                                                            <div style={{ position: "relative", top: "300px", paddingLeft: "4px" }}>
+                                                                                {/* <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br /> */}
+                                                                                <span style={{ fontWeight: "initial", fontSize: "10px" }}>Survey</span><br />
+                                                                                <span style={{ fontWeight: "initial", fontSize: "10px" }}>Mean</span>
                                                                             </div>
-                                                                            <div className='col-1' style={{ margin: "0px 18px 0px 18px" }}>
-                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                    <div style={{ position: "relative", top: "150px", paddingLeft: "4px" }}>
-                                                                                        <span style={{ fontSize: "20px", }}>{Math.ceil(item.answer).toFixed(1)}</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Self</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Assessment</span>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                {/* Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) : 92 */}
-                                                                                <div style={{ padding: impValFn((Val.[`data${key}`][0].survey_mean), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[1].color }} >
-                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "150px" }}></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className='col-1' style={{ margin: "0px 18px 0px 3px" }}>
-                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                    <div style={{ position: "relative", top: "150px", paddingLeft: "4px" }}>
-                                                                                        <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].internal_bench).toFixed(1)}</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Internal</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Benchmark</span></div>
-                                                                                </div>
-                                                                                {/* <div style={{ padding: Math.ceil(Math.ceil(Val.[`data${key}`][0].internal_bench) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].internal_bench) * 9.2) : 92, width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[2].color }} > */}
-
-                                                                                <div style={{ padding: impValFn((Val.[`data${key}`][0].internal_bench), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[2].color }} >
-                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "150px" }}></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className='col-1'>
-                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                    <div style={{ position: "relative", top: "150px", right: "-24%" }}>
-                                                                                        <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].external_bench).toFixed(1)}</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>External </span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Benchmark</span></div>
-                                                                                </div>
-                                                                                {/* <div style={{ padding: Math.ceil(Math.ceil(Val.[`data${key}`][0].external_bench) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].external_bench) * 9.2) : 92, width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[3].color }} > */}
-
-                                                                                <div style={{ padding: impValFn((Val.[`data${key}`][0].external_bench), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[3].color }} >
-                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "150px" }}></div>
-                                                                                </div>
-
-                                                                            </div>
-
                                                                         </div>
-                                                                        <div className='row'>
 
-                                                                            <div className='col-1'>
-                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                    <div style={{ position: "relative", top: "150px", paddingLeft: "4px" }}>
-                                                                                        <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Survey</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Mean</span>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div style={{ padding: impValFn(item.answer, 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[0].color }} >
-                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "150px" }}>
-                                                                                    </div>
-                                                                                </div>
+                                                                        <div style={{ padding: impValFn(item.answer, 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[0].color }} >
+                                                                            <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}>
                                                                             </div>
-                                                                            <div className='col-1' style={{ margin: "0px 18px 0px 18px" }}>
-                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                    <div style={{ position: "relative", top: "150px", paddingLeft: "4px" }}>
-                                                                                        <span style={{ fontSize: "20px", }}>{Math.ceil(item.answer).toFixed(1)}</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Self</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Assessment</span>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                {/* Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) : 92 */}
-                                                                                <div style={{ padding: impValFn((Val.[`data${key}`][0].survey_mean), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[1].color }} >
-                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "150px" }}></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className='col-1' style={{ margin: "0px 18px 0px 3px" }}>
-                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                    <div style={{ position: "relative", top: "150px", paddingLeft: "4px" }}>
-                                                                                        <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].internal_bench).toFixed(1)}</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Internal</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Benchmark</span></div>
-                                                                                </div>
-                                                                                {/* <div style={{ padding: Math.ceil(Math.ceil(Val.[`data${key}`][0].internal_bench) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].internal_bench) * 9.2) : 92, width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[2].color }} > */}
-
-                                                                                <div style={{ padding: impValFn((Val.[`data${key}`][0].internal_bench), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[2].color }} >
-                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "150px" }}></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className='col-1'>
-                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                    <div style={{ position: "relative", top: "150px", right: "-24%" }}>
-                                                                                        <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].external_bench).toFixed(1)}</span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>External </span><br />
-                                                                                        <span style={{ fontWeight: "initial", fontSize: "10px" }}>Benchmark</span></div>
-                                                                                </div>
-                                                                                {/* <div style={{ padding: Math.ceil(Math.ceil(Val.[`data${key}`][0].external_bench) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].external_bench) * 9.2) : 92, width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[3].color }} > */}
-
-                                                                                <div style={{ padding: impValFn((Val.[`data${key}`][0].external_bench), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[3].color }} >
-                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "150px" }}></div>
-                                                                                </div>
-
-                                                                            </div>
-
                                                                         </div>
                                                                     </div>
 
+                                                                    <div className='col-2' style={{ margin: "0px 18px 0px 18px" }}>
+                                                                        <div style={{ fontSize: "16px" }}>
+                                                                            <div style={{ position: "relative", top: "300px", paddingLeft: "4px" }}>
+                                                                                <span style={{ fontSize: "20px", }}>{Math.ceil(item.range_val).toFixed(1)}</span><br />
+                                                                                <span style={{ fontWeight: "initial", fontSize: "10px" }}>Self</span><br />
+                                                                                <span style={{ fontWeight: "initial", fontSize: "10px" }}>Assessment</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        {/* Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) : 92 */}
+                                                                        <div style={{ padding: impValFn((4), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[1].color }} >
+                                                                            <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='col-2' style={{ margin: "0px 18px 0px 3px" }}>
+                                                                        <div style={{ fontSize: "16px" }}>
+                                                                            <div style={{ position: "relative", top: "300px", paddingLeft: "4px" }}>
+                                                                                <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].internal_bench).toFixed(1)}</span><br />
+                                                                                <span style={{ fontWeight: "initial", fontSize: "10px" }}>Internal</span><br />
+                                                                                <span style={{ fontWeight: "initial", fontSize: "10px" }}>Benchmark</span></div>
+                                                                        </div>
+                                                                        {/* <div style={{ padding: Math.ceil(Math.ceil(Val.[`data${key}`][0].internal_bench) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].internal_bench) * 9.2) : 92, width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[2].color }} > */}
+
+                                                                        <div style={{ padding: impValFn((Val.[`data${key}`][0].internal_bench), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[2].color }} >
+                                                                            <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='col-2'>
+                                                                        <div style={{ fontSize: "16px" }}>
+                                                                            <div style={{ position: "relative", top: "300px", right: "-24%" }}>
+                                                                                <span style={{ fontSize: "20px", }}>{Math.ceil(Val.[`data${key}`][0].external_bench).toFixed(1)}</span><br />
+                                                                                <span style={{ fontWeight: "initial", fontSize: "10px" }}>External </span><br />
+                                                                                <span style={{ fontWeight: "initial", fontSize: "10px" }}>Benchmark</span></div>
+                                                                        </div>
+                                                                        {/* <div style={{ padding: Math.ceil(Math.ceil(Val.[`data${key}`][0].external_bench) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].external_bench) * 9.2) : 92, width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[3].color }} > */}
+
+                                                                        <div style={{ padding: impValFn((Val.[`data${key}`][0].external_bench), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[3].color }} >
+                                                                            <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}></div>
+                                                                        </div>
+
+                                                                    </div>
                                                                 </>
 
                                                             ) : null}
                                                         </>
                                                     )
                                                 })}
+
                                             </div>
                                         </div>) : null}
 
@@ -897,272 +1192,9 @@ export default function Step9(props) {
                             </div >
                         </>
                     ) : null}
-
-                    {/* page ------ 7 */}
-                    {feedbackData ? (
-                        <>
-                            <div className=" row page-break feed_block_row"  >
-                                <div className='row' style={{ padding: "25px 0px 0px 25px" }}>
-                                    <div >
-                                        {feedbackData ? (
-                                            <>
-                                                <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "uppercase" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
-                                                <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
-                                                <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
-                                            </>
-                                        ) : null}
-
-                                        <div style={{ position: "relative", top: "48px", left: "-5px", fontSize: "40px", fontWeight: "bold" }}>
-
-                                            <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
-                                                <div style={{ position: "relative", left: "22px" }}>
-                                                    <div className="square_bar"></div>
-                                                    <div className='page_left_header' style={{}}>
-                                                        <span className='Think-Act-Feel-Leadership-Rating'>Think-Act-Feel Leadership Rating</span>
-
-                                                        {/* <span>Think-Act-Feel</span><br>
-                                                        </br><span>Leadership Rating</span> */}
-                                                    </div>
-                                                </div>
+                </>
 
 
-                                                <div style={{ fontSize: "7px", position: "relative", bottom: "60px" }}>
-                                                    <div className='row' >
-                                                        <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)" }}>
-                                                            <div style={{ position: "relative", bottom: "20px", right: "240px" }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
-                                                                    Think
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-                                                        <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)", borderLeft: "1px solid rgb(209,209,209)" }}>
-                                                            <div style={{ position: "relative", bottom: "20px", right: "240px", }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
-                                                                    Act
-                                                                </div>
-
-
-                                                            </div>
-
-                                                        </div>
-                                                        <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)", borderLeft: "1px solid rgb(209,209,209)" }}>
-                                                            <div style={{ position: "relative", bottom: "20px", right: "240px", }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
-                                                                    Feel
-                                                                </div>
-
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-
-
-                                                    {impVal4 && Val4 ? (
-                                                        <div className='row' style={{ boder: "1px solid black" }}>
-                                                            {impVal4.map((item, key) => (
-                                                                <>
-                                                                    {[Val4.[`data${key}`][0].length > 0] ? (
-                                                                        <div className='col-4' style={{
-                                                                            // boder: "1px solid black",
-                                                                            height: "190px",
-                                                                            // borderBlockEnd: key <= 5 ? "1px solid rgb(209,209,209)" : "",
-                                                                            // borderRight: parseInt((key + 1) % 3) != 0 ? "1px solid rgb(209,209,209)" : "",
-
-                                                                        }}>
-                                                                            <div className='row'>
-                                                                                <div className='row' style={{ height: "190px", width: "500px", marginLeft: "auto" }}>
-
-                                                                                    {[Val4.[`data${key}`][0].length > 0] ? (
-                                                                                        <>
-                                                                                            {console.log((parseInt(key + 1) % 3) != 0)}
-                                                                                            <div className='col-1'>
-                                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                                    <div style={{ position: "relative", paddingLeft: "4px" }}>
-                                                                                                        {/* <span style={{ fontSize: "20px", }}>{parseFloat(item.answer).toFixed(1)}</span><br /> */}
-
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div style={{
-                                                                                                    padding: parseFloat(item.answer * 5),
-                                                                                                    width: 20,
-                                                                                                    height: 20,
-                                                                                                    transform: `translate(-5%,50%)`,
-                                                                                                    borderRadius: "100%",
-                                                                                                    opacity: 0.8,
-                                                                                                    position: "relative",
-                                                                                                    backgroundColor: colorOptions.slices[0].color
-
-                                                                                                }} >
-                                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "66px" }}>
-                                                                                                    </div>
-                                                                                                    <span style={{ fontSize: "8px", position: "relative", top: "-10px", left: "3px" }}>{parseFloat(item.answer).toFixed(1)}</span><br />
-
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div className='col-1' >
-                                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                                    <div style={{ position: "relative", paddingLeft: "4px" }}>
-                                                                                                        {/* <span style={{ fontSize: "8px",position:"relative",top:"-10px",left:"3px" }}>{(Val4.[`data${key}`][0].survey_mean).toFixed(1)}</span><br /> */}
-                                                                                                    </div>
-                                                                                                </div>
-
-                                                                                                <div style={{
-                                                                                                    padding: Math.ceil(Math.ceil(Val4.[`data${key}`][0].survey_mean) * 5) <= 50 ? Math.ceil(Math.ceil(Val4.[`data${key}`][0].survey_mean) * 5) : 50,
-                                                                                                    width: 20,
-                                                                                                    height: 20,
-                                                                                                    transform: `translate(-5%,50%)`,
-                                                                                                    borderRadius: "100%",
-                                                                                                    opacity: 0.8,
-                                                                                                    position: "relative",
-                                                                                                    backgroundColor: colorOptions.slices[1].color
-                                                                                                }} >
-                                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "66px" }}></div>
-                                                                                                    <span style={{ fontSize: "8px", position: "relative", top: "-10px", left: "3px" }}>{(Val4.[`data${key}`][0].survey_mean).toFixed(1)}</span><br />
-
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div className='col-1' >
-                                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                                    <div style={{ position: "relative", paddingLeft: "4px" }}>
-                                                                                                        {/* <span style={{ fontSize: "8px",position:"relative",top:"-10px",left:"3px" }}>{(Val4.[`data${key}`][0].internal_bench).toFixed(1)}</span><br /> */}
-                                                                                                    </div>
-                                                                                                </div>
-
-                                                                                                <div style={{
-                                                                                                    padding: Math.ceil(Math.ceil(Val4.[`data${key}`][0].internal_bench) * 5) <= 50 ? Math.ceil(Math.ceil(Val4.[`data${key}`][0].internal_bench) * 5) : 50,
-                                                                                                    width: 20,
-                                                                                                    height: 20,
-                                                                                                    transform: `translate(-5%,50%)`,
-                                                                                                    borderRadius: "100%",
-                                                                                                    opacity: 0.8,
-                                                                                                    position: "relative",
-                                                                                                    backgroundColor: colorOptions.slices[2].color
-                                                                                                }} >
-                                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "66px" }}></div>
-                                                                                                    <span style={{ fontSize: "8px", position: "relative", top: "-10px", left: "3px" }}>{(Val4.[`data${key}`][0].internal_bench).toFixed(1)}</span><br />
-
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div className='col-1' >
-                                                                                                <div style={{ fontSize: "16px" }}>
-                                                                                                    <div style={{ position: "relative", paddingLeft: "4px" }}>
-                                                                                                        {/* <span style={{ fontSize: "8px",position:"relative",top:"-10px",left:"3px" }}>{(Val4.[`data${key}`][0].internal_bench).toFixed(1)}</span><br /> */}
-                                                                                                    </div>
-                                                                                                </div>
-
-                                                                                                <div style={{
-                                                                                                    padding: Math.ceil(Math.ceil(Val4.[`data${key}`][0].internal_bench) * 5) <= 50 ? Math.ceil(Math.ceil(Val4.[`data${key}`][0].internal_bench) * 5) : 50,
-                                                                                                    width: 20,
-                                                                                                    height: 20,
-                                                                                                    transform: `translate(-5%,50%)`,
-                                                                                                    borderRadius: "100%",
-                                                                                                    opacity: 0.8,
-                                                                                                    position: "relative",
-                                                                                                    backgroundColor: colorOptions.slices[3].color
-                                                                                                }} >
-                                                                                                    <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "66px" }}></div>
-                                                                                                    <span style={{ fontSize: "8px", position: "relative", top: "-10px", left: "3px" }}>{(Val4.[`data${key}`][0].internal_bench).toFixed(1)}</span><br />
-
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </>
-
-                                                                                    ) : null}
-                                                                                </div>
-
-                                                                            </div>
-
-
-
-
-                                                                        </div>
-                                                                    ) : null}
-
-                                                                </>
-                                                            ))}
-
-
-
-                                                        </div>) : null}
-
-
-
-
-
-                                                </div>
-
-
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-
-
-                                </div>
-
-                                <div className='row' style={{ position: "relative", bottom: "10px", fontSize: "8px", left: "20px" }}>
-                                    <hr style={{ width: "102%", textAlign: 'left', marginLeft: 0 }} />
-
-
-                                    <div className='col-lg-3'>
-                                        <div className='row'>
-                                            <div className='sqr_list2' style={{ backgroundColor: "rgb(168,26,12)" }}>
-                                                <div style={{ position: "relative", right: "-18px", width: "max-content", top: "2px" }}>Survey Mean</div>
-                                            </div>
-                                            {/* <div style={{ fontSize: "10px", position: "relative", right: "40px", top: "10px" }}>Survey Mean</div> */}
-                                        </div>
-
-                                    </div>
-                                    <div className='col-lg-3'>
-                                        <div className='row'>
-                                            {/* <div className='sqr_list2' style={{ backgroundColor: "rgb(235,82,71)" }}>
-                                    </div> */}
-                                            <div className='sqr_list2' style={{ backgroundColor: "rgb(55,55,94)" }}>
-                                                <div style={{ position: "relative", right: "-18px", width: "max-content", top: "2px" }}>Self Assessment</div>
-
-                                            </div>
-                                            {/* <div style={{ fontSize: "10px", position: "relative", right: "40px", top: "10px" }}>Self Assessment</div> */}
-                                        </div>
-
-                                    </div>
-
-
-                                    <div className='col-lg-3'>
-                                        <div className='row'>
-                                            {/* <div className='sqr_list2' style={{ backgroundColor: "rgb(241,158,152)" }}>
-                                    </div> */}
-                                            <div className='sqr_list2' style={{ backgroundColor: "rgb(53,98,136)" }}>
-                                                <div style={{ position: "relative", right: "-18px", width: "max-content", top: "2px" }}>Internal Benchmark</div>
-
-                                            </div>
-                                            {/* <div style={{ fontSize: "10px", position: "relative", right: "40px", top: "10px" }}>Internal Benchmark</div> */}
-                                        </div>
-                                    </div>
-
-                                    <div className='col-lg-3'>
-                                        <div className='row'>
-                                            {/* <div className='sqr_list2' style={{ backgroundColor: "rgb(249,218,216)" }}>
-                                    </div> */}
-                                            <div className='sqr_list2' style={{ backgroundColor: "rgb(170,207,221)" }}>
-                                                <div style={{ position: "relative", right: "-18px", width: "max-content", top: "2px" }}>External Benchmark</div>
-
-                                            </div>
-                                            {/* <div style={{ fontSize: "10px", position: "relative", right: "40px", top: "10px" }}>External Benchmark</div> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    ) : null}
-                </div>
             ) : null}
 
             <fieldset>
@@ -1287,7 +1319,7 @@ export default function Step9(props) {
                                         <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_end.split('T')[0]}</span><br />
                                     </div>
 
-                                    <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px",textTransform:"capitalize" }}>
+                                    <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px", textTransform: "capitalize" }}>
                                         <span style={{ fontSize: "10px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>Created By</span><br />
                                         <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.last_name}</span><br />
                                         <span style={{ fontSize: "10px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>Generated On</span><br />
@@ -2198,112 +2230,105 @@ export default function Step9(props) {
                             </div>
                         </>
                     ) : null}
-                    {/* page ------ 6 */}
+
+
+                    {/* page ------ 5 */}
                     {feedbackData ? (
                         <>
                             <div className=" row page-break feed_block_row"  >
                                 <div className='row' style={{ padding: "25px 0px 0px 25px" }}>
-                                    <div style={{ position: "relative", top: "-22px" }}>
+                                    <div >
                                         {feedbackData ? (
                                             <>
-                                                <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "uppercase" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
+                                                <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "capitalize" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
                                                 <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
+
                                             </>
                                         ) : null}
-                                        <div style={{ position: "relative", top: "24px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
-                                                <div className='page_left_header'>
-                                                    <span className='Think-Act-Feel-Leadership-Rating'>Think-Act-Feel Leadership Rating</span>
-                                                    {/* </br><span style={{ position: "relative", top: "-16px" }}>Leadership Rating</span> */}
+                                                <div className='page_left_header' >
+                                                    <span className='text-future-potential'>Think-Act-Feel Leadership Rating</span>
+                                                    {/* </br><span>Potential</span> */}
                                                 </div>
 
-                                                <div style={{ fontSize: "7px", position: "relative", bottom: "54px" }}>
-
-                                                    <div className='row' >
-                                                        <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)" }}>
-                                                            <div style={{ position: "relative", bottom: "20px", right: "240px" }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
-                                                                    Think
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-                                                        <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)", borderLeft: "1px solid rgb(209,209,209)" }}>
-                                                            <div style={{ position: "relative", bottom: "20px", right: "240px", }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
-                                                                    Act
-                                                                </div>
-
-
-                                                            </div>
-
-                                                        </div>
-                                                        <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)", borderLeft: "1px solid rgb(209,209,209)" }}>
-                                                            <div style={{ position: "relative", bottom: "20px", right: "240px", }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
-                                                                    Feel
-                                                                </div>
-
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-
-
+                                                <div style={{ fontSize: "7px", position: "relative", bottom: "50px" }}>
                                                     {impVal4 && Val4 ? (
                                                         <div className='row ' >
-                                                            {impVal4.map((item, key) => (
-                                                                <>
-
-
+                                                            {impVal3.map((item, key) => (
+                                                                <div className='col-lg-6 ' style={{ borderLeft: key % 2 != 0 ? "1px solid rgb(209,209,209)" : "", borderBlockEnd: key != 4 ? "1px solid rgb(209,209,209)" : "" }} >
 
                                                                     {[Val4.[`data${key}`][0].length > 0] ? (
-                                                                        <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)", borderLeft: key % 3 != 0 ? "1px solid rgb(209,209,209)" : "" }}>
-                                                                            <span style={{ fontWeight: "lighter", fontSize: "10px" }}>{item.option}</span>
-                                                                            <div style={{ position: "relative", bottom: "0px", left: "-14px" }}>
+                                                                        <>
 
-                                                                                <Chart
-                                                                                    chartType="PieChart"
-                                                                                    data={[
-                                                                                        ["Task", "Hours per Day"],
-                                                                                        ["Survey Mean", [Math.ceil(Val4.[`data${key}`][0].survey_mean)] * 10],
-                                                                                        ["Self Assessment", item.answer * 10],
-                                                                                        ["Internal Benchmark", [Math.ceil(Val4.[`data${key}`][0].internal_bench)] * 10],
-                                                                                        ["External Benchmark", [Math.ceil(Val4.[`data${key}`][0].external_bench)] * 10],
-                                                                                    ]}
-                                                                                    options={{
-                                                                                        // title: "My Daily Activities",
-                                                                                        legend: "none",
-                                                                                        // legend: "none",
-                                                                                        // pieSliceText: "label",
-                                                                                        // title: item.option,
-                                                                                        // pieStartAngle: 100,
-                                                                                        slices: {
-                                                                                            0: { color: colorOptions.slices[0].color },
-                                                                                            1: { color: colorOptions.slices[1].color },
-                                                                                            2: { color: colorOptions.slices[2].color },
-                                                                                            3: { color: colorOptions.slices[3].color },
+                                                                            <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
 
-                                                                                        },
-                                                                                    }}
-                                                                                    height={"80%"}
-                                                                                    width={"50%"}
+                                                                                <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", fontWeight: "bold", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                    {item.option}
+                                                                                </div>
+                                                                                <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
+                                                                                    <GraphVerticalBars percentage={[Math.ceil(Val4.[`data${key}`][0].survey_mean)]} color={colorOptions.slices[0].color} />
 
-                                                                                />
+                                                                                </div>
+                                                                                <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                    <GraphVerticalBars percentage={item.answer} color={colorOptions.slices[1].color} />
+
+                                                                                </div>
+                                                                                <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                    <GraphVerticalBars percentage={[Math.ceil(Val4.[`data${key}`][0].internal_bench)]} color={colorOptions.slices[2].color} />
+
+                                                                                </div>
+                                                                                <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                    <GraphVerticalBars percentage={[Math.ceil(Val4.[`data${key}`][0].external_bench)]} color={colorOptions.slices[3].color} />
+
+                                                                                </div>
+
                                                                             </div>
-
-                                                                        </div>
+                                                                        </>
                                                                     ) : null}
-                                                                </>
+                                                                </div>
 
                                                             ))}
+
+
+
+                                                            <div className='col-lg-6 ' style={{ borderLeft: "1px solid rgb(209,209,209)", fontWeight: "lighter" }} >
+                                                                <div style={{ position: "relative", bottom: "5px", left: "50px", paddingTop: "40px" }}>
+                                                                    <div className='row m-2' >
+                                                                        <div className='col-lg-3 single_sqr_list2' style={{ backgroundColor: colorOptions.slices[0].color }}>
+                                                                        </div>
+                                                                        <div className='col-lg-3 w-50' style={{ textAlign: "left", textSize: "12px", paddingLeft: "50px", marginTop: "inherit" }}>
+                                                                            Survey Mean
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div className='row m-2' >
+                                                                        <div className='col-lg-3 single_sqr_list2' style={{ backgroundColor: colorOptions.slices[1].color }}>
+                                                                        </div>
+                                                                        <div className='col-lg-3 w-50' style={{ textAlign: "left", textSize: "12px", paddingLeft: "50px", marginTop: "inherit" }}>
+                                                                            Self Assessment
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='row m-2' >
+                                                                        <div className='col-lg-3 single_sqr_list2' style={{ backgroundColor: colorOptions.slices[2].color }}>
+                                                                        </div>
+                                                                        <div className='col-lg-3 w-50' style={{ textAlign: "left", textSize: "12px", paddingLeft: "50px", marginTop: "inherit" }}>
+                                                                            Internal Benchmark
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='row m-2' >
+                                                                        <div className='col-lg-3 single_sqr_list2' style={{ backgroundColor: colorOptions.slices[3].color }}>
+                                                                        </div>
+                                                                        <div className='col-lg-3 w-50' style={{ textAlign: "left", textSize: "12px", paddingLeft: "50px", marginTop: "inherit" }}>
+                                                                            External Benchmark
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
 
 
 
@@ -2311,8 +2336,6 @@ export default function Step9(props) {
 
                                                         </div>
                                                     ) : null}
-
-
 
 
                                                 </div>
@@ -2325,11 +2348,21 @@ export default function Step9(props) {
                                     </div>
 
                                 </div>
+                                <hr style={{ border: "1px thin rgb(209,209,209)", marginLeft: 0, position: "absolute", bottom: "20px" }} />
+                                <div style={{ fontSize: "8px", position: "absolute", bottom: "0px" }}>
+                                    <span style={{ position: "relative", left: "45%", bottom: "10px" }}>www.amplioso.com</span>
+                                    <span style={{ position: "relative", left: "-20%", bottom: "10px" }}>{new Date().getFullYear()}</span>
+                                    <span style={{ position: "relative", left: "-45%", bottom: "10px" }}>{feedbackData[0].CompanyId.company_name}</span>
+                                </div>
 
 
                             </div>
                         </>
                     ) : null}
+
+
+                    {/* page ------ 6 */}
+
                     {/* page ------ 7 */}
                     {feedbackData ? (
                         <>

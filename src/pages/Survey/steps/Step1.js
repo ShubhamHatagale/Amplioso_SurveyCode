@@ -49,7 +49,7 @@ export default function Step1(props) {
         // if (impVal == 0) {
         //     return false
         // }
-        console.log(questionId);
+        // console.log(questionId);
 
 
         // props.next(values);
@@ -121,7 +121,7 @@ export default function Step1(props) {
         }
 
     };
-    
+
     const stepOneValidationSchema = Yup.object({
         // first_name: Yup.number().required().label("First name").min(1, "Please select a value")
         // last_name: Yup.string().required().label("Last name")
@@ -166,23 +166,21 @@ export default function Step1(props) {
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
-                console.log(result)
-                console.log(result.data)
-                setRecordeData(result.data)
-                console.log(result.data.feature)
+                if (result.status == 200) {
+                    // console.log(result)
+                    setRecordeData(result.data)
 
-                let MyValues = result.data;
-                // if (MyValues.length > 0) {
-                //   setedituser(true);
-                //   setUpid(result.data[0].id);
-                // }
-                console.log("Edit Values", MyValues);
-                MyValues.map((x,i)=>{
-                    console.log(i)
-                    let Feature = eval(x.feature);
-                    console.log("feature", Feature);
-                    setInputListFinal(Feature)
-                })
+                    let MyValues = result.data;
+
+                    MyValues.map((x, i) => {
+                        var Feature = eval(x.feature);
+                        console.log("feature", Feature);
+                        if (Feature) {
+                            console.log("feature", Feature);
+                            setInputListFinal(Feature)
+                        }
+                    })
+                }
 
 
 
@@ -251,10 +249,11 @@ export default function Step1(props) {
                         <Form onSubmit={handleSubmit}>
                             <div className="row">
                                 <div className="col-8"></div>
+                                {console.log(inputListFinal[0].range_val)}
 
                                 <div className="col-4">
                                     {/* <CircularProgressWithLabel value={50}  /> */}
-                                    <div className="steps"><CircularProgressWithLabel size={70} value={impVal * 10} />
+                                    <div className="steps"><CircularProgressWithLabel size={70} value={inputListFinal[0].range_val * 10} />
                                     </div>
                                     {/* <LinearProgress value={10} /> */}
                                     {/* <CircularProgress variant="determinate" value={50} /> */}
@@ -272,6 +271,7 @@ export default function Step1(props) {
 
                                         <br />
                                         <br />
+
                                         <div className="card pad-card">
                                             <div className="range-slider">
                                                 <input className="range-slider__range" type="range" name="range_val" onChange={handleInputChange} value={inputListFinal[0].range_val} defaultValue={OptionVal} min={0} max={10} />

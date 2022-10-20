@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { CircularProgress } from '@material-ui/core';
 import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel';
+import { Modal } from 'react-bootstrap';
 
 export default function Step2(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
@@ -19,16 +20,21 @@ export default function Step2(props) {
     const [OptionVal, setOptionVal] = useState("")
     const [impVal, setimpVal] = useState(0)
     const [loading, setloading] = useState(0)
+    const [notification, setnotification] = useState(false);
+    const [Display, setDisplay] = useState(false);
+    const [inputListFinal, setInputListFinal] = useState([{ comment: "" }]);
+    const [RecordeData, setRecordeData] = useState()
 
     // let uid.userId = 1;
 
 
-    const inputChange = (e) => {
-        let val1 = e.target.value;
-        let updId = e.target.id;
-        console.log(val1)
-        console.log(updId)
-        setimpVal(val1);
+    const handleInputChange = (e) => {
+
+        const { name, value } = e.target;
+        const list = [...inputListFinal];
+        console.log("Here is the Value", list);
+        list[0][name] = value;
+        setInputListFinal(list);
 
         // if(updId){
         //     alert(updId)
@@ -41,94 +47,40 @@ export default function Step2(props) {
     }
 
     const handleSubmit = (values) => {
-        if (impVal == "") {
+
+        if (inputListFinal[0].comment == "") {
+            setnotification("Please Type Your Comment")
+            setDisplay(true)
             return false
         }
-        console.log(OptData);
-        if (OptData) {
-            console.warn("update")
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            // inputList.map((item,key)=>{
-            var raw = JSON.stringify({
-                survey_id: 0,
-                employee_id: uid.employeeId,
-                survey_user_mapping_id: 0,
-                surveyor_id: uid.userId,
-                company_id: uid.companyId,
-                manager_id: uid.managerId,
-                question_id: questionId,
 
-                option_id: 0,
-                answer: impVal,
-                created_by: uid.userId,
-                updated_by: uid.userId,
-            });
-            var requestOptions = {
-                method: "PUT",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_answers/${OptData}`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({
+            feature7: inputListFinal,
+            updated_by: uid.userId
+        });
+        var requestOptions = {
+            method: "PUT",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+        };
+        fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+            .then((response) => response.json())
+            .then((resData) => {
+                if (resData.status == 200) {
+                    console.log("Values Submitted Succesfully");
+                    GetAllRecords();
+                    props.next(values);
                     console.log(resData);
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        GetAllRecords();
-                        props.next(values);
-
-                    }
-                    // GetAllRecords();
-                })
-                .catch((error) => console.log("error", error));
-
-        } else {
-            console.warn("post")
-            // props.next(values);
-
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            // inputList.map((item,key)=>{
-            var raw = JSON.stringify({
-                survey_id: 0,
-                employee_id: uid.employeeId,
-                survey_user_mapping_id: 0,
-                surveyor_id: uid.userId,
-                company_id: uid.companyId,
-                manager_id: uid.managerId,
-                question_id: questionId,
-
-                option_id: 0,
-                answer: impVal,
-                created_by: uid.userId,
-                updated_by: uid.userId,
-            });
-            var requestOptions = {
-                method: "POST",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
-            fetch(`http://localhost:9000/masters/survey_answers/`, requestOptions)
-                .then((response) => response.json())
-                .then((resData) => {
-                    console.log(resData);
-                    if (resData.status == 200) {
-                        console.log("Values Submitted Succesfully");
-                        GetAllRecords();
-                        props.next(values);
-
-                    }
-                    // GetAllRecords();
-                })
-                .catch((error) => console.log("error", error));
+                }
+            })
+            .catch((error) => console.log("error", error));
 
 
-        }
 
-    };
+    }
 
 
 
@@ -177,8 +129,36 @@ export default function Step2(props) {
                 console.log(result.data[7].id)
                 console.log(result.data[7].id)
                 setquestion(result.data[7].question);
-                getOptions(result.data[7].id);
+                // getOptions(result.data[7].id);
                 // }
+
+            })
+
+        const response4 = fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                // setlistRecord(result.data);
+                console.log(result)
+                console.log(result.data)
+                setRecordeData(result.data)
+                console.log(result.data.feature)
+
+                let MyValues = result.data;
+                // if (MyValues.length > 0) {
+                //   setedituser(true);
+                //   setUpid(result.data[0].id);
+                // }
+                console.log("Edit Values", MyValues);
+                MyValues.map((x, i) => {
+                    console.log(i)
+                    let Feature = eval(x.feature7);
+                    // console.log("feature", Feature);
+                    if (Feature) {
+                        setInputListFinal(Feature)
+                    }
+                })
+
+
 
             })
     }
@@ -216,12 +196,34 @@ export default function Step2(props) {
 
     return (
         <fieldset>
+
+            <Modal
+                size="md"
+                show={Display}
+                onHide={() => setDisplay(false)}
+                aria-labelledby="example-modal-sizes-title-md"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Notification</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body className="success text-center mt-5">
+                    {/* <img style={{ height: "80px", width: "80px" }} src={Ico12} /> */}
+                    {/* <FaIconz.FaTimesCircle style={{ height: "60px", width: "60px" }} /> */}
+                </Modal.Body>
+
+                <Modal.Body className="success text-center text-danger bold h3">{notification}</Modal.Body>
+                <Modal.Body className="success text-center text-black bold" ><p style={{ cursor: 'pointer' }} onClick={() => setDisplay(false)} >Ok</p></Modal.Body>
+
+            </Modal>
+
             <div className="row">
                 <div className="col-12">
                     {/* <h2 className="steps">80%</h2> */}
                     <div className="steps">
-                            <CircularProgressWithLabel size={70} value={5 * 10} />
-                        </div>
+                        <CircularProgressWithLabel size={70} value={5 * 10} />
+                    </div>
                 </div>
             </div>
             <div className="form-card">
@@ -239,7 +241,7 @@ export default function Step2(props) {
                             <div className="card-body">
                                 <div className="basic-form">
                                     <div className="mb-3">
-                                        <textarea className="form-control" value={impVal} rows={4} id="comment" placeholder="type comment here...." onChange={inputChange} defaultValue={impVal.inpV} />
+                                        <textarea className="form-control" value={inputListFinal[0].comment} rows={4} id="comment" placeholder="type comment here...." name="comment" onChange={handleInputChange} />
                                     </div>
                                 </div>
                             </div>

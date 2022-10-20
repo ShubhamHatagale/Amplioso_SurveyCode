@@ -16,6 +16,9 @@ h3{
 
 .container div label {
     cursor: pointer;
+    font-weight: 600;
+    vertical-align: middle;
+    border-color: #F0F0F0;
 }
 
 .container div label input[type="checkbox"] {
@@ -39,7 +42,33 @@ h3{
     border: 0px solid black;
     border-radius: 30px;
     box-shadow: 0px 1px 4px 0px grey;
+    width: 160px;
+
 }
+
+
+.container div label .unf {
+    background-color: lightgrey;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    /* background: White; */
+    padding: 15px;
+    /* color:#555;
+    text-shadow:0 1px 4px rgba(0,0,0,.5); */
+    border-radius: 10px;
+    font-size: 15px;
+    /* transition: 0.5s; */
+    user-select: none;
+    overflow: hidden;
+    border: 0px solid black;
+    border-radius: 30px;
+    box-shadow: 0px 1px 4px 0px grey;
+    width: 160px;
+
+}
+
+
 
 .container div label span:before {
     content: '';

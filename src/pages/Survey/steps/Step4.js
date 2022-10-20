@@ -111,7 +111,7 @@ export default function Step2(props) {
 
             })
 
-            const response4 = fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+        const response4 = fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -194,7 +194,7 @@ export default function Step2(props) {
     // }
 
 
-  
+
 
     const handleInputChange = (e, index) => {
 
@@ -262,9 +262,10 @@ export default function Step2(props) {
                     <p className='fs-title-m'>{question.replace("[FIRST NAME]", first_name).replace("[FIRST NAME]", first_name)}</p>
                     <hr />
                     <br />
-                    <br />
+                    {/* <br /> */}
                     {/* <br /> */}
                     <h3 className="smtxt">1 = Completely Disagree &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Completely Agree &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3>
+                    <br />
 
                     <div className="row">
                         <div className="colOwn" >
@@ -281,7 +282,9 @@ export default function Step2(props) {
                                         <div className="range-slider" >
                                             <h3 className="sub-q min-height">{item.option}</h3>
                                             <input className="range-slider__range" type="range" id={item.id} value={inputListFinal[i].range_val} name="range_val" onChange={(e) => handleInputChange(e, i)} defaultValue={0} min={0} max={10} />
-                                            <span className="range-slider__value " style={{ backgroundColor: inputListFinal[i].range_val == 0 || inputListFinal[i].range_val == "" || inputListFinal[i].range_val == null || inputListFinal[i].range_val == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal.length > 0 ? (inputListFinal[i].range_val == 0 ? "NA" : inputListFinal[i].range_val) : "NA"}</span> </div>
+                                            <span className="range-slider__value " style={{ backgroundColor: inputListFinal[i].range_val == 0 || inputListFinal[i].range_val == "" || inputListFinal[i].range_val == null || inputListFinal[i].range_val == "NA" ? "rgb(221,38,60)" : "" }}>
+                                                {(inputListFinal[i].range_val == 0 ? "NA" : inputListFinal[i].range_val)}
+                                            </span> </div>
                                     </div>
                                 )
                             })}
@@ -310,7 +313,10 @@ export default function Step2(props) {
                                                 defaultValue={0}
                                                 min={0}
                                                 max={10} />
-                                            <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val1 == 0 || inputListFinal[i].range_val1 == "" || inputListFinal[i].range_val1 == null || inputListFinal[i].range_val1 == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal1.length > 0 ? (inputListFinal[i].range_val1 == 0 ? "NA" : inputListFinal[i].range_val1) : "NA"}</span> </div>
+                                            <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val1 == 0 || inputListFinal[i].range_val1 == "" || inputListFinal[i].range_val1 == null || inputListFinal[i].range_val1 == "NA" ? "rgb(221,38,60)" : "" }}>
+                                                {(inputListFinal[i].range_val1 == 0 ? "NA" : inputListFinal[i].range_val1)}
+
+                                            </span> </div>
                                     </div>
                                 )
                             })}
@@ -339,7 +345,10 @@ export default function Step2(props) {
                                                 defaultValue={0}
                                                 min={0}
                                                 max={10} />
-                                            <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val2 == 0 || inputListFinal[i].range_val2 == "" || inputListFinal[i].range_val2 == null || inputListFinal[i].range_val2 == "NA" ? "rgb(221,38,60)" : "" }}>{optionVal2.length > 0 ? (inputListFinal[i].range_val2 == 0 ? "NA" : inputListFinal[i].range_val2) : "NA"}</span> </div>
+                                            <span className="range-slider__value" style={{ backgroundColor: inputListFinal[i].range_val2 == 0 || inputListFinal[i].range_val2 == "" || inputListFinal[i].range_val2 == null || inputListFinal[i].range_val2 == "NA" ? "rgb(221,38,60)" : "" }}>
+                                                {(inputListFinal[i].range_val2 == 0 ? "NA" : inputListFinal[i].range_val2)}
+
+                                            </span> </div>
                                         {/* <span>{optionVal2.length > 0 ? optionVal2[0].answer : null}</span> */}
 
                                     </div>
