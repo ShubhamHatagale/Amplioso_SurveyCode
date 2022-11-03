@@ -16,7 +16,7 @@ import WelcomeScreen from "./pages/Survey/welcomescreen";
 import SurveyForm from "./pages/Survey/SurveyForm";
 import TokenExpiredPage from "./pages/Survey/TokenExpiredPage";
 
-const SuperAdminRouting = () => {
+const SuperAdminRouting = () => { 
 
     return (
         <Switch>
