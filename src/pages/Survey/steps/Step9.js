@@ -15,7 +15,9 @@ import Paper from '@material-ui/core/Paper';
 import ReactTooltip from 'react-tooltip';
 import { CircularProgressbar, buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import { Chart } from "react-google-charts";
-import '../../../assets/css/pdf_design.css';
+// import '../../../assets/css/pdf_design.css';
+// import '../../../assets/css/pdfFont.css';
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Box, Card, Container } from '@material-ui/core';
@@ -30,7 +32,7 @@ import CircularProgressWithLabel from '../../../components/CircularProgressWithL
 
 export default function Step9(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
-    const [DisplayDiv, setDisplayDiv] = useState(true);
+    const [DisplayDiv, setDisplayDiv] = useState(false);
     const [pdfShowDes, setpdfShowDes] = useState(0);
     const history = useHistory();
     const [beliverName, setbeliverName] = useState("");
@@ -1003,13 +1005,13 @@ export default function Step9(props) {
                     var Feature6 = eval(x.feature6);
                     var Feature7 = eval(x.feature7);
 
-                    
+
 
                     var optionVal1 = Feature4.filter(({ status }) => status === true)
                     var optionVal2 = Feature6.filter(({ favstatus }) => favstatus === true)
 
                     console.log(optionVal1)
-                    
+
                     if (Feature) {
                         console.log("feature", Feature);
                         // setInputListFinal([Feature],[Feature1])
@@ -1048,7 +1050,7 @@ export default function Step9(props) {
                     {console.log(list1)}
 
 
-                    <button onClick={checkbtn} > check {list1[4][0].surveyMean}</button>
+                    {/* <button onClick={checkbtn} > check {list1[4][0].surveyMean}</button> */}
 
 
                     {/* <Pdf_page1 /> */}
@@ -1060,7 +1062,7 @@ export default function Step9(props) {
                                     <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                     <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
 
-                                    <div style={{ position: "relative", top: "58px", left: "14px", fontSize: "40px", fontWeight: "bold" }}>
+                                    <div style={{ position: "relative", top: "58px", left: "14px", fontSize: "40px",}}>
 
                                         <div className="square_bar"></div>
                                         <div className='page_left_header' style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
@@ -1114,7 +1116,7 @@ export default function Step9(props) {
                                                             </div>
 
                                                             {/* Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) : 92 */}
-                                                            <div style={{ padding: impValFn((4), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[1].color }} >
+                                                            <div style={{ padding: impValFn((item.range_val), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[1].color }} >
                                                                 <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}></div>
                                                             </div>
                                                         </div>
@@ -1177,7 +1179,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div style={{ borderLeft: "6px solid #799FCB", height: "84px" }}></div>
@@ -1396,7 +1398,7 @@ export default function Step9(props) {
                                                             // bottom:"90px",
                                                             left: "-14px",
                                                         }}>
-                                                            <span style={{ fontSize: "12px", fontWeight: "bold", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(list1[key][0].surveyMean).toFixed(1)}</span><br>
+                                                            <span style={{ fontSize: "12px", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(list1[key][0].surveyMean).toFixed(1)}</span><br>
                                                             </br><span>Survey</span><br>
                                                             </br><span>Mean</span>
                                                         </div>
@@ -1415,7 +1417,7 @@ export default function Step9(props) {
                                                             // bottom:"90px",
                                                             left: "-14px",
                                                         }}>
-                                                            <span style={{ fontSize: "12px", fontWeight: "bold", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(item.range_val).toFixed(1)}</span><br>
+                                                            <span style={{ fontSize: "12px", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(item.range_val).toFixed(1)}</span><br>
                                                             </br><span>Self</span><br>
                                                             </br><span>Assessment</span>
                                                         </div>
@@ -1434,7 +1436,7 @@ export default function Step9(props) {
                                                             // bottom:"90px",
                                                             left: "-14px",
                                                         }}>
-                                                            <span style={{ fontSize: "12px", fontWeight: "bold", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(list1[key][0].internalBenchmark).toFixed(1)}</span><br>
+                                                            <span style={{ fontSize: "12px", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(list1[key][0].internalBenchmark).toFixed(1)}</span><br>
                                                             </br><span>Internal</span><br>
                                                             </br><span>Benchmark</span>
                                                         </div>
@@ -1452,7 +1454,7 @@ export default function Step9(props) {
                                                             // bottom:"90px",
                                                             left: "-14px",
                                                         }}>
-                                                            <span style={{ fontSize: "12px", fontWeight: "bold", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(list1[key][0].externalBenchmark).toFixed(1)}</span><br>
+                                                            <span style={{ fontSize: "12px", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(list1[key][0].externalBenchmark).toFixed(1)}</span><br>
                                                             </br><span>External</span><br>
                                                             </br><span>Benchmark</span>
                                                         </div>
@@ -1483,7 +1485,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "capitalize" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
                                                 <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -1626,7 +1628,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
 
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -1705,7 +1707,7 @@ export default function Step9(props) {
 
 
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar" style={{ visibility: "hidden" }}></div>
@@ -1846,7 +1848,7 @@ export default function Step9(props) {
 
                                             </>
                                         ) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -1866,7 +1868,7 @@ export default function Step9(props) {
 
                                                                             <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
 
-                                                                                <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", fontWeight: "bold", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
                                                                                     {item.option}
                                                                                 </div>
                                                                                 <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
@@ -1973,7 +1975,7 @@ export default function Step9(props) {
 
                                             </>
                                         ) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -1997,7 +1999,7 @@ export default function Step9(props) {
 
                                                                                 <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
 
-                                                                                    <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", fontWeight: "bold", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                    <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
                                                                                         {/* {item.option} */}
                                                                                     </div>
                                                                                     <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
@@ -2030,7 +2032,7 @@ export default function Step9(props) {
 
                                                                                 <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
 
-                                                                                    <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", fontWeight: "bold", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                    <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
                                                                                         {/* {item.option} */}
                                                                                     </div>
                                                                                     <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
@@ -2063,7 +2065,7 @@ export default function Step9(props) {
 
                                                                                 <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
 
-                                                                                    <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", fontWeight: "bold", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                    <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
                                                                                         {/* {item.option} */}
                                                                                     </div>
                                                                                     <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
@@ -2226,7 +2228,7 @@ export default function Step9(props) {
                                             </>
                                         ) : null}
 
-                                        <div style={{ position: "relative", top: "48px", left: "-5px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "48px", left: "-5px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div style={{ position: "relative", left: "22px" }}>
@@ -2244,7 +2246,7 @@ export default function Step9(props) {
                                                     <div className='row' >
                                                         <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)" }}>
                                                             <div style={{ position: "relative", bottom: "20px", right: "240px" }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
+                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", color: "black", top: "30px", width: "100px", height: "40px" }}>
                                                                     Think
                                                                 </div>
 
@@ -2253,7 +2255,7 @@ export default function Step9(props) {
                                                         </div>
                                                         <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)", borderLeft: "1px solid rgb(209,209,209)" }}>
                                                             <div style={{ position: "relative", bottom: "20px", right: "240px", }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
+                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", color: "black", top: "30px", width: "100px", height: "40px" }}>
                                                                     Act
                                                                 </div>
 
@@ -2263,7 +2265,7 @@ export default function Step9(props) {
                                                         </div>
                                                         <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)", borderLeft: "1px solid rgb(209,209,209)" }}>
                                                             <div style={{ position: "relative", bottom: "20px", right: "240px", }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
+                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", color: "black", top: "30px", width: "100px", height: "40px" }}>
                                                                     Feel
                                                                 </div>
 
@@ -2727,7 +2729,7 @@ export default function Step9(props) {
                                         <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "uppercase" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
                                         <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                         <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -2780,11 +2782,11 @@ export default function Step9(props) {
                                                     </br><span>Comments</span>
                                                 </div>
                                                 {/* vex nymphs.waltz,bad nymph,for quick jigs vex! fox nymphs grab quick-j */}
-                                               
+
                                                 <div style={{ fontSize: "7px", position: "relative", bottom: "50px", left: "16px", color: "black", fontWeight: "lighter", color: "black" }}>
                                                     {/* {impVal8 ? (<div>{impVal8}</div>) : null} */}
 
-                                                    {inputListFinal[0].Feature7.map((item,key)=>(
+                                                    {inputListFinal[0].Feature7.map((item, key) => (
                                                         <div>{item.comment}</div>
                                                     ))}
                                                 </div>
@@ -2846,7 +2848,9 @@ export default function Step9(props) {
                             <h5 className="purple-text text-center">Thank you for your time. We now hope others will return the favor for you someday. Wish you much success.</h5>
                         </div>
                     </div>
+                    <button onClick={() => window.print()} >check</button>
                 </div>
+
 
 
             </fieldset >
@@ -2855,22 +2859,43 @@ export default function Step9(props) {
 
 
 
-            <button
+            {list1.length == 5 ? (<button
                 type="button"
                 class="btn downloadbtn waves-effect"
                 onClick={exportPDFWithMethod}
             >
                 Download PDF   <i class="ml-1 zmdi zmdi-cloud-download"></i>
-            </button>
+            </button>) : null}
 
+            {/* <div className='ccdf'>
+                <h1>Amplioso aaaa</h1>
+                <p>Amplioso aaaa</p>
+            </div> */}
+
+            {/* {pdfShowDes > 0 ? (
+                <PDFExport paperSize="A4"
+                    ref={pdfExportComponent}
+                    fileName={`${beliverName}-${history.location.pathname}`}
+                >
+                    <div>
+                        <span>hallo shubhaa</span>
+                    </div>
+
+                </PDFExport>) : null} */}
+                
             {pdfShowDes > 0 ? (
-                <PDFExport paperSize="A4" ref={pdfExportComponent} fileName={`${beliverName}-${history.location.pathname}`} >
+                <PDFExport paperSize="A4"
+                    ref={pdfExportComponent}
+                    fileName={`${beliverName}-${history.location.pathname}`}
+                >
+
+
                     <div className="feed_block_row row "  >
                         <div className='circle' style={{ position: "absolute", top: "23%", left: "272px" }}>
                             <Star style={{ fill: "#FFFDFD", fontSize: "38px", position: "relative", right: "7px", top: "4px" }} />
                         </div>
                         <div className='page1_circle2' style={{ position: "absolute", top: "73%", left: "272px" }}>
-                            <CheckIcon style={{ fill: "#FFFDFD", fontWeight: "bold", fontSize: "38px", position: "relative", right: "7px", top: "4px" }} />
+                            <CheckIcon style={{ fill: "#FFFDFD", fontSize: "38px", position: "relative", right: "7px", top: "4px" }} />
                         </div>
 
                         <div className="col-lg-6 feed_block feed_block1 text-black">
@@ -2886,16 +2911,8 @@ export default function Step9(props) {
                         </div>
 
                         <div className="col-lg-6 feed_block feed_block2">
-                            {/* <div className='row ' >
-                                <div className='col-lg-6 text-white' >
-                                    Feedback Done Right
-                                </div>
-                                <div className='col-lg-6 text-white'>
-                                    www.amplioso.com
-                                </div>
-                            </div> */}
-
-                            <div className='text-white' style={{ fontSize: "40px", fontWeight: "bold", position: "relative", left: "16px", top: "225px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
+                          
+                            <div className='text-white' style={{ position: "relative", left: "16px", top: "225px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
                                 {/* <p>Feedback Report</p> */}
                                 <span>Feedback</span><br>
                                 </br><span>Report</span>
@@ -2903,16 +2920,16 @@ export default function Step9(props) {
                         </div>
 
                         <div className="col-lg-6 feed_block feed_block3 text-black">
-                            <div style={{ fontSize: "10px", color: "white", float: "left", padding: "20px 20px" }}>
+                            <div  style={{ fontSize: "10px", color: "white", float: "left", padding: "20px 20px",flex:"0 0 auto",width:"100%" }}>
                                 {/* Company Details */}
                             </div>
-                            <div style={{ fontSize: "40px", color: "white", fontWeight: "bold", position: "relative", left: "16px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
+                            <div style={{ color: "white",position: "relative", left: "16px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
                                 <span>Conversant</span><br>
                                 </br><span>Technologies</span>
                             </div>
 
                             <div style={{ position: "relative", color: "white", left: "26px", top: "100px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }} >
-                                <span style={{ fontSize: "58px", fontWeight: "bold" }}>{new Date().getFullYear()}</span><br>
+                                <span style={{ fontSize: "58px" }}>{new Date().getFullYear()}</span><br>
                                 </br><span style={{ fontSize: "10px" }}>www.amplioso.com</span>
 
                             </div>
@@ -2927,21 +2944,21 @@ export default function Step9(props) {
                                     {/* <span >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`}</span> */}
                                     {/* {console.log(feedbackData)} */}
                                     <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "8px" }}>
-                                        <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px", textTransform: "capitalize" }}>{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`}</span><br />
-                                        <span style={{ fontSize: "10px", position: "relative", right: "9px", padding: "20px 20px" }}>{`${feedbackData[0].user_email}`}</span>
+                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px", textTransform: "capitalize" }}>{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`}</span><br />
+                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px",fontWeight:"100px" }}>{`${feedbackData[0].user_email}`}</span>
                                     </div>
 
                                     <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "46px" }}>
-                                        <span style={{ fontSize: "10px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>Feedback Period</span><br />
-                                        <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_start.split('T')[0]}</span><br />
-                                        <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_end.split('T')[0]}</span><br />
+                                        <span style={{ fontSize: "8px",position: "relative", right: "9px", padding: "20px 20px" }}>Feedback Period</span><br />
+                                        <span style={{ fontSize: "22px",position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_start.split('T')[0]}</span><br />
+                                        <span style={{ fontSize: "22px",position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_end.split('T')[0]}</span><br />
                                     </div>
 
                                     <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px", textTransform: "capitalize" }}>
-                                        <span style={{ fontSize: "10px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>Created By</span><br />
-                                        <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.last_name}</span><br />
-                                        <span style={{ fontSize: "10px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>Generated On</span><br />
-                                        <span style={{ fontSize: "22px", fontWeight: "bold", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].createdAt.split('T')[0]}</span><br />
+                                        <span style={{ fontSize: "8px",position: "relative", right: "9px", padding: "20px 20px" }}>Created By</span><br />
+                                        <span style={{ fontSize: "22px",position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.last_name}</span><br />
+                                        <span style={{ fontSize: "8px",position: "relative", right: "9px", padding: "20px 20px" }}>Generated On</span><br />
+                                        <span style={{ fontSize: "22px",position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].createdAt.split('T')[0]}</span><br />
 
                                     </div>
 
@@ -2958,8 +2975,8 @@ export default function Step9(props) {
                                     <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
                                     {console.log("val==> " + impVal)}
 
-                                    {impVal ? (
-                                        <div style={{ position: "relative", top: "58px", left: "14px", fontSize: "40px", fontWeight: "bold" }}>
+                                    {impVal && list1.length == 5 ? (
+                                        <div style={{ position: "relative", top: "58px", left: "14px", fontSize: "40px" }}>
 
                                             <div className="square_bar"></div>
                                             <div className='page_left_header' style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
@@ -3013,7 +3030,7 @@ export default function Step9(props) {
                                                                 </div>
 
                                                                 {/* Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) <= 92 ? Math.ceil(Math.ceil(Val.[`data${key}`][0].survey_mean) * 9.2) : 92 */}
-                                                                <div style={{ padding: impValFn((4), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[1].color }} >
+                                                                <div style={{ padding: impValFn((item.range_val), 1, 9.2), width: 20, height: 20, transform: `translate(-50%,-50%)`, borderRadius: "100%", opacity: 0.8, backgroundColor: colorOptions.slices[1].color }} >
                                                                     <div className="sqr_bar " style={{ borderLeft: "1px solid rgb(38,38,38)", height: "300px" }}></div>
                                                                 </div>
                                                             </div>
@@ -3077,7 +3094,7 @@ export default function Step9(props) {
                                                     <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                                     <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
 
-                                            <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                            <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px" }}>
 
                                                 <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                     <div style={{ borderLeft: "6px solid #799FCB", height: "84px" }}></div>
@@ -3296,7 +3313,7 @@ export default function Step9(props) {
                                                                 // bottom:"90px",
                                                                 left: "-14px",
                                                             }}>
-                                                                <span style={{ fontSize: "12px", fontWeight: "bold", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br>
+                                                                <span style={{ fontSize: "12px",textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br>
                                                                 </br><span>Survey</span><br>
                                                                 </br><span>Mean</span>
                                                             </div>
@@ -3315,7 +3332,7 @@ export default function Step9(props) {
                                                                 // bottom:"90px",
                                                                 left: "-14px",
                                                             }}>
-                                                                <span style={{ fontSize: "12px", fontWeight: "bold", textAlign: "center", marginLeft: "5px" }}>{parseFloat(item.answer).toFixed(1)}</span><br>
+                                                                <span style={{ fontSize: "12px",textAlign: "center", marginLeft: "5px" }}>{parseFloat(item.answer).toFixed(1)}</span><br>
                                                                 </br><span>Self</span><br>
                                                                 </br><span>Assessment</span>
                                                             </div>
@@ -3334,7 +3351,7 @@ export default function Step9(props) {
                                                                 // bottom:"90px",
                                                                 left: "-14px",
                                                             }}>
-                                                                <span style={{ fontSize: "12px", fontWeight: "bold", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].internal_bench).toFixed(1)}</span><br>
+                                                                <span style={{ fontSize: "12px",textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].internal_bench).toFixed(1)}</span><br>
                                                                 </br><span>Internal</span><br>
                                                                 </br><span>Benchmark</span>
                                                             </div>
@@ -3352,7 +3369,7 @@ export default function Step9(props) {
                                                                 // bottom:"90px",
                                                                 left: "-14px",
                                                             }}>
-                                                                <span style={{ fontSize: "12px", fontWeight: "bold", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].external_bench).toFixed(1)}</span><br>
+                                                                <span style={{ fontSize: "12px",textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].external_bench).toFixed(1)}</span><br>
                                                                 </br><span>External</span><br>
                                                                 </br><span>Benchmark</span>
                                                             </div>
@@ -3384,7 +3401,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "capitalize" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
                                                 <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -3529,7 +3546,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
 
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -3600,7 +3617,7 @@ export default function Step9(props) {
 
 
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar" style={{ visibility: "hidden" }}></div>
@@ -3744,7 +3761,7 @@ export default function Step9(props) {
 
                                             </>
                                         ) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -3764,7 +3781,7 @@ export default function Step9(props) {
 
                                                                             <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
 
-                                                                                <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", fontWeight: "bold", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
                                                                                     {item.option}
                                                                                 </div>
                                                                                 <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
@@ -3873,7 +3890,7 @@ export default function Step9(props) {
 
                                             </>
                                         ) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -3883,7 +3900,7 @@ export default function Step9(props) {
                                                 </div>
 
                                                 <div style={{ fontSize: "7px", position: "relative", bottom: "50px" }}>
-                                                    {impVal4 && Val4 ? (
+                                                    {impVal4 && impVal3 && Val4 ? (
                                                         <div className='row ' >
                                                             {impVal3.map((item, key) => (
                                                                 <div className='col-lg-6 ' style={{ borderLeft: key % 2 != 0 ? "1px solid rgb(209,209,209)" : "", borderBlockEnd: key != 4 ? "1px solid rgb(209,209,209)" : "" }} >
@@ -3893,7 +3910,7 @@ export default function Step9(props) {
 
                                                                             <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
 
-                                                                                <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", fontWeight: "bold", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
                                                                                     {item.option}
                                                                                 </div>
                                                                                 <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
@@ -4004,7 +4021,7 @@ export default function Step9(props) {
                                             </>
                                         ) : null}
 
-                                        <div style={{ position: "relative", top: "48px", left: "-5px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "48px", left: "-5px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div style={{ position: "relative", left: "22px" }}>
@@ -4022,7 +4039,7 @@ export default function Step9(props) {
                                                     <div className='row' >
                                                         <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)" }}>
                                                             <div style={{ position: "relative", bottom: "20px", right: "240px" }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
+                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", color: "black", top: "30px", width: "100px", height: "40px" }}>
                                                                     Think
                                                                 </div>
 
@@ -4031,7 +4048,7 @@ export default function Step9(props) {
                                                         </div>
                                                         <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)", borderLeft: "1px solid rgb(209,209,209)" }}>
                                                             <div style={{ position: "relative", bottom: "20px", right: "240px", }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
+                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", color: "black", top: "30px", width: "100px", height: "40px" }}>
                                                                     Act
                                                                 </div>
 
@@ -4041,7 +4058,7 @@ export default function Step9(props) {
                                                         </div>
                                                         <div className='col-lg-4 ' style={{ borderBlockEnd: "1px solid rgb(209,209,209)", borderLeft: "1px solid rgb(209,209,209)" }}>
                                                             <div style={{ position: "relative", bottom: "20px", right: "240px", }}>
-                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", fontWeight: "bold", color: "black", top: "30px", width: "100px", height: "40px" }}>
+                                                                <div className='grp' style={{ position: "relative", left: "290px", fontSize: "20px", color: "black", top: "30px", width: "100px", height: "40px" }}>
                                                                     Feel
                                                                 </div>
 
@@ -4265,7 +4282,7 @@ export default function Step9(props) {
                                         <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "uppercase" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
                                         <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                         <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", fontWeight: "bold" }}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>

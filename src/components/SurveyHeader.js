@@ -87,7 +87,9 @@ export default function SurveyHeader(props) {
                 setfirst_name(result.data[0].first_name)
                 setlast_name(result.data[0].last_name)
                 // alert(result.data[0].prof_img)
-                setImageUrl("http://dev.amplioso.com/images/" + result.data[0].prof_img)
+                console.log(result.data[0])
+                setImageUrl("http://dev.amplioso.com/images/" + "1615629352514-logo.png")
+                // setImageUrl("http://dev.amplioso.com/images/" + result.data[0].prof_img)
 
             })
 

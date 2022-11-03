@@ -2,6 +2,11 @@
   width: 8px;
 }
 
+.k-pdf-export p {
+  font-family: "Poppins", sans-serif;
+  
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1; 
