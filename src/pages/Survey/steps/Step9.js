@@ -223,8 +223,8 @@ export default function Step9(props) {
 
 
     const checkUserHosting = async (hostEmail, callback) => {
-        let managersData = await fetch(`http://localhost:9000/masters/company/managers/${uid.companyId}`)
-        let companyData = await fetch(`http://localhost:9000/masters/company`)
+        let managersData = await fetch(`http://208.109.14.182:9000/masters/company/managers/${uid.companyId}`)
+        let companyData = await fetch(`http://208.109.14.182:9000/masters/company`)
 
 
         //use string literals
@@ -244,7 +244,7 @@ export default function Step9(props) {
         };
 
 
-        fetch(`http://localhost:9000/masters/company/managers/${uid.companyId}`, requestOptions4)
+        fetch(`http://208.109.14.182:9000/masters/company/managers/${uid.companyId}`, requestOptions4)
             .then(response => response.json())
             .then(result4 => {
                 // console.log(result4,"res4")
@@ -256,7 +256,7 @@ export default function Step9(props) {
                     set_managers_length(result4.data.length)
 
 
-                    fetch(`http://localhost:9000/masters/company`, requestOptions4)
+                    fetch(`http://208.109.14.182:9000/masters/company`, requestOptions4)
                         .then(response => response.json())
                         .then(result5 => {
                             // setlistRecord(result5.data);
@@ -291,7 +291,7 @@ export default function Step9(props) {
         };
 
 
-        fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.status == 200) {
@@ -308,7 +308,7 @@ export default function Step9(props) {
                         redirect: 'follow'
                     };
 
-                    fetch(`http://localhost:9000/masters/collect_feedback/email/${result.data[0].user_email}`, requestOptions2)
+                    fetch(`http://208.109.14.182:9000/masters/collect_feedback/email/${result.data[0].user_email}`, requestOptions2)
                         .then(response => response.json())
                         .then(result1 => {
                             // setlistRecord(result1.data);
@@ -320,7 +320,7 @@ export default function Step9(props) {
 
 
 
-                                fetch(`http://localhost:9000/masters/question/q_type/3`, requestOptions)
+                                fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
                                     .then(response => response.json())
                                     .then(result2 => {
                                         // setlistRecord(result2.data);
@@ -348,7 +348,7 @@ export default function Step9(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -383,7 +383,7 @@ export default function Step9(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -400,7 +400,7 @@ export default function Step9(props) {
 
                                                 })
 
-                                            fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3_1 => {
                                                     // setlistRecord(result3_1.data);
@@ -435,7 +435,7 @@ export default function Step9(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -474,7 +474,7 @@ export default function Step9(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -508,7 +508,7 @@ export default function Step9(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -543,7 +543,7 @@ export default function Step9(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result4 => {
                                                     // setlistRecord(result4.data);
@@ -575,7 +575,7 @@ export default function Step9(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://localhost:9000/masters/survey_answers_same`, requestOptions)
+                                            fetch(`http://208.109.14.182:9000/masters/survey_answers_same`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result5 => {
                                                     // setlistRecord(result5.data);
@@ -610,7 +610,7 @@ export default function Step9(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -639,7 +639,7 @@ export default function Step9(props) {
 
                                             // console.log(result.data[0].company_id)
 
-                                            fetch(`http://localhost:9000/masters/company/managers/${result.data[0].company_id}`, requestOptions4)
+                                            fetch(`http://208.109.14.182:9000/masters/company/managers/${result.data[0].company_id}`, requestOptions4)
                                                 .then(response => response.json())
                                                 .then(result4 => {
                                                     // console.log(result4,"res4")
@@ -651,7 +651,7 @@ export default function Step9(props) {
                                                         // set_managers_length(result4.data.length)
 
 
-                                                        fetch(`http://localhost:9000/masters/company`, requestOptions4)
+                                                        fetch(`http://208.109.14.182:9000/masters/company`, requestOptions4)
                                                             .then(response => response.json())
                                                             .then(result5 => {
                                                                 // setlistRecord(result5.data);
@@ -779,7 +779,7 @@ export default function Step9(props) {
             redirect: 'follow'
         };
         console.log(uid)
-        fetch(`http://localhost:9000/masters/survey_feedback/company/${uid.companyId}`, requestOptions)
+        fetch(`http://208.109.14.182:9000/masters/survey_feedback/company/${uid.companyId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -984,7 +984,7 @@ export default function Step9(props) {
 
             })
 
-        fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+        fetch(`http://208.109.14.182:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -1040,6 +1040,9 @@ export default function Step9(props) {
     return (
         <>
 
+
+           
+
             {/* {console.log(list1.length > 0 ? list1 : null)} */}
 
             {DisplayDiv && list1.length == 5 ? (
@@ -1062,7 +1065,7 @@ export default function Step9(props) {
                                     <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                     <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
 
-                                    <div style={{ position: "relative", top: "58px", left: "14px", fontSize: "40px",}}>
+                                    <div style={{ position: "relative", top: "58px", left: "14px", fontSize: "40px", }}>
 
                                         <div className="square_bar"></div>
                                         <div className='page_left_header' style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
@@ -1179,7 +1182,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div style={{ borderLeft: "6px solid #799FCB", height: "84px" }}></div>
@@ -1485,7 +1488,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "capitalize" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
                                                 <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -1628,7 +1631,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
 
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -1707,7 +1710,7 @@ export default function Step9(props) {
 
 
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar" style={{ visibility: "hidden" }}></div>
@@ -1848,7 +1851,7 @@ export default function Step9(props) {
 
                                             </>
                                         ) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -1961,7 +1964,7 @@ export default function Step9(props) {
                             </div>
                         </>
                     ) : null}
-                    {/* page ------ 5 */}
+                    {/* page ------ 6 */}
                     {feedbackData ? (
                         <>
                             <div className=" row page-break feed_block_row"  >
@@ -1975,7 +1978,7 @@ export default function Step9(props) {
 
                                             </>
                                         ) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -1997,7 +2000,7 @@ export default function Step9(props) {
 
                                                                                 {/* <h1>{list1[3][key][0].surveyMean}</h1> */}
 
-                                                                                <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
+                                                                                <div style={{ position: "relative", bottom: "60px", left: "-70px", paddingTop: "40px" }}>
 
                                                                                     <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
                                                                                         {/* {item.option} */}
@@ -2030,7 +2033,7 @@ export default function Step9(props) {
                                                                         {[Val4.[`data${key}`][0].length > 0] ? (
                                                                             <>
 
-                                                                                <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
+                                                                                <div style={{ position: "relative", bottom: "60px", left: "-70px", paddingTop: "40px" }}>
 
                                                                                     <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
                                                                                         {/* {item.option} */}
@@ -2063,7 +2066,7 @@ export default function Step9(props) {
                                                                         {[Val4.[`data${key}`][0].length > 0] ? (
                                                                             <>
 
-                                                                                <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
+                                                                                <div style={{ position: "relative", bottom: "60px", left: "-70px", paddingTop: "40px" }}>
 
                                                                                     <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
                                                                                         {/* {item.option} */}
@@ -2228,7 +2231,7 @@ export default function Step9(props) {
                                             </>
                                         ) : null}
 
-                                        <div style={{ position: "relative", top: "48px", left: "-5px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "48px", left: "-5px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div style={{ position: "relative", left: "22px" }}>
@@ -2729,7 +2732,7 @@ export default function Step9(props) {
                                         <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "uppercase" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
                                         <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                         <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -2848,7 +2851,7 @@ export default function Step9(props) {
                             <h5 className="purple-text text-center">Thank you for your time. We now hope others will return the favor for you someday. Wish you much success.</h5>
                         </div>
                     </div>
-                    <button onClick={() => window.print()} >check</button>
+                    {/* <button onClick={() => window.print()} >check</button> */}
                 </div>
 
 
@@ -2882,7 +2885,7 @@ export default function Step9(props) {
                     </div>
 
                 </PDFExport>) : null} */}
-                
+
             {pdfShowDes > 0 ? (
                 <PDFExport paperSize="A4"
                     ref={pdfExportComponent}
@@ -2911,7 +2914,7 @@ export default function Step9(props) {
                         </div>
 
                         <div className="col-lg-6 feed_block feed_block2">
-                          
+
                             <div className='text-white' style={{ position: "relative", left: "16px", top: "225px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
                                 {/* <p>Feedback Report</p> */}
                                 <span>Feedback</span><br>
@@ -2920,10 +2923,10 @@ export default function Step9(props) {
                         </div>
 
                         <div className="col-lg-6 feed_block feed_block3 text-black">
-                            <div  style={{ fontSize: "10px", color: "white", float: "left", padding: "20px 20px",flex:"0 0 auto",width:"100%" }}>
+                            <div style={{ fontSize: "10px", color: "white", float: "left", padding: "20px 20px", flex: "0 0 auto", width: "100%" }}>
                                 {/* Company Details */}
                             </div>
-                            <div style={{ color: "white",position: "relative", left: "16px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
+                            <div style={{ color: "white", position: "relative", left: "16px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
                                 <span>Conversant</span><br>
                                 </br><span>Technologies</span>
                             </div>
@@ -2945,20 +2948,20 @@ export default function Step9(props) {
                                     {/* {console.log(feedbackData)} */}
                                     <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "8px" }}>
                                         <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px", textTransform: "capitalize" }}>{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`}</span><br />
-                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px",fontWeight:"100px" }}>{`${feedbackData[0].user_email}`}</span>
+                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px", fontWeight: "100px" }}>{`${feedbackData[0].user_email}`}</span>
                                     </div>
 
                                     <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "46px" }}>
-                                        <span style={{ fontSize: "8px",position: "relative", right: "9px", padding: "20px 20px" }}>Feedback Period</span><br />
-                                        <span style={{ fontSize: "22px",position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_start.split('T')[0]}</span><br />
-                                        <span style={{ fontSize: "22px",position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_end.split('T')[0]}</span><br />
+                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px" }}>Feedback Period</span><br />
+                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_start.split('T')[0]}</span><br />
+                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_end.split('T')[0]}</span><br />
                                     </div>
 
                                     <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px", textTransform: "capitalize" }}>
-                                        <span style={{ fontSize: "8px",position: "relative", right: "9px", padding: "20px 20px" }}>Created By</span><br />
-                                        <span style={{ fontSize: "22px",position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.last_name}</span><br />
-                                        <span style={{ fontSize: "8px",position: "relative", right: "9px", padding: "20px 20px" }}>Generated On</span><br />
-                                        <span style={{ fontSize: "22px",position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].createdAt.split('T')[0]}</span><br />
+                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px" }}>Created By</span><br />
+                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.last_name}</span><br />
+                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px" }}>Generated On</span><br />
+                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].createdAt.split('T')[0]}</span><br />
 
                                     </div>
 
@@ -3313,7 +3316,7 @@ export default function Step9(props) {
                                                                 // bottom:"90px",
                                                                 left: "-14px",
                                                             }}>
-                                                                <span style={{ fontSize: "12px",textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br>
+                                                                <span style={{ fontSize: "12px", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].survey_mean).toFixed(1)}</span><br>
                                                                 </br><span>Survey</span><br>
                                                                 </br><span>Mean</span>
                                                             </div>
@@ -3332,7 +3335,7 @@ export default function Step9(props) {
                                                                 // bottom:"90px",
                                                                 left: "-14px",
                                                             }}>
-                                                                <span style={{ fontSize: "12px",textAlign: "center", marginLeft: "5px" }}>{parseFloat(item.answer).toFixed(1)}</span><br>
+                                                                <span style={{ fontSize: "12px", textAlign: "center", marginLeft: "5px" }}>{parseFloat(item.answer).toFixed(1)}</span><br>
                                                                 </br><span>Self</span><br>
                                                                 </br><span>Assessment</span>
                                                             </div>
@@ -3351,7 +3354,7 @@ export default function Step9(props) {
                                                                 // bottom:"90px",
                                                                 left: "-14px",
                                                             }}>
-                                                                <span style={{ fontSize: "12px",textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].internal_bench).toFixed(1)}</span><br>
+                                                                <span style={{ fontSize: "12px", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].internal_bench).toFixed(1)}</span><br>
                                                                 </br><span>Internal</span><br>
                                                                 </br><span>Benchmark</span>
                                                             </div>
@@ -3369,7 +3372,7 @@ export default function Step9(props) {
                                                                 // bottom:"90px",
                                                                 left: "-14px",
                                                             }}>
-                                                                <span style={{ fontSize: "12px",textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].external_bench).toFixed(1)}</span><br>
+                                                                <span style={{ fontSize: "12px", textAlign: "center", marginLeft: "5px" }}>{Math.ceil(Val.[`data${key}`][0].external_bench).toFixed(1)}</span><br>
                                                                 </br><span>External</span><br>
                                                                 </br><span>Benchmark</span>
                                                             </div>
@@ -3401,7 +3404,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "capitalize" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
                                                 <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -3546,7 +3549,7 @@ export default function Step9(props) {
                                                 <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span></>) : null}
 
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -3617,7 +3620,7 @@ export default function Step9(props) {
 
 
 
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar" style={{ visibility: "hidden" }}></div>
@@ -3761,7 +3764,7 @@ export default function Step9(props) {
 
                                             </>
                                         ) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -3876,8 +3879,10 @@ export default function Step9(props) {
                     ) : null}
 
 
-                    {/* page ------ 5 */}
-                    {feedbackData ? (
+                  
+
+                     {/* page ------ 6 */}
+                     {feedbackData ? (
                         <>
                             <div className=" row page-break feed_block_row"  >
                                 <div className='row' style={{ padding: "25px 0px 0px 25px" }}>
@@ -3890,7 +3895,7 @@ export default function Step9(props) {
 
                                             </>
                                         ) : null}
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -3900,46 +3905,172 @@ export default function Step9(props) {
                                                 </div>
 
                                                 <div style={{ fontSize: "7px", position: "relative", bottom: "50px" }}>
-                                                    {impVal4 && impVal3 && Val4 ? (
-                                                        <div className='row ' >
-                                                            {impVal3.map((item, key) => (
-                                                                <div className='col-lg-6 ' style={{ borderLeft: key % 2 != 0 ? "1px solid rgb(209,209,209)" : "", borderBlockEnd: key != 4 ? "1px solid rgb(209,209,209)" : "" }} >
+                                                    {impVal4 && Val4 ? (
+                                                        <>
+                                                            {Array.from({ length: 3 }, (item, key) => (
+                                                                <div className='row ' >
 
-                                                                    {[Val4.[`data${key}`][0].length > 0] ? (
-                                                                        <>
+                                                                    <div className='col-lg-4 ' style={{ borderLeft: key % 0 == 0 ? "1px solid rgb(209,209,209)" : "", borderBlockEnd: key != 2 ? "1px solid rgb(209,209,209)" : "" }} >
 
-                                                                            <div style={{ position: "relative", bottom: "60px", left: "20px", paddingTop: "40px" }}>
+                                                                        {[Val4.[`data${key}`][0].length > 0] ? (
+                                                                            <>
 
-                                                                                <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
-                                                                                    {item.option}
+                                                                                {/* <h1>{list1[3][key][0].surveyMean}</h1> */}
+
+                                                                                <div style={{ position: "relative", bottom: "60px", left: "-70px", paddingTop: "40px" }}>
+
+                                                                                    <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                        {/* {item.option} */}
+                                                                                    </div>
+                                                                                    <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
+                                                                                        <GraphVerticalBars percentage={[Math.ceil(list1[3][key][0].surveyMean)]} color={colorOptions.slices[0].color} />
+
+                                                                                    </div>
+                                                                                    <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                        <GraphVerticalBars percentage={inputListFinal[0].Feature3[key].range_val} color={colorOptions.slices[1].color} />
+
+                                                                                    </div>
+                                                                                    <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                        <GraphVerticalBars percentage={[Math.ceil(list1[3][key][0].internalBenchmark)]} color={colorOptions.slices[2].color} />
+
+                                                                                    </div>
+                                                                                    <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                        <GraphVerticalBars percentage={[Math.ceil(list1[3][key][0].externalBenchmark)]} color={colorOptions.slices[3].color} />
+
+                                                                                    </div>
+
                                                                                 </div>
-                                                                                <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
-                                                                                    <GraphVerticalBars percentage={[Math.ceil(Val4.[`data${key}`][0].survey_mean)]} color={colorOptions.slices[0].color} />
+
+                                                                            </>
+                                                                        ) : null}
+                                                                    </div>
+
+                                                                    <div className='col-lg-4 ' style={{ borderLeft: key % 1 == 0 ? "1px solid rgb(209,209,209)" : "", borderBlockEnd: key != 2 ? "1px solid rgb(209,209,209)" : "" }} >
+
+                                                                        {[Val4.[`data${key}`][0].length > 0] ? (
+                                                                            <>
+
+                                                                                <div style={{ position: "relative", bottom: "60px", left: "-70px", paddingTop: "40px" }}>
+
+                                                                                    <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                        {/* {item.option} */}
+                                                                                    </div>
+                                                                                    <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
+                                                                                        <GraphVerticalBars percentage={[Math.ceil(list1[3][key][1].surveyMean)]} color={colorOptions.slices[0].color} />
+
+                                                                                    </div>
+                                                                                    <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                        <GraphVerticalBars percentage={inputListFinal[0].Feature3[key].range_val1} color={colorOptions.slices[1].color} />
+
+                                                                                    </div>
+                                                                                    <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                        <GraphVerticalBars percentage={[Math.ceil(list1[3][key][1].internalBenchmark)]} color={colorOptions.slices[2].color} />
+
+                                                                                    </div>
+                                                                                    <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                        <GraphVerticalBars percentage={[Math.ceil(list1[3][key][1].externalBenchmark)]} color={colorOptions.slices[3].color} />
+
+                                                                                    </div>
 
                                                                                 </div>
-                                                                                <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
-                                                                                    <GraphVerticalBars percentage={item.answer} color={colorOptions.slices[1].color} />
+
+                                                                            </>
+                                                                        ) : null}
+                                                                    </div>
+
+                                                                    <div className='col-lg-4 ' style={{ borderLeft: key % 1 == 0 ? "1px solid rgb(209,209,209)" : "", borderBlockEnd: key != 2 ? "1px solid rgb(209,209,209)" : "" }} >
+
+                                                                        {[Val4.[`data${key}`][0].length > 0] ? (
+                                                                            <>
+
+                                                                                <div style={{ position: "relative", bottom: "60px", left: "-70px", paddingTop: "40px" }}>
+
+                                                                                    <div className='grp' style={{ position: "relative", left: "5px", textAlign: "end", fontSize: "12px", color: "black", top: "30px", width: "184px", height: "10px" }}>
+                                                                                        {/* {item.option} */}
+                                                                                    </div>
+                                                                                    <div className='grp' style={{ position: "relative", width: "100px", height: "34px", fontSize: "10px", }}>
+                                                                                        <GraphVerticalBars percentage={[Math.ceil(list1[3][key][2].surveyMean)]} color={colorOptions.slices[0].color} />
+
+                                                                                    </div>
+                                                                                    <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                        <GraphVerticalBars percentage={inputListFinal[0].Feature3[key].range_val2} color={colorOptions.slices[1].color} />
+
+                                                                                    </div>
+                                                                                    <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                        <GraphVerticalBars percentage={[Math.ceil(list1[3][key][2].internalBenchmark)]} color={colorOptions.slices[2].color} />
+
+                                                                                    </div>
+                                                                                    <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
+                                                                                        <GraphVerticalBars percentage={[Math.ceil(list1[3][key][key].externalBenchmark)]} color={colorOptions.slices[3].color} />
+
+                                                                                    </div>
 
                                                                                 </div>
-                                                                                <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
-                                                                                    <GraphVerticalBars percentage={[Math.ceil(Val4.[`data${key}`][0].internal_bench)]} color={colorOptions.slices[2].color} />
 
-                                                                                </div>
-                                                                                <div className='grp ' style={{ position: "relative", width: "100px", height: "34px" }}>
-                                                                                    <GraphVerticalBars percentage={[Math.ceil(Val4.[`data${key}`][0].external_bench)]} color={colorOptions.slices[3].color} />
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </>
-                                                                    ) : null}
+                                                                            </>
+                                                                        ) : null}
+                                                                    </div>
                                                                 </div>
+
 
                                                             ))}
 
 
+                                                            <div className='row' style={{ position: "relative", bottom: "-70px", fontSize: "8px", left: "-1px" }}>
+                                                                {/* <hr style={{ width: "102%", textAlign: 'left', marginLeft: 0 }} /> */}
 
-                                                            <div className='col-lg-6 ' style={{ borderLeft: "1px solid rgb(209,209,209)", fontWeight: "lighter" }} >
+
+                                                                <div className='col-lg-3'>
+                                                                    <div className='row'>
+                                                                        <div className='sqr_list2' style={{ backgroundColor: "rgb(168,26,12)" }}>
+                                                                            <div style={{ position: "relative", right: "-18px", width: "max-content", top: "2px" }}>Survey Mean</div>
+                                                                        </div>
+                                                                        {/* <div style={{ fontSize: "10px", position: "relative", right: "40px", top: "10px" }}>Survey Mean</div> */}
+                                                                    </div>
+
+                                                                </div>
+                                                                <div className='col-lg-3'>
+                                                                    <div className='row'>
+                                                                        {/* <div className='sqr_list2' style={{ backgroundColor: "rgb(235,82,71)" }}>
+                                    </div> */}
+                                                                        <div className='sqr_list2' style={{ backgroundColor: "rgb(55,55,94)" }}>
+                                                                            <div style={{ position: "relative", right: "-18px", width: "max-content", top: "2px" }}>Self Assessment</div>
+
+                                                                        </div>
+                                                                        {/* <div style={{ fontSize: "10px", position: "relative", right: "40px", top: "10px" }}>Self Assessment</div> */}
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <div className='col-lg-3'>
+                                                                    <div className='row'>
+                                                                        {/* <div className='sqr_list2' style={{ backgroundColor: "rgb(241,158,152)" }}>
+                                    </div> */}
+                                                                        <div className='sqr_list2' style={{ backgroundColor: "rgb(53,98,136)" }}>
+                                                                            <div style={{ position: "relative", right: "-18px", width: "max-content", top: "2px" }}>Internal Benchmark</div>
+
+                                                                        </div>
+                                                                        {/* <div style={{ fontSize: "10px", position: "relative", right: "40px", top: "10px" }}>Internal Benchmark</div> */}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className='col-lg-3'>
+                                                                    <div className='row'>
+                                                                        {/* <div className='sqr_list2' style={{ backgroundColor: "rgb(249,218,216)" }}>
+                                    </div> */}
+                                                                        <div className='sqr_list2' style={{ backgroundColor: "rgb(170,207,221)" }}>
+                                                                            <div style={{ position: "relative", right: "-18px", width: "max-content", top: "2px" }}>External Benchmark</div>
+
+                                                                        </div>
+                                                                        {/* <div style={{ fontSize: "10px", position: "relative", right: "40px", top: "10px" }}>External Benchmark</div> */}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            {/* <div className='col-lg-6 ' style={{ borderLeft: "1px solid rgb(209,209,209)", fontWeight: "lighter" }} >
                                                                 <div style={{ position: "relative", bottom: "5px", left: "50px", paddingTop: "40px" }}>
                                                                     <div className='row m-2' >
                                                                         <div className='col-lg-3 single_sqr_list2' style={{ backgroundColor: colorOptions.slices[0].color }}>
@@ -3972,13 +4103,12 @@ export default function Step9(props) {
                                                                     </div>
                                                                 </div>
 
-                                                            </div>
+                                                            </div> */}
 
 
 
 
-
-                                                        </div>
+                                                        </>
                                                     ) : null}
 
 
@@ -4003,10 +4133,6 @@ export default function Step9(props) {
                             </div>
                         </>
                     ) : null}
-
-
-                    {/* page ------ 6 */}
-
                     {/* page ------ 7 */}
                     {feedbackData ? (
                         <>
@@ -4021,7 +4147,7 @@ export default function Step9(props) {
                                             </>
                                         ) : null}
 
-                                        <div style={{ position: "relative", top: "48px", left: "-5px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "48px", left: "-5px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div style={{ position: "relative", left: "22px" }}>
@@ -4282,7 +4408,7 @@ export default function Step9(props) {
                                         <span style={{ float: "left", paddingLeft: "15px", fontSize: "8px", textTransform: "uppercase" }} >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`} </span>
                                         <span style={{ float: "left", paddingLeft: "5px", fontSize: "8px", textTransform: "uppercase" }} >/ {currDateForm}</span>
                                         <span style={{ float: "right", paddingRight: "15px", fontSize: "8px" }} ><img className="logo_icon headerRightLogo" src={logo_icon} alt="company_logo" /></span>
-                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px",}}>
+                                        <div style={{ position: "relative", top: "58px", left: "15px", fontSize: "40px", }}>
 
                                             <div style={{ textAlign: "justify", MozTextAlignLast: "justify" }}>
                                                 <div className="square_bar"></div>
@@ -4355,6 +4481,8 @@ export default function Step9(props) {
                             </div>
                         </>
                     ) : null}
+
+
 
 
 
