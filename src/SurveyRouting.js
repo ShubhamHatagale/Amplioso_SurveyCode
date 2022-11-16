@@ -15,6 +15,7 @@ import StepCheck from "./pages/Survey/StepCheck";
 import WelcomeScreen from "./pages/Survey/welcomescreen";
 import SurveyForm from "./pages/Survey/SurveyForm";
 import TokenExpiredPage from "./pages/Survey/TokenExpiredPage";
+import ReportPdf from "./pages/Survey/steps/ReportPdf";
 
 const SuperAdminRouting = () => { 
 
@@ -42,6 +43,10 @@ const SuperAdminRouting = () => {
             <Route path="/unauthorized_tkn">
                 <TokenExpiredPage />
             </Route>
+            <Route path="/ReportPdf">
+                <ReportPdf />
+            </Route>
+
         </Switch>
     );
 };

@@ -10,6 +10,7 @@ import 'react-circular-progressbar/dist/styles.css';
 
 
 function CircularProgressWithLabel(props) {
+  const propData = props.data;
 
   const uid = JSON.parse(localStorage.getItem('survey_token'));
   const [RecordeData, setRecordeData] = useState()
@@ -23,7 +24,7 @@ function CircularProgressWithLabel(props) {
       redirect: 'follow'
     };
 
-    const response4 = fetch(`http://208.109.14.182:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+    const response4 = fetch(`http://localhost:9000/masters/survey_feedback/${propData}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.status == 200) {
@@ -64,6 +65,7 @@ function CircularProgressWithLabel(props) {
   }
 
   useEffect(() => {
+    console.log(propData)
     GetRecords()
   }, [])
 

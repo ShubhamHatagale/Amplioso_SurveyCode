@@ -84,7 +84,7 @@ export default function Step2(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response = await fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        const response = await fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -95,7 +95,7 @@ export default function Step2(props) {
             })
             .catch(error => console.log('error', error));
 
-        const response2 = await fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
+        const response2 = await fetch(`http://localhost:9000/masters/question/q_type/3`, requestOptions)
             .then(response2 => response2.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -111,7 +111,7 @@ export default function Step2(props) {
 
             })
 
-        const response4 = fetch(`http://208.109.14.182:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+        const response4 = fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -138,7 +138,7 @@ export default function Step2(props) {
             })
 
 
-        const responseSurveyAnswer = await fetch(`http://208.109.14.182:9000/masters/survey_answers`, requestOptions)
+        const responseSurveyAnswer = await fetch(`http://localhost:9000/masters/survey_answers`, requestOptions)
             .then(responseSurveyAnswer => responseSurveyAnswer.json())
             .then(surveyResult => {
                 console.log(surveyResult.data)
@@ -155,7 +155,7 @@ export default function Step2(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        const response3 = fetch(`http://208.109.14.182:9000/masters/option/opt/${resIdC}`, requestOptions)
+        const response3 = fetch(`http://localhost:9000/masters/option/opt/${resIdC}`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 // setlistRecord(rwsOpt.data);
@@ -227,7 +227,7 @@ export default function Step2(props) {
             body: raw,
             redirect: "follow",
         };
-        fetch(`http://208.109.14.182:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+        fetch(`http://localhost:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
             .then((response) => response.json())
             .then((resData) => {
                 if (resData.status == 200) {
@@ -252,7 +252,7 @@ export default function Step2(props) {
                 <div className="row">
                     <div className="col-12">
                         <div className="steps">
-                            <CircularProgressWithLabel size={70} value={5 * 10} />
+                            <CircularProgressWithLabel size={70} data={uid.userId} value={5 * 10} />
                         </div>
                         {/* <h2 className="steps">40%</h2> */}
                         {/* <h3 className="smtxt">1 = Completely Disagree &nbsp;&nbsp;|&nbsp;&nbsp;  10 = Completely Agree &nbsp;&nbsp;|&nbsp;&nbsp; NA = Not Applicable</h3> */}
