@@ -194,7 +194,7 @@ export default function Pdf(props) {
       redirect: 'follow'
     };
 
-    fetch(`http://localhost:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+    fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.status == 200) {
@@ -211,7 +211,7 @@ export default function Pdf(props) {
             redirect: 'follow'
           };
 
-          fetch(`http://localhost:9000/masters/collect_feedback/email/${result.data[0].user_email}`, requestOptions2)
+          fetch(`http://208.109.14.182:9000/masters/collect_feedback/email/${result.data[0].user_email}`, requestOptions2)
             .then(response => response.json())
             .then(result1 => {
               // setlistRecord(result1.data);
@@ -223,7 +223,7 @@ export default function Pdf(props) {
 
 
 
-                fetch(`http://localhost:9000/masters/question/q_type/3`, requestOptions)
+                fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
                   .then(response => response.json())
                   .then(result2 => {
                     // setlistRecord(result2.data);
@@ -253,7 +253,7 @@ export default function Pdf(props) {
                         redirect: "follow",
                       };
 
-                      fetch(`http://localhost:9000/masters/survey_answers_same`, requestOptions)
+                      fetch(`http://208.109.14.182:9000/masters/survey_answers_same`, requestOptions)
                         .then(response3 => response3.json())
                         .then(result3 => {
                           // setlistRecord(result3.data);
@@ -284,7 +284,7 @@ export default function Pdf(props) {
                         redirect: "follow",
                       };
 
-                      fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                      fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                         .then(response3 => response3.json())
                         .then(result3 => {
                           // setlistRecord(result3.data);
@@ -309,7 +309,7 @@ export default function Pdf(props) {
 
                         })
 
-                      fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                      fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                         .then(response3 => response3.json())
                         .then(result3_1 => {
                           // setlistRecord(result3_1.data);
@@ -340,7 +340,7 @@ export default function Pdf(props) {
                         redirect: "follow",
                       };
 
-                      fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                      fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                         .then(response3 => response3.json())
                         .then(result3 => {
                           // setlistRecord(result3.data);
@@ -375,7 +375,7 @@ export default function Pdf(props) {
                         redirect: "follow",
                       };
 
-                      fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                      fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                         .then(response3 => response3.json())
                         .then(result3 => {
                           // setlistRecord(result3.data);
@@ -408,7 +408,7 @@ export default function Pdf(props) {
                         redirect: "follow",
                       };
 
-                      fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                      fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                         .then(response3 => response3.json())
                         .then(result3 => {
                           // setlistRecord(result3.data);
@@ -443,7 +443,7 @@ export default function Pdf(props) {
                         redirect: "follow",
                       };
 
-                      fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                      fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                         .then(response3 => response3.json())
                         .then(result4 => {
                           // setlistRecord(result4.data);
@@ -475,7 +475,7 @@ export default function Pdf(props) {
                         redirect: "follow",
                       };
 
-                      fetch(`http://localhost:9000/masters/survey_answers_same`, requestOptions)
+                      fetch(`http://208.109.14.182:9000/masters/survey_answers_same`, requestOptions)
                         .then(response3 => response3.json())
                         .then(result5 => {
                           // setlistRecord(result5.data);
@@ -510,7 +510,7 @@ export default function Pdf(props) {
                         redirect: "follow",
                       };
 
-                      fetch(`http://localhost:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                      fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
                         .then(response3 => response3.json())
                         .then(result3 => {
                           // setlistRecord(result3.data);
@@ -537,7 +537,7 @@ export default function Pdf(props) {
                         redirect: 'follow'
                       };
 
-                      fetch(`http://localhost:9000/masters/company/managers/data/allData`, requestOptions4)
+                      fetch(`http://208.109.14.182:9000/masters/company/managers/data/allData`, requestOptions4)
                         .then(response => response.json())
                         .then(result4 => {
                           // console.log(result4,"res4")
@@ -548,7 +548,7 @@ export default function Pdf(props) {
                             set_managers_length(result4.data.length)
 
 
-                            fetch(`http://localhost:9000/masters/company`, requestOptions4)
+                            fetch(`http://208.109.14.182:9000/masters/company`, requestOptions4)
                               .then(response => response.json())
                               .then(result5 => {
                                 // setlistRecord(result5.data);
