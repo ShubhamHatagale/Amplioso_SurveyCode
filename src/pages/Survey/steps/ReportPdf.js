@@ -225,8 +225,8 @@ export default function ReportPdf(props) {
 
 
     const checkUserHosting = async (hostEmail, callback) => {
-        let managersData = await fetch(`http://208.109.14.182:9000/masters/company/managers/${uid.companyId}`)
-        let companyData = await fetch(`http://208.109.14.182:9000/masters/company`)
+        let managersData = await fetch(`${process.env.REACT_APP_Base_URL_Backend}company/managers/${uid.companyId}`)
+        let companyData = await fetch(`${process.env.REACT_APP_Base_URL_Backend}company`)
 
 
         //use string literals
@@ -246,7 +246,7 @@ export default function ReportPdf(props) {
         };
 
 
-        fetch(`http://208.109.14.182:9000/masters/company/managers/${uid.companyId}`, requestOptions4)
+        fetch(`${process.env.REACT_APP_Base_URL_Backend}company/managers/${uid.companyId}`, requestOptions4)
             .then(response => response.json())
             .then(result4 => {
                 // console.log(result4,"res4")
@@ -258,7 +258,7 @@ export default function ReportPdf(props) {
                     set_managers_length(result4.data.length)
 
 
-                    fetch(`http://208.109.14.182:9000/masters/company`, requestOptions4)
+                    fetch(`${process.env.REACT_APP_Base_URL_Backend}company`, requestOptions4)
                         .then(response => response.json())
                         .then(result5 => {
                             // setlistRecord(result5.data);
@@ -293,7 +293,7 @@ export default function ReportPdf(props) {
         };
 
 
-        fetch(`http://208.109.14.182:9000/masters/collect_feedback/${param_id}`, requestOptions)
+        fetch(`${process.env.REACT_APP_Base_URL_Backend}collect_feedback/${param_id}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.status == 200) {
@@ -310,7 +310,7 @@ export default function ReportPdf(props) {
                         redirect: 'follow'
                     };
 
-                    fetch(`http://208.109.14.182:9000/masters/collect_feedback/email/${result.data[0].user_email}`, requestOptions2)
+                    fetch(`${process.env.REACT_APP_Base_URL_Backend}collect_feedback/email/${result.data[0].user_email}`, requestOptions2)
                         .then(response => response.json())
                         .then(result1 => {
                             // setlistRecord(result1.data);
@@ -322,7 +322,7 @@ export default function ReportPdf(props) {
 
 
 
-                                fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
+                                fetch(`${process.env.REACT_APP_Base_URL_Backend}question/q_type/3`, requestOptions)
                                     .then(response => response.json())
                                     .then(result2 => {
                                         // setlistRecord(result2.data);
@@ -350,7 +350,7 @@ export default function ReportPdf(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -385,7 +385,7 @@ export default function ReportPdf(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -402,7 +402,7 @@ export default function ReportPdf(props) {
 
                                                 })
 
-                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3_1 => {
                                                     // setlistRecord(result3_1.data);
@@ -437,7 +437,7 @@ export default function ReportPdf(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -476,7 +476,7 @@ export default function ReportPdf(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -510,7 +510,7 @@ export default function ReportPdf(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -545,7 +545,7 @@ export default function ReportPdf(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result4 => {
                                                     // setlistRecord(result4.data);
@@ -577,7 +577,7 @@ export default function ReportPdf(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://208.109.14.182:9000/masters/survey_answers_same`, requestOptions)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_answers_same`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result5 => {
                                                     // setlistRecord(result5.data);
@@ -612,7 +612,7 @@ export default function ReportPdf(props) {
                                                 redirect: "follow",
                                             };
 
-                                            fetch(`http://208.109.14.182:9000/masters/survey_question_option_mapped_ans`, requestOptions)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_question_option_mapped_ans`, requestOptions)
                                                 .then(response3 => response3.json())
                                                 .then(result3 => {
                                                     // setlistRecord(result3.data);
@@ -641,7 +641,7 @@ export default function ReportPdf(props) {
 
                                             // console.log(result.data[0].company_id)
 
-                                            fetch(`http://208.109.14.182:9000/masters/company/managers/${result.data[0].company_id}`, requestOptions4)
+                                            fetch(`${process.env.REACT_APP_Base_URL_Backend}company/managers/${result.data[0].company_id}`, requestOptions4)
                                                 .then(response => response.json())
                                                 .then(result4 => {
                                                     // console.log(result4,"res4")
@@ -653,7 +653,7 @@ export default function ReportPdf(props) {
                                                         // set_managers_length(result4.data.length)
 
 
-                                                        fetch(`http://208.109.14.182:9000/masters/company`, requestOptions4)
+                                                        fetch(`${process.env.REACT_APP_Base_URL_Backend}company`, requestOptions4)
                                                             .then(response => response.json())
                                                             .then(result5 => {
                                                                 // setlistRecord(result5.data);
@@ -781,7 +781,7 @@ export default function ReportPdf(props) {
             redirect: 'follow'
         };
         console.log(uid)
-        fetch(`http://208.109.14.182:9000/masters/survey_feedback/company/${uid.companyId}`, requestOptions)
+        fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_feedback/company/${uid.companyId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -986,7 +986,7 @@ export default function ReportPdf(props) {
 
             })
 
-        fetch(`http://208.109.14.182:9000/masters/survey_feedback/${param_id}`, requestOptions)
+        fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_feedback/${param_id}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);

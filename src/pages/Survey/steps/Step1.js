@@ -68,7 +68,7 @@ export default function Step1(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_feedback/${uid.userId}`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     if (resData.status == 200) {
@@ -102,7 +102,7 @@ export default function Step1(props) {
                 body: raw,
                 redirect: "follow",
             };
-            fetch(`http://208.109.14.182:9000/masters/survey_feedback`, requestOptions)
+            fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_feedback`, requestOptions)
                 .then((response) => response.json())
                 .then((resData) => {
                     if (resData.status == 200) {
@@ -134,9 +134,9 @@ export default function Step1(props) {
             headers: myHeaders,
             redirect: 'follow'
         };
-        console.log(uid.userId)
+        console.log(uid.userId) 
 
-        const response3 = fetch(`http://208.109.14.182:9000/masters/collect_feedback/${uid.userId}`, requestOptions)
+        const response3 = fetch(`${process.env.REACT_APP_Base_URL_Backend}collect_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -144,7 +144,7 @@ export default function Step1(props) {
                 setfirst_name(result.data[0].first_name)
                 setlast_name(result.data[0].last_name)
             }).then(() => {
-                fetch(`http://208.109.14.182:9000/masters/question/q_type/3`, requestOptions)
+                fetch(`${process.env.REACT_APP_Base_URL_Backend}question/q_type/3`, requestOptions)
                     .then(response => response.json())
                     .then(result => {
                         // setlistRecord(result.data);
@@ -162,7 +162,7 @@ export default function Step1(props) {
             }).then(() => setloading(0))
 
 
-        const response4 = fetch(`http://208.109.14.182:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+        const response4 = fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_feedback/${uid.userId}`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 // setlistRecord(result.data);
@@ -197,7 +197,7 @@ export default function Step1(props) {
             redirect: 'follow'
         };
 
-        const response3 = fetch(`http://208.109.14.182:9000/masters/survey_feedback/${uid.userId}`, requestOptions)
+        const response3 = fetch(`${process.env.REACT_APP_Base_URL_Backend}survey_feedback/${uid.userId}`, requestOptions)
             .then(response3 => response3.json())
             .then(rwsOpt => {
                 // setlistRecord(rwsOpt.data);

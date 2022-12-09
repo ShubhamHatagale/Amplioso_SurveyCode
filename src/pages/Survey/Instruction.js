@@ -35,13 +35,13 @@ function Instruction() {
             headers: header,
             redirect: "follow"
         }
-        fetch(`http://208.109.14.182:9000/masters/employeedetails/manager/${uid.managerId}`, request)
+        fetch(`${process.env.REACT_APP_Base_URL_Backend}employeedetails/manager/${uid.managerId}`, request)
             .then((response) => response.json())
             .then((resData) => {
                 // console.log(resData)
                 // console.log(resData.data.length)
-                // console.log(resData.data[0].prof_img)
-                if (resData.data[0].prof_img == "") {
+                console.log(resData.data[0].prof_img)
+                if (resData.data[0].prof_img == "" || resData.data[0].prof_img == "null" || resData.data[0].prof_img == null ) {
                     setDisplay(true)
                 }
 
@@ -82,7 +82,7 @@ function Instruction() {
             redirect: "follow",
         };
 
-        fetch(`http://208.109.14.182:9000/masters/employeedetails/manager_id/updateprofile_img/${uid.managerId}`, requestOptions)
+        fetch(`${process.env.REACT_APP_Base_URL_Backend}employeedetails/manager_id/updateprofile_img/${uid.managerId}`, requestOptions)
             .then((response) => response.json())
             .then((resData) => {
                 if (resData.status == 200) {
@@ -93,11 +93,14 @@ function Instruction() {
                     setTimeout(() => {
                         setDisplay1(false)
                         setDisplay(false)
+                        GetAllRecords()
                     }, 2000);
 
 
 
                 }
+                GetAllRecords()
+
             })
             .catch((error) => console.log("error", error));
     }
