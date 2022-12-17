@@ -381,8 +381,8 @@ export default function Step2(props) {
                                         <tr className='row '>
                                             {OptionDataCol.map((item, i) => {
                                                 return (
-                                                    <div className='col-sm-6' >
-                                                        <div className="container" >
+                                                    <div className='col-sm-6 ' >
+                                                        <div className="container " >
                                                             <div >
                                                                 <label>
                                                                     <input

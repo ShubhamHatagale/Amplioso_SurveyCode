@@ -45,7 +45,7 @@ export default function ReportPdf(props) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
 
-    const currDateForm = monthNames[new Date().getMonth()].substring(0, 3) + "-" + monthNames[new Date().getMonth() + 1].substring(0, 3) + " " + new Date().getFullYear();
+    const currDateForm = monthNames[new Date().getMonth()] + "-" + (monthNames[new Date().getMonth() + 1] == monthNames[12] ? monthNames[0] : monthNames[new Date().getMonth() + 1]) + " " + new Date().getFullYear();
 
     const exportPDFWithMethod = () => {
         setpdfShowDes(1);
@@ -2864,7 +2864,7 @@ export default function ReportPdf(props) {
                 type="button"
                 class="btn downloadbtn waves-effect"
                 onClick={exportPDFWithMethod}
-                style={{position:"relative",left:"46%"}}
+                style={{ position: "relative", left: "46%" }}
 
             >
                 Download PDF   <i class="ml-1 zmdi zmdi-cloud-download"></i>
