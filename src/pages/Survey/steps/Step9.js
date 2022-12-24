@@ -1045,7 +1045,6 @@ export default function Step9(props) {
 
 
 
-            {/* {console.log(list1.length > 0 ? list1 : null)} */}
 
             {DisplayDiv && list1.length == 5 ? (
                 <>
@@ -2866,21 +2865,7 @@ export default function Step9(props) {
                 Download PDF   <i class="ml-1 zmdi zmdi-cloud-download"></i>
             </button>) : null}
 
-            {/* <div className='ccdf'>
-                <h1>Amplioso aaaa</h1>
-                <p>Amplioso aaaa</p>
-            </div> */}
-
-            {/* {pdfShowDes > 0 ? (
-                <PDFExport paperSize="A4"
-                    ref={pdfExportComponent}
-                    fileName={`${beliverName}-${history.location.pathname}`}
-                >
-                    <div>
-                        <span>hallo shubhaa</span>
-                    </div>
-
-                </PDFExport>) : null} */}
+           
 
             {pdfShowDes > 0 ? (
                 <PDFExport paperSize="A4"
@@ -2893,82 +2878,82 @@ export default function Step9(props) {
                         <>
 
 
-<div className="feed_block_row row "  >
-                        <div className='circle' style={{ position: "absolute", top: "23%", left: "272px" }}>
-                            <Star style={{ fill: "#FFFDFD", fontSize: "38px", position: "relative", right: "7px", top: "4px" }} />
-                        </div>
-                        <div className='page1_circle2' style={{ position: "absolute", top: "73%", left: "272px" }}>
-                            <CheckIcon style={{ fill: "#FFFDFD", fontSize: "38px", position: "relative", right: "7px", top: "4px" }} />
-                        </div>
-
-                        <div className="col-lg-6 feed_block feed_block1 text-black">
-                            <img className="logo_icon" src={logo_icon} alt="company_logo" />
-                            <div>
-                                <p >THE QUICK, BROWN FOX JUMPS OVER A LAZY DOG. DJS<br />
-                                    FLOCK BY WHEN MTV AX QUIZ PROG. JUNK MTV QUIZ <br />
-                                    GRACED BY FOX WHELPS. BAWDS JOG, FLICK QUARTZ, VEX<br />
-                                    NYMPHS. WALTZ, BAD NYMPH, FOR QUICK JIGS VEX! FOX<br />
-                                    NYMPHS GRAB QUICK-JIVED WALTZ BRICK QUIZ WHANGS<br />
-                                    JUMPY VELDT FOX. BRIGHT VIXENS JUMP; DOZY FOWL</p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-6 feed_block feed_block2">
-
-                            <div className='text-white' style={{ position: "relative", left: "16px", top: "225px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
-                                {/* <p>Feedback Report</p> */}
-                                <span>Feedback</span><br>
-                                </br><span>Report</span>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-6 feed_block feed_block3 text-black">
-                            <div style={{ fontSize: "10px", color: "white", float: "left", padding: "20px 20px", flex: "0 0 auto", width: "100%" }}>
-                                {/* Company Details */}
-                            </div>
-                            <div style={{ color: "white", position: "relative", left: "16px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
-                                <span>Conversant</span><br>
-                                </br><span>Technologies</span>
-                            </div>
-
-                            <div style={{ position: "relative", color: "white", left: "26px", top: "100px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }} >
-                                <span style={{ fontSize: "58px" }}>{new Date().getFullYear()}</span><br>
-                                </br><span style={{ fontSize: "10px" }}>www.amplioso.com</span>
-
-                            </div>
-                        </div>
-
-                        {feedbackData ? (
-                            <>
-                                <div className="col-lg-6 feed_block feed_block4 text-black">
-                                    <div style={{ fontSize: "10px", position: "relative", left: "-85px", padding: "20px 20px" }}>
-                                        {/* Employee Details */}
-                                    </div>
-                                    {/* <span >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`}</span> */}
-                                    {/* {console.log(feedbackData)} */}
-                                    <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "8px" }}>
-                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px", textTransform: "capitalize" }}>{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`}</span><br />
-                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px", fontWeight: "100px" }}>{`${feedbackData[0].user_email}`}</span>
-                                    </div>
-
-                                    <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "46px" }}>
-                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px" }}>Feedback Period</span><br />
-                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_start.split('T')[0]}</span><br />
-                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_end.split('T')[0]}</span><br />
-                                    </div>
-
-                                    <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px", textTransform: "capitalize" }}>
-                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px" }}>Created By</span><br />
-                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.last_name}</span><br />
-                                        <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px" }}>Generated On</span><br />
-                                        <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].createdAt.split('T')[0]}</span><br />
-
-                                    </div>
-
+                            <div className="feed_block_row row "  >
+                                <div className='circle' style={{ position: "absolute", top: "23%", left: "272px" }}>
+                                    <Star style={{ fill: "#FFFDFD", fontSize: "38px", position: "relative", right: "7px", top: "4px" }} />
                                 </div>
-                            </>
-                        ) : null}        </div>
-                   
+                                <div className='page1_circle2' style={{ position: "absolute", top: "73%", left: "272px" }}>
+                                    <CheckIcon style={{ fill: "#FFFDFD", fontSize: "38px", position: "relative", right: "7px", top: "4px" }} />
+                                </div>
+
+                                <div className="col-lg-6 feed_block feed_block1 text-black">
+                                    <img className="logo_icon" src={logo_icon} alt="company_logo" />
+                                    <div>
+                                        <p >THE QUICK, BROWN FOX JUMPS OVER A LAZY DOG. DJS<br />
+                                            FLOCK BY WHEN MTV AX QUIZ PROG. JUNK MTV QUIZ <br />
+                                            GRACED BY FOX WHELPS. BAWDS JOG, FLICK QUARTZ, VEX<br />
+                                            NYMPHS. WALTZ, BAD NYMPH, FOR QUICK JIGS VEX! FOX<br />
+                                            NYMPHS GRAB QUICK-JIVED WALTZ BRICK QUIZ WHANGS<br />
+                                            JUMPY VELDT FOX. BRIGHT VIXENS JUMP; DOZY FOWL</p>
+                                    </div>
+                                </div>
+
+                                <div className="col-lg-6 feed_block feed_block2">
+
+                                    <div className='text-white' style={{ position: "relative", left: "16px", top: "225px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
+                                        {/* <p>Feedback Report</p> */}
+                                        <span>Feedback</span><br>
+                                        </br><span>Report</span>
+                                    </div>
+                                </div>
+
+                                <div className="col-lg-6 feed_block feed_block3 text-black">
+                                    <div style={{ fontSize: "10px", color: "white", float: "left", padding: "20px 20px", flex: "0 0 auto", width: "100%" }}>
+                                        {/* Company Details */}
+                                    </div>
+                                    <div style={{ color: "white", position: "relative", left: "16px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }}>
+                                        <span>Conversant</span><br>
+                                        </br><span>Technologies</span>
+                                    </div>
+
+                                    <div style={{ position: "relative", color: "white", left: "26px", top: "100px", textAlign: "justify", MozTextAlignLast: "justify", textAlignLast: "justify" }} >
+                                        <span style={{ fontSize: "58px" }}>{new Date().getFullYear()}</span><br>
+                                        </br><span style={{ fontSize: "10px" }}>www.amplioso.com</span>
+
+                                    </div>
+                                </div>
+
+                                {feedbackData ? (
+                                    <>
+                                        <div className="col-lg-6 feed_block feed_block4 text-black">
+                                            <div style={{ fontSize: "10px", position: "relative", left: "-85px", padding: "20px 20px" }}>
+                                                {/* Employee Details */}
+                                            </div>
+                                            {/* <span >{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`}</span> */}
+                                            {/* {console.log(feedbackData)} */}
+                                            <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "8px" }}>
+                                                <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px", textTransform: "capitalize" }}>{`${feedbackData[0].first_name} ${feedbackData[0].last_name}`}</span><br />
+                                                <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px", fontWeight: "100px" }}>{`${feedbackData[0].user_email}`}</span>
+                                            </div>
+
+                                            <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "46px" }}>
+                                                <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px" }}>Feedback Period</span><br />
+                                                <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_start.split('T')[0]}</span><br />
+                                                <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].period_end.split('T')[0]}</span><br />
+                                            </div>
+
+                                            <div style={{ textAlign: "justify", MozTextAlignLast: "justify", position: "relative", top: "76px", textTransform: "capitalize" }}>
+                                                <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px" }}>Created By</span><br />
+                                                <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].ManagerId.first_name} {feedbackData[0].ManagerId.last_name}</span><br />
+                                                <span style={{ fontSize: "8px", position: "relative", right: "9px", padding: "20px 20px" }}>Generated On</span><br />
+                                                <span style={{ fontSize: "22px", position: "relative", right: "9px", padding: "20px 20px" }}>{feedbackData[0].createdAt.split('T')[0]}</span><br />
+
+                                            </div>
+
+                                        </div>
+                                    </>
+                                ) : null}        </div>
+
                             {/* <Pdf_page1 /> */}
                             {feedbackData ? (
                                 <>
