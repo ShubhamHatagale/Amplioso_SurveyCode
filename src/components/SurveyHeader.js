@@ -89,6 +89,8 @@ export default function SurveyHeader(props) {
                 // alert("1")
                 console.log(resData.data[0].prof_img)
                 setImageUrl(resData.data[0].prof_img)
+                setfirst_name(resData.data[0].first_name)
+                setlast_name(resData.data[0].last_name)
                 // setImageUrl("http://dev.amplioso.com/images/" + resData.data[0].prof_img)
 
             }
@@ -100,8 +102,8 @@ export default function SurveyHeader(props) {
             .then(result => {
                 // setlistRecord(result.data);
                 console.log(result.data[0].first_name)
-                setfirst_name(result.data[0].first_name)
-                setlast_name(result.data[0].last_name)
+                // setfirst_name(result.data[0].first_name)
+                // setlast_name(result.data[0].last_name)
                 // alert(result.data[0].prof_img)
                 console.log(result.data[0])
                 // setImageUrl("http://dev.amplioso.com/images/" + "1615629352514-logo.png")
