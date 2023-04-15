@@ -35,7 +35,7 @@ function Instruction() {
             headers: header,
             redirect: "follow"
         }
-        fetch(`${process.env.REACT_APP_Base_URL_Backend}employeedetails/manager/${uid.managerId}`, request)
+        fetch(`http://localhost:9000/masters/employeedetails/manager/${uid.managerId}`, request)
             .then((response) => response.json())
             .then((resData) => {
                 // console.log(resData)
@@ -82,7 +82,7 @@ function Instruction() {
             redirect: "follow",
         };
 
-        fetch(`${process.env.REACT_APP_Base_URL_Backend}employeedetails/manager_id/updateprofile_img/${uid.managerId}`, requestOptions)
+        fetch(`http://localhost:9000/masters/employeedetails/manager_id/updateprofile_img/${uid.managerId}`, requestOptions)
             .then((response) => response.json())
             .then((resData) => {
                 if (resData.status == 200) {
