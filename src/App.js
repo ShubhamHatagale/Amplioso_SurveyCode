@@ -6,7 +6,7 @@ function App() {
   return (
     <BrowserRouter basename={'/main_amp'} >
       <SurveyRouting />
-    </BrowserRouter>
+    </BrowserRouter> 
   );
 }
 
