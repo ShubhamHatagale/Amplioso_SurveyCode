@@ -32,7 +32,7 @@ import CircularProgressWithLabel from '../../../components/CircularProgressWithL
 
 export default function Step9(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
-    const [DisplayDiv, setDisplayDiv] = useState(false);
+    const [DisplayDiv, setDisplayDiv] = useState(true);
     const [pdfShowDes, setpdfShowDes] = useState(0);
     const history = useHistory();
     const [beliverName, setbeliverName] = useState("");
@@ -806,9 +806,9 @@ export default function Step9(props) {
                     let company_count = jsonData[1].totalItems;
 
                     console.log(manager_count)
-                    let surveyMean = val / manager_count;
-                    let internalBenchmark = surveyMean * len / manager_count;
-                    let externalBenchmark = internalBenchmark * len / company_count;
+                    let surveyMean = (val / manager_count)>10?10:(val / manager_count);
+                    let internalBenchmark = (surveyMean * len / manager_count>10)?10:(surveyMean * len / manager_count);
+                    let externalBenchmark = (internalBenchmark * len / company_count>10)?10:internalBenchmark * len / company_count;
 
                     return { surveyMean, internalBenchmark, externalBenchmark }
                 }

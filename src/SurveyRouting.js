@@ -22,7 +22,9 @@ const SuperAdminRouting = () => {
     return (
         <Switch>
             <Route exact path="/" render={() => (
-                <Redirect to="/unauthorized_tkn" />
+                // <Redirect to="/unauthorized_tkn" />
+                <TokenExpiredPage />
+
             )} />
 
             <Route path="/tkn/:token_ele"> 

@@ -4,7 +4,8 @@ import SurveyRouting from "./SurveyRouting";
 
 function App() {
   return (
-    <BrowserRouter basename={'/main_amp'} >
+    <BrowserRouter >
+         {/* <BrowserRouter basename={'/main_amp'} > */}
       <SurveyRouting />
     </BrowserRouter> 
   );
