@@ -10,12 +10,10 @@ function WelcomeScreen(props) {
     const BaseURL = process.env.REACT_APP_Base_URL_Backend;
     const [validToken, setvalidToken] = useState(false);
     const [ManagerId, setManagerId] = useState();
-
     const history = useHistory();
     const { token_ele } = useParams();
 
     // const { decodedToken, isExpired } = useJwt(token_ele);
-
 
 
     function chekAuthUser() {
@@ -32,6 +30,7 @@ function WelcomeScreen(props) {
             body: raw,
             redirect: "follow",
         };
+        
         fetch(`http://localhost:9000/masters/check_survey_key`, requestOptions)
             .then((response) => response.json())
             .then((resData) => {
